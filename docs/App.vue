@@ -4,12 +4,12 @@
         <div class="container">
 
             <agile>
-                <div class="slide slide--1">slide 1</div>
-                <div class="slide slide--2">slide 2</div>
-                <div class="slide slide--3">slide 3</div>
-                <div class="slide slide--4">slide 4</div>
-                <div class="slide slide--5">slide 5</div>
-                <div class="slide slide--6">slide 6</div>
+                <div class="slide slide--1"><h3>slide 1</h3></div>
+                <div class="slide slide--2"><h3>slide 2</h3></div>
+                <div class="slide slide--3"><h3>slide 3</h3></div>
+                <div class="slide slide--4"><h3>slide 4</h3></div>
+                <div class="slide slide--5"><h3>slide 5</h3></div>
+                <div class="slide slide--6"><h3>slide 6</h3></div>
             </agile>
 
         </div>
@@ -36,15 +36,13 @@
 
     @import './scss/main.scss';
 
+    .agile {
+        height: 300px;
+    }
+
     .slide {
-        align-items: center;
         color: #fff;
-        display: flex;
-        font-size: 20px;
-        height: 200px;
-        justify-content: center;
-        padding: 20px;
-        width: 100%;
+        position: relative;
 
         &--1 {
             background-color: #f1c40f;
@@ -68,6 +66,16 @@
 
         &--6 {
             background-color: #2ecc71;
+        }
+
+        h3 {
+            font-size: 32px;
+            font-weight: 300;
+            left: 50%;
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
         }
     }
 
