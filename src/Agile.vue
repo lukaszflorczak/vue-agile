@@ -1,6 +1,10 @@
 <template>
     <div class="agile">
-        <slot></slot>
+        <div class="agile__list">
+            <div class="agile__track">
+                <slot></slot>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -10,6 +14,8 @@
 
         data () {
             return {
+                slides: null,
+                slidesCount: 0,
                 width: {
                     document: 0,
                     container: 0
@@ -18,6 +24,14 @@
         },
 
         mounted () {
+            // Prepare slides
+            this.slides = this.$el.getElementsByClassName('agile__track')[0].children
+            this.slidesCount = this.slides.length
+
+            for (let i = 0; i < this.slidesCount; ++i) {
+                this.slides[i].classList.add('agile__slide')
+            }
+
             // Listeners
             this.$nextTick(function () {
                 // Windows resize listener
