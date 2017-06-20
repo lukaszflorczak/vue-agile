@@ -1,0 +1,62 @@
+/*============================================
+=            BREAKPOINTS SETTINGS            =
+============================================*/
+
+// Large smartphones
+$screen-sm-min: 420px;
+
+// Small tablets (portrait view)
+$screen-md-min: 768px;
+
+// Tablets and small desktops
+$screen-lg-min: 1024px;
+
+// Large desktops
+$screen-xl-min: 1400px;
+
+/*=====  End of BREAKPOINTS SETTINGS  ======*/
+
+
+
+
+
+/*==========================================
+=            BREAKPOINTS MIXINS            =
+==========================================*/
+
+/* Small devices */
+@mixin sm {
+    @media (min-width: #{$screen-sm-min}) {
+        @content;
+    }
+}
+
+/* Medium devices */
+@mixin md {
+    @media (min-width: #{$screen-md-min}) {
+        @content;
+    }
+}
+
+/* Large devices */
+@mixin lg {
+    @media (min-width: #{$screen-lg-min}) {
+        @content;
+    }
+}
+
+/* Extra large devices */
+@mixin xl {
+    @media (min-width: #{$screen-xl-min}) {
+        @content;
+    }
+}
+
+/* Custom device */
+@mixin rwd($screen) {
+    @media (min-width: $screen+'px') {
+        @content;
+    }
+}
+
+/*=====  End of BREAKPOINTS MIXINS  ======*/
