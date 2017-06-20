@@ -2,23 +2,24 @@
   "name": "vue-agile",
   "version": "0.0.1",
   "description": "Carousel component for Vue.js",
-  "author": "CePixel",
-  "contributors": [
-    {
-      "name": "Łukasz Florczak",
-      "email": "lukasz.florczak@cepixel.com>"
-    },
-    {
-      "name": "Maciej Wach",
-      "email": "maciej.wach@cepixel.com"
-    }
-  ],
+  "author": "Łukasz Florczak <lukasz.florczak@cepixel.com>",
+  "license": "MIT",
   "private": true,
+  "keywords": [
+    "vue",
+    "component",
+    "slider",
+    "carousel",
+    "slide"
+  ],
   "scripts": {
     "dev": "node build/dev-server.js",
     "bundle": "webpack --config build/webpack.bundle.conf.js",
     "docs": "rm -rf gh-pages && mkdir gh-pages && node build/build.js",
     "lint": "eslint --ext .js,.vue src"
+  },
+  "dependencies": {
+    "vue": "2.*.*"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",
@@ -33,12 +34,12 @@
     "connect-history-api-fallback": "^1.1.0",
     "copy-webpack-plugin": "^4.0.0",
     "css-loader": "^0.25.0",
-    "eslint": "^3.7.1",
-    "eslint-friendly-formatter": "^2.0.5",
-    "eslint-loader": "^1.5.0",
-    "eslint-plugin-html": "^1.3.0",
-    "eslint-config-standard": "^6.1.0",
-    "eslint-plugin-promise": "^2.0.1",
+    "eslint": "^3.14.1",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-friendly-formatter": "^2.0.7",
+    "eslint-loader": "^1.6.1",
+    "eslint-plugin-html": "^2.0.0",
+    "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^2.0.1",
     "eventsource-polyfill": "^0.9.6",
     "express": "^4.13.3",
