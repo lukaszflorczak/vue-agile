@@ -14,6 +14,7 @@
 
         data () {
             return {
+                list: null,
                 track: null,
                 slides: null,
                 slidesCount: 0,
@@ -42,6 +43,9 @@
                 this.slides[i].classList.add('agile__slide')
             }
 
+            // Prepare list
+            this.list = this.$el.getElementsByClassName('agile__list')[0]
+
             // Prepare track
             this.track = this.$el.getElementsByClassName('agile__track')[0]
         },
@@ -55,7 +59,7 @@
                 this.width = {
                     // Cross-browser solution:
                     document: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
-                    container: this.$el.parentElement.innerWidth || this.$el.parentElement.clientWidth
+                    container: this.list.innerWidth || this.list.clientWidth
                 }
             }
         },
@@ -84,6 +88,7 @@
             overflow: hidden;
             padding: 0;
             position: relative;
+            width: 100%;
         }
 
         &__track {
