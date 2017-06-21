@@ -10,6 +10,9 @@
                     <button @click="setSlide(n - 1)">{{n}}</button>
                 </li>
             </ul>
+
+            <button class="agile__arrow agile__arrow--prev" :disabled="currentSlide === 0" @click="prevSlide">prev</button>
+            <button class="agile__arrow agile__arrow--next" :disabled="currentSlide === slidesCount - 1"@click="nextSlide">next</button>
         </div>
     </div>
 </template>
@@ -28,10 +31,12 @@
                 currentSlide: 0,
                 width: {
                     document: 0,
-                    container: 0
+                    container: 0,
+                    slide: 0
                 },
                 options: {
-                    dots: true
+                    dots: true,
+                    slidesToShow: 1
                 }
             }
         },
@@ -68,14 +73,23 @@
         methods: {
             getWidth () {
                 this.width = {
-                    // Cross-browser solution:
                     document: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
-                    container: this.list.innerWidth || this.list.clientWidth
+                    container: this.list.clientWidth,
+                    slide: this.list.clientWidth / this.options.slidesToShow
                 }
             },
 
             setSlide (n) {
                 this.currentSlide = n
+                this.track.style.transform = 'translate(-' + this.currentSlide * this.width.slide + 'px)'
+            },
+
+            nextSlide () {
+                this.setSlide(this.currentSlide + 1)
+            },
+
+            prevSlide () {
+                this.setSlide(this.currentSlide - 1)
             }
         },
 
@@ -88,6 +102,7 @@
 
                 // Prepare track
                 this.track.style.width = this.width.container * this.slidesCount + 'px'
+                this.setSlide(this.currentSlide)
             }
         }
     }
@@ -96,6 +111,13 @@
 <style lang="scss" type="text/scss">
 
     .agile {
+        &, * {
+            &:focus,
+            &:active {
+                outline: none;
+            }
+        }
+
         &__list {
             display: block;
             margin: 0;
@@ -106,6 +128,8 @@
         }
 
         &__track {
+            transition: ease .3s;
+
             &:before,
             &:after {
                 content: '';
@@ -120,6 +144,28 @@
         &__slide {
             display: block;
             float: left;
+        }
+
+        &__arrow {
+            border: none;
+            bottom: 15px;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            transition-duration: .3s;
+
+            &[disabled] {
+                cursor: default;
+                opacity: .4;
+            }
+
+            &--prev {
+                left: 0;
+            }
+
+            &--next {
+                right: 0;
+            }
         }
 
         &__dots {
