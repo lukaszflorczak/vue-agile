@@ -4,6 +4,8 @@
             <div class="agile__track">
                 <slot></slot>
             </div>
+
+            <ul v-if="options.dots" class="agile__dots"></ul>
         </div>
     </div>
 </template>
@@ -14,6 +16,7 @@
 
         data () {
             return {
+                dots: null,
                 list: null,
                 track: null,
                 slides: null,
@@ -21,6 +24,9 @@
                 width: {
                     document: 0,
                     container: 0
+                },
+                options: {
+                    dots: true
                 }
             }
         },
@@ -48,6 +54,21 @@
 
             // Prepare track
             this.track = this.$el.getElementsByClassName('agile__track')[0]
+
+            // Prepare dots
+            this.dots = this.$el.getElementsByClassName('agile__dots')[0]
+
+            for (let i = 0; i < this.slidesCount; ++i) {
+                let li = document.createElement('li')
+                let button = document.createElement('button')
+                let count = document.createTextNode(i + 1)
+
+                if (i === 0) {
+                    li.classList.add('is-current')
+                }
+
+                this.dots.appendChild(li).appendChild(button).appendChild(count)
+            }
         },
 
         beforeDestroy () {
@@ -83,7 +104,6 @@
     .agile {
         &__list {
             display: block;
-            height: 100%;
             margin: 0;
             overflow: hidden;
             padding: 0;
@@ -92,13 +112,53 @@
         }
 
         &__track {
-            height: 100%;
+            &:before,
+            &:after {
+                content: '';
+                display: table;
+            }
+
+            &:after {
+                clear: both;
+            }
         }
 
         &__slide {
             display: block;
-            height: 100%;
             float: left;
+        }
+
+        &__dots {
+            list-style: none;
+            margin: 20px 0;
+            padding: 0;
+            text-align: center;
+
+            li {
+                display: inline-block;
+                margin: 0 10px;
+
+                &.is-current,
+                &:hover {
+                    button {
+                        background-color: #888;
+                    }
+                }
+            }
+
+            button {
+                background-color: #eee;
+                border: none;
+                border-radius: 50%;
+                cursor: pointer;
+                display: block;
+                height: 10px;
+                font-size: 0;
+                line-height: 0;
+                margin: 0;
+                transition-duration: .3s;
+                width: 10px;
+            }
         }
     }
 
