@@ -5,7 +5,11 @@
                 <slot></slot>
             </div>
 
-            <ul v-if="options.dots" class="agile__dots"></ul>
+            <ul v-if="options.dots" class="agile__dots">
+                <li v-for="n in slidesCount" :class="{'is-current': n - 1 === currentSlide}">
+                    <button @click="setSlide(n - 1)">{{n}}</button>
+                </li>
+            </ul>
         </div>
     </div>
 </template>
@@ -21,6 +25,7 @@
                 track: null,
                 slides: null,
                 slidesCount: 0,
+                currentSlide: 0,
                 width: {
                     document: 0,
                     container: 0
@@ -54,21 +59,6 @@
 
             // Prepare track
             this.track = this.$el.getElementsByClassName('agile__track')[0]
-
-            // Prepare dots
-            this.dots = this.$el.getElementsByClassName('agile__dots')[0]
-
-            for (let i = 0; i < this.slidesCount; ++i) {
-                let li = document.createElement('li')
-                let button = document.createElement('button')
-                let count = document.createTextNode(i + 1)
-
-                if (i === 0) {
-                    li.classList.add('is-current')
-                }
-
-                this.dots.appendChild(li).appendChild(button).appendChild(count)
-            }
         },
 
         beforeDestroy () {
@@ -82,6 +72,10 @@
                     document: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
                     container: this.list.innerWidth || this.list.clientWidth
                 }
+            },
+
+            setSlide (n) {
+                this.currentSlide = n
             }
         },
 
