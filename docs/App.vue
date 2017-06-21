@@ -37,11 +37,12 @@
     @import './scss/main.scss';
 
     .agile {
-        height: 300px;
+        margin-top: 50px;
     }
 
     .slide {
         color: #fff;
+        height: 300px;
         position: relative;
 
         &--1 {
