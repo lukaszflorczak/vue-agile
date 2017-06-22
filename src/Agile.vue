@@ -36,7 +36,9 @@
                 },
                 options: {
                     dots: true,
-                    slidesToShow: 1
+                    slidesToShow: 1,
+                    speed: 300,
+                    timing: 'ease' // linear, ease-in, ease-out, ease-in-out
                 }
             }
         },
@@ -82,6 +84,7 @@
             setSlide (n) {
                 this.currentSlide = n
                 this.track.style.transform = 'translate(-' + this.currentSlide * this.width.slide + 'px)'
+                this.track.style.transition = this.options.timing + ' ' + this.options.speed + 'ms'
             },
 
             nextSlide () {
@@ -128,8 +131,6 @@
         }
 
         &__track {
-            transition: ease .3s;
-
             &:before,
             &:after {
                 content: '';
