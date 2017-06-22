@@ -11,8 +11,12 @@
                 </li>
             </ul>
 
-            <button class="agile__arrow agile__arrow--prev" :disabled="currentSlide === 0" @click="prevSlide">prev</button>
-            <button class="agile__arrow agile__arrow--next" :disabled="currentSlide === slidesCount - 1"@click="nextSlide">next</button>
+            <button v-if="options.arrows" class="agile__arrow agile__arrow--prev"
+                    :disabled="currentSlide === 0 && !options.infinite" @click="prevSlide">prev
+            </button>
+            <button v-if="options.arrows" class="agile__arrow agile__arrow--next"
+                    :disabled="currentSlide === slidesCount - 1 && !options.infinite" @click="nextSlide">next
+            </button>
         </div>
     </div>
 </template>
@@ -28,6 +32,7 @@
                 track: null,
                 slides: null,
                 slidesCount: 0,
+                allSlidesCount: 0,
                 currentSlide: 0,
                 width: {
                     document: 0,
@@ -35,9 +40,11 @@
                     slide: 0
                 },
                 options: {
+                    arrows: true,
                     dots: true,
+                    infinite: true,
                     slidesToShow: 1,
-                    speed: 300,
+                    speed: 1000,
                     timing: 'ease' // linear, ease-in, ease-out, ease-in-out
                 }
             }
@@ -53,19 +60,37 @@
                 this.getWidth()
             })
 
-            // Prepare slides
-            this.slides = this.$el.getElementsByClassName('agile__track')[0].children
-            this.slidesCount = this.slides.length
-
-            for (let i = 0; i < this.slidesCount; ++i) {
-                this.slides[i].classList.add('agile__slide')
-            }
-
             // Prepare list
             this.list = this.$el.getElementsByClassName('agile__list')[0]
 
             // Prepare track
             this.track = this.$el.getElementsByClassName('agile__track')[0]
+
+            // Prepare slides
+            this.slides = this.$el.getElementsByClassName('agile__track')[0].children
+            this.slidesCount = this.slides.length
+
+            if (this.options.infinite) {
+                this.allSlidesCount = this.slidesCount + 2
+            } else {
+                this.allSlidesCount = this.slidesCount
+            }
+
+            for (let i = 0; i < this.slidesCount; ++i) {
+                this.slides[i].classList.add('agile__slide')
+            }
+
+            // Prepare infinity mode
+            if (this.options.infinite) {
+                let firstSlide = this.track.firstChild.cloneNode(true)
+                let lastSlide = this.track.lastChild.cloneNode(true)
+
+                firstSlide.classList.add('agile__slide--cloned')
+                lastSlide.classList.add('agile__slide--cloned')
+
+                this.track.prepend(lastSlide)
+                this.track.append(firstSlide)
+            }
         },
 
         beforeDestroy () {
@@ -81,10 +106,36 @@
                 }
             },
 
-            setSlide (n) {
-                this.currentSlide = n
-                this.track.style.transform = 'translate(-' + this.currentSlide * this.width.slide + 'px)'
-                this.track.style.transition = this.options.timing + ' ' + this.options.speed + 'ms'
+            setSlide (n, transition = true) {
+                let transform = n * this.width.slide
+
+                if (this.options.infinite) {
+                    transform += this.width.slide
+                }
+
+                this.track.style.transform = 'translate(-' + transform + 'px)'
+
+                if (transition) {
+                    this.track.style.transition = this.options.timing + ' ' + this.options.speed + 'ms'
+                } else {
+                    this.track.style.transition = 0
+                }
+
+                if (this.options.infinite && n < 0) {
+                    this.currentSlide = this.slidesCount - 1
+
+                    setTimeout(() => {
+                        this.setSlide(this.slidesCount - 1, false)
+                    }, this.options.speed)
+                } else if (this.options.infinite && n >= this.slidesCount) {
+                    this.currentSlide = 0
+
+                    setTimeout(() => {
+                        this.setSlide(0, false)
+                    }, this.options.speed)
+                } else {
+                    this.currentSlide = n
+                }
             },
 
             nextSlide () {
@@ -99,13 +150,13 @@
         watch: {
             width () {
                 // Actions on document resize
-                for (let i = 0; i < this.slidesCount; ++i) {
+                for (let i = 0; i < this.allSlidesCount; ++i) {
                     this.slides[i].style.width = this.width.container + 'px'
                 }
 
                 // Prepare track
-                this.track.style.width = this.width.container * this.slidesCount + 'px'
-                this.setSlide(this.currentSlide)
+                this.track.style.width = this.width.container * this.allSlidesCount + 'px'
+                this.setSlide(this.currentSlide, false)
             }
         }
     }
