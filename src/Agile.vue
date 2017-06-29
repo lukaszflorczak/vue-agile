@@ -1,7 +1,8 @@
 <template>
     <div class="agile">
         <div class="agile__list">
-            <div class="agile__track">
+            <div class="agile__track"
+                 :style="{width: width.container * allSlidesCount + 'px', transform: 'translate(-' + transform + 'px)', transition: options.timing + ' ' + transitionDelay + 'ms'}">
                 <slot></slot>
             </div>
 
@@ -38,6 +39,8 @@
                 dragStartX: 0,
                 dragDistance: 0,
                 swipeDistance: 30,
+                transform: 0,
+                transitionDelay: 0,
                 width: {
                     document: 0,
                     container: 0,
@@ -48,7 +51,7 @@
                     dots: true,
                     infinite: true,
                     slidesToShow: 1,
-                    speed: 1000,
+                    speed: 300,
                     timing: 'ease' // linear, ease-in, ease-out, ease-in-out
                 }
             }
@@ -86,8 +89,6 @@
                 this.track.prepend(lastSlide)
                 this.track.append(firstSlide)
             }
-
-            console.log(window)
 
             // Listeners
             this.$nextTick(function () {
@@ -142,18 +143,16 @@
             },
 
             setSlide (n, transition = true) {
-                let transform = n * this.width.slide
+                this.transform = n * this.width.slide
 
                 if (this.options.infinite) {
-                    transform += this.width.slide
+                    this.transform += this.width.slide
                 }
 
-                this.track.style.transform = 'translate(-' + transform + 'px)'
-
-                if (transition) {
-                    this.track.style.transition = this.options.timing + ' ' + this.options.speed + 'ms'
+                if (!transition) {
+                    this.transitionDelay = 0
                 } else {
-                    this.track.style.transition = 0
+                    this.transitionDelay = this.options.speed
                 }
 
                 if (this.options.infinite && n < 0) {
@@ -190,7 +189,6 @@
                 }
 
                 // Prepare track
-                this.track.style.width = this.width.container * this.allSlidesCount + 'px'
                 this.setSlide(this.currentSlide, false)
             },
 
