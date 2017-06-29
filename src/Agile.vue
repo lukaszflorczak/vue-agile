@@ -34,6 +34,10 @@
                 slidesCount: 0,
                 allSlidesCount: 0,
                 currentSlide: 0,
+                mouseDown: false,
+                dragStartX: 0,
+                dragDistance: 0,
+                swipeDistance: 30,
                 width: {
                     document: 0,
                     container: 0,
@@ -51,15 +55,6 @@
         },
 
         mounted () {
-            // Listeners
-            this.$nextTick(function () {
-                // Windows resize listener
-                window.addEventListener('resize', this.getWidth)
-
-                // Get width on start
-                this.getWidth()
-            })
-
             // Prepare list
             this.list = this.$el.getElementsByClassName('agile__list')[0]
 
@@ -91,6 +86,28 @@
                 this.track.prepend(lastSlide)
                 this.track.append(firstSlide)
             }
+
+            console.log(window)
+
+            // Listeners
+            this.$nextTick(function () {
+                // Windows resize listener
+                window.addEventListener('resize', this.getWidth)
+
+                // Get width on start
+                this.getWidth()
+
+                // Mouse and touch events
+                if ('ontouchstart' in window) {
+                    this.track.addEventListener('touchstart', this.handleMouseDown)
+                    this.track.addEventListener('touchend', this.handleMouseUp)
+                    this.track.addEventListener('touchmove', this.handleMouseMove)
+                } else {
+                    this.track.addEventListener('mousedown', this.handleMouseDown)
+                    this.track.addEventListener('mouseup', this.handleMouseUp)
+                    this.track.addEventListener('mousemove', this.handleMouseMove)
+                }
+            })
         },
 
         beforeDestroy () {
@@ -104,6 +121,24 @@
                     container: this.list.clientWidth,
                     slide: this.list.clientWidth / this.options.slidesToShow
                 }
+            },
+
+            handleMouseDown (e) {
+                if (!e.touches) {
+                    e.preventDefault()
+                }
+
+                this.mouseDown = true
+                this.dragStartX = ('ontouchstart' in window) ? e.touches[0].clientX : e.clientX
+            },
+
+            handleMouseMove (e) {
+                let positionX = ('ontouchstart' in window) ? e.touches[0].clientX : e.clientX
+                this.dragDistance = (positionX - this.dragStartX)
+            },
+
+            handleMouseUp () {
+                this.mouseDown = false
             },
 
             setSlide (n, transition = true) {
@@ -157,6 +192,22 @@
                 // Prepare track
                 this.track.style.width = this.width.container * this.allSlidesCount + 'px'
                 this.setSlide(this.currentSlide, false)
+            },
+
+            dragDistance () {
+                if (!this.mouseDown) {
+                    return
+                }
+
+                if (this.dragDistance > this.swipeDistance) {
+                    this.prevSlide()
+                    this.handleMouseUp()
+                }
+
+                if (this.dragDistance < -1 * this.swipeDistance) {
+                    this.nextSlide()
+                    this.handleMouseUp()
+                }
             }
         }
     }
