@@ -13,10 +13,10 @@
             </ul>
 
             <button v-if="arrows" class="agile__arrow agile__arrow--prev"
-                    :disabled="currentSlide === 0 && !infinite" @click="prevSlide">prev
+                    :disabled="currentSlide === 0 && !infinite" @click="prevSlide" v-html="arrow">
             </button>
             <button v-if="arrows" class="agile__arrow agile__arrow--next"
-                    :disabled="currentSlide === slidesCount - 1 && !infinite" @click="nextSlide">next
+                    :disabled="currentSlide === slidesCount - 1 && !infinite" @click="nextSlide" v-html="arrow">
             </button>
         </div>
     </div>
@@ -61,6 +61,7 @@
                     track: null,
                     slides: null
                 },
+                arrow: '<svg version="1.1" id="arrow-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 240.823 240.823" style="enable-background:new 0 0 240.823 240.823;" xml:space="preserve"><g><path id="arrow" d="M183.189,111.816L74.892,3.555c-4.752-4.74-12.451-4.74-17.215,0c-4.752,4.74-4.752,12.439,0,17.179 l99.707,99.671l-99.695,99.671c-4.752,4.74-4.752,12.439,0,17.191c4.752,4.74,12.463,4.74,17.215,0l108.297-108.261 C187.881,124.315,187.881,116.495,183.189,111.816z"/></g></svg>',
                 slidesCount: 0,
                 allSlidesCount: 0,
                 currentSlide: 0,
@@ -283,11 +284,23 @@
 
         &__arrow {
             border: none;
-            bottom: 15px;
+            bottom: 10px;
             margin: 0;
             padding: 0;
             position: absolute;
             transition-duration: .3s;
+
+            &:hover {
+                #arrow-svg {
+                    fill: #333;
+                }
+            }
+
+            #arrow-svg {
+                fill: #888;
+                height: 20px;
+                transition-duration: .3s;
+            }
 
             &[disabled] {
                 cursor: default;
@@ -296,6 +309,10 @@
 
             &--prev {
                 left: 0;
+
+                #arrow-svg {
+                    transform: scale(-1, 1);
+                }
             }
 
             &--next {
