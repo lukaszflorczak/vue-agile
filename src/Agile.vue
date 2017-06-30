@@ -2,7 +2,7 @@
     <div class="agile">
         <div class="agile__list">
             <div class="agile__track"
-                 :style="{width: width.container * allSlidesCount + 'px', transform: 'translate(-' + transform + 'px)', transition: options.timing + ' ' + transitionDelay + 'ms'}">
+                 :style="{width: trackWidth + 'px', transform: 'translate(-' + transform + 'px)', transition: options.timing + ' ' + transitionDelay + 'ms'}">
                 <slot></slot>
             </div>
 
@@ -41,6 +41,7 @@
                 swipeDistance: 30,
                 transform: 0,
                 transitionDelay: 0,
+                trackWidth: 0,
                 width: {
                     document: 0,
                     container: 0,
@@ -61,9 +62,6 @@
             // Prepare list
             this.list = this.$el.getElementsByClassName('agile__list')[0]
 
-            // Prepare track
-            this.track = this.$el.getElementsByClassName('agile__track')[0]
-
             // Prepare slides
             this.slides = this.$el.getElementsByClassName('agile__track')[0].children
             this.slidesCount = this.slides.length
@@ -77,6 +75,9 @@
             for (let i = 0; i < this.slidesCount; ++i) {
                 this.slides[i].classList.add('agile__slide')
             }
+
+            // Prepare track
+            this.track = this.$el.getElementsByClassName('agile__track')[0]
 
             // Prepare infinity mode
             if (this.options.infinite) {
@@ -113,6 +114,16 @@
 
         beforeDestroy () {
             window.removeEventListener('resize', this.getWidth)
+
+            if ('ontouchstart' in window) {
+                this.track.removeEventListener('touchstart')
+                this.track.removeEventListener('touchend')
+                this.track.removeEventListener('touchmove')
+            } else {
+                this.track.removeEventListener('mousedown')
+                this.track.removeEventListener('mouseup')
+                this.track.removeEventListener('mousemove')
+            }
         },
 
         methods: {
@@ -189,6 +200,7 @@
                 }
 
                 // Prepare track
+                this.trackWidth = this.width.container * this.allSlidesCount
                 this.setSlide(this.currentSlide, false)
             },
 
