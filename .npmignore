@@ -1,0 +1,12 @@
+.DS_Store
+node_modules/
+npm-debug.log
+yarn-error.log
+.babelrc
+.editorconfig
+.eslintrc.js
+.gitignore
+docs/
+static/
+build/
+.eslintignore
