@@ -179,6 +179,12 @@
             setSlide (n, transition = true) {
                 this.transform = n * this.width.slide
 
+                for (let i = 0; i < this.slidesCount; ++i) {
+                    this.el.slides[i].classList.remove('agile__slide--active')
+                }
+
+                this.el.slides[n + 1].classList.add('agile__slide--active')
+
                 if (this.infinite) {
                     this.transform += this.width.slide
                 }
