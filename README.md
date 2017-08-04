@@ -4,7 +4,7 @@
 > Simple, touch-friendly, written in Vue and Vanilla JS (without jQuery dependency).
 
 
-## Instalation
+## Installation
 
 ``` bash
 yarn add vue-agile
@@ -41,7 +41,7 @@ Vue.use(VueAgile)
 </template>
 ```
 
-Every first child of `<agile>` is a new slide.
+Every first level child of `<agile>` is a new slide.
 
 ## Options
 | Parameter | Type | Default | Description |
