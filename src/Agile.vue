@@ -176,17 +176,22 @@
                 this.mouseDown = false
             },
 
+            addActiveClass (i) {
+                this.el.slides[i].classList.add('agile__slide--active')
+            },
+
             setSlide (n, transition = true) {
                 this.transform = n * this.width.slide
 
-                for (let i = 0; i < this.slidesCount; ++i) {
+                for (let i = 0; i < this.allSlidesCount; ++i) {
                     this.el.slides[i].classList.remove('agile__slide--active')
                 }
 
-                this.el.slides[n + 1].classList.add('agile__slide--active')
-
                 if (this.infinite) {
                     this.transform += this.width.slide
+                    this.addActiveClass(n + 1)
+                } else {
+                    this.addActiveClass(n)
                 }
 
                 if (!transition) {
