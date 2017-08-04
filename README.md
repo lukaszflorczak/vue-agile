@@ -41,7 +41,7 @@ Vue.use(VueAgile)
 </template>
 ```
 
-Every first level child of `<agile>` is a new slide.
+Every first-level child of `<agile>` is a new slide.
 
 ## Options
 | Parameter | Type | Default | Description |
