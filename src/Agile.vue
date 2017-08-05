@@ -244,11 +244,19 @@
                 }
 
                 if (this.dragDistance > this.swipeDistance) {
+                    if (!this.infinite && this.currentSlide === 0) {
+                        return
+                    }
+
                     this.prevSlide()
                     this.handleMouseUp()
                 }
 
                 if (this.dragDistance < -1 * this.swipeDistance) {
+                    if (!this.infinite && this.currentSlide === this.slidesCount - 1) {
+                        return
+                    }
+
                     this.nextSlide()
                     this.handleMouseUp()
                 }
@@ -258,7 +266,6 @@
 </script>
 
 <style lang="scss" type="text/scss">
-
     .agile {
         &, * {
             &:focus,
@@ -301,21 +308,15 @@
             position: absolute;
             transition-duration: .3s;
 
+            &[disabled] {
+                cursor: default;
+                opacity: .4;
+            }
+
             &:hover {
                 #arrow-svg {
                     fill: #333;
                 }
-            }
-
-            #arrow-svg {
-                fill: #888;
-                height: 20px;
-                transition-duration: .3s;
-            }
-
-            &[disabled] {
-                cursor: default;
-                opacity: .4;
             }
 
             &--prev {
@@ -329,6 +330,12 @@
             &--next {
                 right: 0;
             }
+
+            #arrow-svg {
+                fill: #888;
+                height: 20px;
+                transition-duration: .3s;
+            }
         }
 
         &__dots {
@@ -336,6 +343,7 @@
             margin: 20px 0;
             padding: 0;
             text-align: center;
+            white-space: nowrap;
 
             li {
                 display: inline-block;
@@ -364,5 +372,4 @@
             }
         }
     }
-
 </style>

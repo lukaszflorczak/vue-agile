@@ -42,6 +42,14 @@ h1, h2, h3 {
     }
 }
 
+.visible-sm {
+    display: none;
+
+    @include sm {
+        display: block;
+    }
+}
+
 .visible-md {
     display: none;
 
@@ -107,8 +115,12 @@ h1, h2, h3 {
 
 .slide {
     color: #fff;
-    height: 300px;
+    height: 200px;
     position: relative;
+
+    @include md {
+        height: 300px;
+    }
 
     h3 {
         font-size: 32px;
@@ -236,7 +248,11 @@ h1, h2, h3 {
         &__arrow {
             height: 100%;
             top: 0;
-            width: 80px;
+            width: 50px;
+
+            @include md {
+                width: 80px;
+            }
 
             &:hover {
                 background-color: rgba(#000, .5);
@@ -252,7 +268,10 @@ h1, h2, h3 {
 
             #arrow-svg {
                 fill: rgba(#fff, .4);
-                height: 25px;
+
+                @include md {
+                    height: 25px;
+                }
             }
         }
     }
@@ -262,7 +281,11 @@ h1, h2, h3 {
             position: center;
             size: cover;
         }
-        height: 500px;
+        height: 250px;
+
+        @include md {
+            height: 500px;
+        }
 
         &:before {
             background-color: rgba(#000, .2);
