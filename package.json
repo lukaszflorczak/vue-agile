@@ -22,7 +22,7 @@
   "scripts": {
     "dev": "node build/dev-server.js",
     "bundle": "webpack --config build/webpack.bundle.conf.js",
-    "docs": "rm -rf gh-pages && mkdir gh-pages && node build/build.js",
+    "demo": "rm -rf gh-pages && mkdir gh-pages && node build/build.js",
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {

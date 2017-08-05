@@ -6,7 +6,8 @@ yarn-error.log
 .editorconfig
 .eslintrc.js
 .gitignore
-docs/
+demo/
+gh-pages/
 static/
 build/
 .eslintignore
