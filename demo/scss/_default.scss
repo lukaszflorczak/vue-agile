@@ -1,0 +1,79 @@
+html {
+	-webkit-font-smoothing: antialiased;
+}
+
+button,
+.button {
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+	padding: 0;
+}
+
+figure {
+	margin: 0;
+}
+
+* {
+	box-sizing: border-box;
+	position: relative;
+}
+
+a,
+button,
+.button,
+input,
+textarea {
+	transition-duration: .3s;
+
+	&:active,
+	&:focus {
+		outline: none;
+	}
+}
+
+input,
+textarea {
+	appearance: none;
+}
+
+.button {
+	white-space: nowrap;
+}
+
+.content-area {
+	overflow: hidden;
+}
+
+.clearfix {
+	&:before,
+	&:after {
+		content: '';
+		display: table;
+	}
+
+	&:after {
+		clear: both;
+	}
+}
+
+.box-link {
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index: 9;
+}
+
+.no-scroll {
+	height: 100%;
+	overflow: hidden;
+	position: static;
+	width: 100%;
+}
+
+.no-transition {
+	transition: none!important;
+	transition-duration: 0s!important;
+}
