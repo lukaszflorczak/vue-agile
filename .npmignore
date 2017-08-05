@@ -7,6 +7,7 @@ yarn-error.log
 .eslintrc.js
 .gitignore
 demo/
+docs/
 gh-pages/
 static/
 build/
