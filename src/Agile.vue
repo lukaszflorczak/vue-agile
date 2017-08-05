@@ -32,12 +32,32 @@
                 default: true
             },
 
+            autoplay: {
+                type: Boolean,
+                default: false
+            },
+
+            autoplaySpeed: {
+                type: Number,
+                default: 3000
+            },
+
             dots: {
                 type: Boolean,
                 default: true
             },
 
             infinite: {
+                type: Boolean,
+                default: true
+            },
+
+            pauseOnDotsHover: {
+                type: Boolean,
+                default: false
+            },
+
+            pauseOnHover: {
                 type: Boolean,
                 default: true
             },
@@ -56,13 +76,14 @@
         data () {
             return {
                 el: {
-                    dosts: null,
+                    dots: null,
                     list: null,
                     track: null,
                     slides: null
                 },
                 arrow: '<svg version="1.1" id="arrow-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 240.823 240.823" style="enable-background:new 0 0 240.823 240.823;" xml:space="preserve"><g><path id="arrow" d="M183.189,111.816L74.892,3.555c-4.752-4.74-12.451-4.74-17.215,0c-4.752,4.74-4.752,12.439,0,17.179 l99.707,99.671l-99.695,99.671c-4.752,4.74-4.752,12.439,0,17.191c4.752,4.74,12.463,4.74,17.215,0l108.297-108.261 C187.881,124.315,187.881,116.495,183.189,111.816z"/></g></svg>',
                 slidesCount: 0,
+                interval: null,
                 allSlidesCount: 0,
                 currentSlide: 0,
                 mouseDown: false,
@@ -84,6 +105,9 @@
         mounted () {
             // Prepare list
             this.el.list = this.$el.getElementsByClassName('agile__list')[0]
+
+            // Prepare dots
+            this.el.dots = this.$el.getElementsByClassName('agile__dots')[0].children
 
             // Prepare slides
             this.el.slides = this.$el.getElementsByClassName('agile__track')[0].children
@@ -114,6 +138,11 @@
                 this.el.track.append(firstSlide)
             }
 
+            // Prepare autoplay
+            if (this.autoplay) {
+                this.startAutoplay()
+            }
+
             // Listeners
             this.$nextTick(function () {
                 // Windows resize listener
@@ -132,6 +161,21 @@
                     this.el.track.addEventListener('mouseup', this.handleMouseUp)
                     this.el.track.addEventListener('mousemove', this.handleMouseMove)
                 }
+
+                // Autoplay
+                if (this.autoplay) {
+                    if (this.pauseOnHover) {
+                        this.el.track.addEventListener('mouseover', this.stopAutoplay)
+                        this.el.track.addEventListener('mouseout', this.startAutoplay)
+                    }
+
+                    if (this.pauseOnDotsHover) {
+                        for (let i = 0; i < this.slidesCount; ++i) {
+                            this.el.dots[i].addEventListener('mouseover', this.stopAutoplay)
+                            this.el.dots[i].addEventListener('mouseout', this.startAutoplay)
+                        }
+                    }
+                }
             })
         },
 
@@ -146,6 +190,20 @@
                 this.el.track.removeEventListener('mousedown')
                 this.el.track.removeEventListener('mouseup')
                 this.el.track.removeEventListener('mousemove')
+            }
+
+            if (this.autoplay) {
+                if (this.pauseOnHover) {
+                    this.el.track.removeEventListener('mouseover')
+                    this.el.track.removeEventListener('mouseout')
+                }
+
+                if (this.pauseOnDotsHover) {
+                    for (let i = 0; i < this.slidesCount; ++i) {
+                        this.el.dots[i].removeEventListener('mouseover')
+                        this.el.dots[i].removeEventListener('mouseout')
+                    }
+                }
             }
         },
 
@@ -178,6 +236,16 @@
 
             addActiveClass (i) {
                 this.el.slides[i].classList.add('agile__slide--active')
+            },
+
+            startAutoplay () {
+                this.interval = setInterval(() => {
+                    this.nextSlide()
+                }, this.autoplaySpeed)
+            },
+
+            stopAutoplay () {
+                clearInterval(this.interval)
             },
 
             setSlide (n, transition = true) {

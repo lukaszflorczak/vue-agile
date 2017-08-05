@@ -46,10 +46,14 @@ Every first-level child of `<agile>` is a new slide.
 ## Options
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
-| arrows | boolean | `true` | Prev/Next arrows |
-| dots | boolean | `true` | Dot indicators/pagination |
+| arrows | boolean | `true` | Enable prev/next arrows |
+| autoplay | boolean | `false` | Enable autoplay |
+| autoplaySpeed | integer (ms) | `3000` | Autoplay interval in milliseconds | 
+| dots | boolean | `true` | Enable dot indicators/pagination |
 | infinite | boolen | `true` | Infinite loop sliding | 
-| speed | integer (ms) | `300` | Slide animation speed | 
+| pouseOnHover | boolean | `true` | Pause autoplay when a slide is hovered |
+| pouseOnDotsHover | boolean | `false` | Pause autoplay when a dot is hovered |
+| speed | integer (ms) | `300` | Slide animation speed in milliseconds | 
 | timing | string | `ease` | Transition timing function <br> (`linear`/`ease`/`ease-in`/`ease-out`/`ease-in-out`) |
 
 ### Example
