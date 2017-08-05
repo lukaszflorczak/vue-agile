@@ -161,21 +161,21 @@
         left: 50%;
         position: absolute;
         transform: translateX(-50%);
+    }
 
-        li {
-            &.is-current {
-                button {
-                    background-color: #fff;
-                }
+    &__dot {
+        button {
+            background-color: transparent;
+            border: 1px solid #fff;
+
+            &:hover {
+                background-color: #fff;
             }
+        }
 
+        &--current {
             button {
-                background-color: transparent;
-                border: 1px solid #fff;
-
-                &:hover {
-                    background-color: #fff;
-                }
+                background-color: #fff;
             }
         }
     }

@@ -7,7 +7,8 @@
             </div>
 
             <ul v-if="dots" class="agile__dots">
-                <li v-for="n in slidesCount" :class="{'is-current': n - 1 === currentSlide}">
+                <li v-for="n in slidesCount" class="agile__dot"
+                    :class="{'agile__dot--current': n - 1 === currentSlide}">
                     <button @click="setSlide(n - 1)">{{n}}</button>
                 </li>
             </ul>
@@ -412,18 +413,11 @@
             padding: 0;
             text-align: center;
             white-space: nowrap;
+        }
 
-            li {
-                display: inline-block;
-                margin: 0 10px;
-
-                &.is-current,
-                &:hover {
-                    button {
-                        background-color: #888;
-                    }
-                }
-            }
+        &__dot {
+            display: inline-block;
+            margin: 0 10px;
 
             button {
                 background-color: #eee;
@@ -437,6 +431,13 @@
                 margin: 0;
                 transition-duration: .3s;
                 width: 10px;
+            }
+
+            &--current,
+            &:hover {
+                button {
+                    background-color: #888;
+                }
             }
         }
     }
