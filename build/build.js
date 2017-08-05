@@ -7,7 +7,7 @@ var path = require('path')
 var config = require('../config')
 var ora = require('ora')
 var webpack = require('webpack')
-var webpackConfig = require('./webpack.docs.conf')
+var webpackConfig = require('./webpack.demo.conf')
 
 console.log(
   '  Tip:\n' +
@@ -18,7 +18,7 @@ console.log(
 var spinner = ora('building for production...')
 spinner.start()
 
-var assetsPath = path.join(config.docs.assetsRoot, config.docs.assetsSubDirectory)
+var assetsPath = path.join(config.demo.assetsRoot, config.demo.assetsSubDirectory)
 rm('-rf', assetsPath)
 mkdir('-p', assetsPath)
 cp('-R', 'static/*', assetsPath)
