@@ -7,7 +7,7 @@ var env = process.env.NODE_ENV
 // check env & config/index.js to decide weither to enable CSS Sourcemaps for the
 // various preprocessor loaders added to vue-loader at the end of this file
 var cssSourceMapDev = (env === 'development' && config.dev.cssSourceMap)
-var cssSourceMapProd = (env === 'production' && config.demo.productionSourceMap)
+var cssSourceMapProd = (env === 'production' && config.docs.productionSourceMap)
 var useCssSourceMap = cssSourceMapDev || cssSourceMapProd
 
 module.exports = {
@@ -15,8 +15,8 @@ module.exports = {
     app: './demo/main.js'
   },
   output: {
-    path: config.demo.assetsRoot,
-    publicPath: process.env.NODE_ENV === 'production' ? config.demo.assetsPublicPath : config.dev.assetsPublicPath,
+    path: config.docs.assetsRoot,
+    publicPath: process.env.NODE_ENV === 'production' ? config.docs.assetsPublicPath : config.dev.assetsPublicPath,
     filename: '[name].js'
   },
   resolve: {

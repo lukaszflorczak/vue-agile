@@ -6,21 +6,21 @@ var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
-var env = config.demo.env
+var env = config.docs.env
 
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
-    loaders: utils.styleLoaders({ sourceMap: config.demo.productionSourceMap, extract: true })
+    loaders: utils.styleLoaders({ sourceMap: config.docs.productionSourceMap, extract: true })
   },
-  devtool: config.demo.productionSourceMap ? '#source-map' : false,
+  devtool: config.docs.productionSourceMap ? '#source-map' : false,
   output: {
-    path: config.demo.assetsRoot,
+    path: config.docs.assetsRoot,
     filename: utils.assetsPath('js/[name].[chunkhash].js'),
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
   vue: {
     loaders: utils.cssLoaders({
-      sourceMap: config.demo.productionSourceMap,
+      sourceMap: config.docs.productionSourceMap,
       extract: true
     })
   },
@@ -41,7 +41,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: config.demo.index,
+      filename: config.docs.index,
       template: 'demo/index.html',
       inject: true,
       minify: {
