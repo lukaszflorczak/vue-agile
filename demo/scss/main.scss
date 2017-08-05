@@ -1,0 +1,303 @@
+/*================================
+=            SETTINGS            =
+================================*/
+
+@import "settings";
+@import "mixins";
+@import "functions";
+@import "variables";
+
+@import "normalize";
+
+@import "breakpoints";
+@import "grid";
+@import "default";
+@import "icons";
+
+$z-indexes: ();
+
+/*=====  End of SETTINGS  ======*/
+
+
+
+
+
+/*===============================
+=            GENERAL            =
+===============================*/
+
+body {
+    color: $dark;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+}
+
+h1, h2, h3 {
+    font-weight: 300;
+}
+
+.hidden-md {
+    @include md {
+        display: none;
+    }
+}
+
+.visible-md {
+    display: none;
+
+    @include md {
+        display: block;
+    }
+}
+
+.gh-buttons {
+    margin-top: 15px;
+    text-align: center;
+
+    @include md {
+        margin-top: 0;
+        position: absolute;
+        right: $gutter-md;
+        top: 28px;
+    }
+
+    > * {
+        margin: 0 10px;
+
+        @include md {
+            margin-left: 10px;
+            margin-right: 0;
+
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+    }
+}
+
+.section {
+    margin: 30px 0;
+
+    &--header {
+        margin-top: 0;
+        text-align: center;
+
+        @include md {
+            text-align: left;
+        }
+    }
+
+    &__title {
+        .section--header & {
+            border-bottom: $border;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+        }
+    }
+
+    &__description {
+        color: rgba($dark, .6);
+    }
+
+    &__subtitle {
+        color: $gray;
+        margin-top: 0;
+    }
+}
+
+.slide {
+    color: #fff;
+    height: 300px;
+    position: relative;
+
+    h3 {
+        font-size: 32px;
+        font-weight: 300;
+        left: 50%;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.code {
+    &__content {
+        code {
+            height: 200px;
+            overflow-y: auto;
+            padding: $gutter-xs;
+        }
+    }
+
+    &__title {
+        text-transform: uppercase;
+    }
+}
+
+.site-footer {
+    font-size: 12px;
+    margin: 30px 0;
+    text-align: center;
+}
+
+.copyright {
+    border-top: $border;
+    margin-bottom: 5px;
+    padding-top: 30px;
+
+    @include sm {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    span {
+        display: block;
+    }
+
+    > iframe {
+        margin-top: 5px;
+
+        @include sm {
+            margin: 0 0 0 7px;
+        }
+    }
+
+    strong {
+        margin-left: 2px;
+    }
+}
+
+.agile {
+    margin: 15px auto;
+}
+
+.section--demo-1 {
+    .slide {
+        &--1 {
+            background-color: $yellow;
+        }
+
+        &--2 {
+            background-color: $orange;
+        }
+
+        &--3 {
+            background-color: $red;
+        }
+
+        &--4 {
+            background-color: $purple;
+        }
+
+        &--5 {
+            background-color: $blue;
+        }
+
+        &--6 {
+            background-color: $green;
+        }
+    }
+}
+
+.section--demo-2 {
+    .container-fluid {
+        padding: 0;
+    }
+
+    .agile {
+        max-width: 1600px;
+
+        &__dots {
+            bottom: 0;
+            left: 50%;
+            position: absolute;
+            transform: translateX(-50%);
+
+            li {
+                &.is-current {
+                    button {
+                        background-color: #fff;
+                    }
+                }
+
+                button {
+                    background-color: transparent;
+                    border: 1px solid #fff;
+
+                    &:hover {
+                        background-color: #fff;
+                    }
+                }
+            }
+        }
+
+        &__arrow {
+            height: 100%;
+            top: 0;
+            width: 80px;
+
+            &:hover {
+                background-color: rgba(#000, .5);
+
+                #arrow-svg {
+                    fill: #fff;
+                }
+            }
+
+            &[disabled] {
+                display: none;
+            }
+
+            #arrow-svg {
+                fill: rgba(#fff, .4);
+                height: 25px;
+            }
+        }
+    }
+
+    .slide {
+        background: {
+            position: center;
+            size: cover;
+        }
+        height: 500px;
+
+        &:before {
+            background-color: rgba(#000, .2);
+            content: '';
+            height: 100%;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
+
+        &--1 {
+            background-image: url(../static/bg-01.jpg);
+        }
+
+        &--2 {
+            background-image: url(../static/bg-02.jpg);
+        }
+
+        &--3 {
+            background-image: url(../static/bg-03.jpg);
+        }
+
+        &--4 {
+            background-image: url(../static/bg-04.jpg);
+        }
+
+        &--5 {
+            background-image: url(../static/bg-05.jpg);
+        }
+
+        &--6 {
+            background-image: url(../static/bg-06.jpg);
+        }
+    }
+}
+
+/*=====  End of GENERAL  ======*/

@@ -1,0 +1,28 @@
+/*===================================================
+=            BREAKPOINTS & GRID SETTINGS            =
+===================================================*/
+
+// Screen sizes
+$screen-sm: 420;
+$screen-md: 756;
+$screen-lg: 1024;
+$screen-xl: 1400;
+
+// Gutters – paddings
+$gutter-xs: 15px;
+$gutter-sm: $gutter-xs;
+$gutter-md: $gutter-sm;
+$gutter-lg: $gutter-md;
+$gutter-xl: $gutter-lg;
+
+// Max content (container) width
+$content-xs: 100%;
+$content-sm: $content-xs;
+$content-md: $content-sm;
+$content-lg: 1200px;
+$content-xl: $content-lg;
+
+// Number of columns in grid
+$columns: 12;
+
+/*=====  End of BREAKPOINTS & GRID SETTINGS  ======*/

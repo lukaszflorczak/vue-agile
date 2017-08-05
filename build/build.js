@@ -21,7 +21,6 @@ spinner.start()
 var assetsPath = path.join(config.docs.assetsRoot, config.docs.assetsSubDirectory)
 rm('-rf', assetsPath)
 mkdir('-p', assetsPath)
-cp('-R', 'static/*', assetsPath)
 
 cp('demo/.htaccess', config.docs.assetsRoot)
 

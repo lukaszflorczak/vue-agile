@@ -1,0 +1,5 @@
+@function z-index($name) {
+    $starts-from: 10;
+
+    @return (length($z-indexes) - index($z-indexes, $name)) + ($starts-from - 1);
+}

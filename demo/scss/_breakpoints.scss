@@ -1,0 +1,43 @@
+/*==========================================
+=            BREAKPOINTS MIXINS            =
+==========================================*/
+
+$breakpoints: sm, md, lg, xl;
+$screens: (sm: $screen-sm, md: $screen-md, lg: $screen-lg, xl: $screen-xl);
+
+/* Small devices */
+@mixin sm {
+    @media (min-width: map-get($screens, sm) + 'px') {
+        @content;
+    }
+}
+
+/* Medium devices */
+@mixin md {
+    @media (min-width: map-get($screens, md) + 'px') {
+        @content;
+    }
+}
+
+/* Large devices */
+@mixin lg {
+    @media (min-width: map-get($screens, lg) + 'px') {
+        @content;
+    }
+}
+
+/* Extra large devices */
+@mixin xl {
+    @media (min-width: map-get($screens, lg) + 'px') {
+        @content;
+    }
+}
+
+/* Custom device */
+@mixin rwd($screen) {
+    @media (min-width: $screen + 'px') {
+        @content;
+    }
+}
+
+/*=====  End of BREAKPOINTS MIXINS  ======*/
