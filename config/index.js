@@ -24,8 +24,8 @@ module.exports = {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../docs/index.html'),
     assetsRoot: path.resolve(__dirname, '../docs'),
-    assetsSubDirectory: '/static',
-    assetsPublicPath: '../..',
+    assetsSubDirectory: 'static',
+    assetsPublicPath: '/vue-agile/',
     productionSourceMap: false
   },
 }
