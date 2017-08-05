@@ -20,7 +20,7 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsPublicPath: '/'
   },
-  demo: {
+  docs: {
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../docs/index.html'),
     assetsRoot: path.resolve(__dirname, '../docs'),

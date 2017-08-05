@@ -4,7 +4,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 exports.assetsPath = function (_path) {
   var assetsSubDirectory = process.env.NODE_ENV === 'production'
-    ? config.demo.assetsSubDirectory
+    ? config.docs.assetsSubDirectory
     : config.dev.assetsSubDirectory
   return path.posix.join(assetsSubDirectory, _path)
 }
@@ -26,7 +26,7 @@ exports.cssLoaders = function (options) {
     }).join('!')
 
     // Extract CSS when that option is specified
-    // (which is the case during production demo)
+    // (which is the case during production docs)
     if (options.extract) {
       return ExtractTextPlugin.extract('vue-style-loader', sourceLoader)
     } else {
