@@ -353,20 +353,13 @@
         }
 
         &__track {
-            &:before,
-            &:after {
-                content: '';
-                display: table;
-            }
-
-            &:after {
-                clear: both;
-            }
+            align-items: center;
+            display: flex;
+            justify-content: flex-start;
         }
 
         &__slide {
             display: block;
-            float: left;
         }
 
         &__arrow {
@@ -408,6 +401,9 @@
         }
 
         &__dots {
+            align-items: center;
+            display: flex;
+            justify-content: center;
             list-style: none;
             margin: 20px 0;
             padding: 0;
@@ -416,7 +412,6 @@
         }
 
         &__dot {
-            display: inline-block;
             margin: 0 10px;
 
             button {
