@@ -55,49 +55,51 @@
                         <div class="code">
                             <h4 class="code__title">Template</h4>
                         </div>
-                        <div class="code__content">
-                            <pre><code class="html">&lt;agile&gt;
-    &lt;div class="slide slide--1"&gt;&lt;h3&gt;slide 1&lt;/h3&gt;&lt;/div&gt;
-    &lt;div class="slide slide--2"&gt;&lt;h3&gt;slide 2&lt;/h3&gt;&lt;/div&gt;
-    &lt;div class="slide slide--3"&gt;&lt;h3&gt;slide 3&lt;/h3&gt;&lt;/div&gt;
-    &lt;div class="slide slide--4"&gt;&lt;h3&gt;slide 4&lt;/h3&gt;&lt;/div&gt;
-    &lt;div class="slide slide--5"&gt;&lt;h3&gt;slide 5&lt;/h3&gt;&lt;/div&gt;
-    &lt;div class="slide slide--6"&gt;&lt;h3&gt;slide 6&lt;/h3&gt;&lt;/div&gt;
-&lt;/agile&gt;
-</code>
-</pre>
-                        </div>
+
+                        <pre class="code__content">
+                            <code class="language-html">
+                                &lt;agile&gt;
+                                    &lt;div class="slide slide--1"&gt;&lt;h3&gt;slide 1&lt;/h3&gt;&lt;/div&gt;
+                                    &lt;div class="slide slide--2"&gt;&lt;h3&gt;slide 2&lt;/h3&gt;&lt;/div&gt;
+                                    &lt;div class="slide slide--3"&gt;&lt;h3&gt;slide 3&lt;/h3&gt;&lt;/div&gt;
+                                    &lt;div class="slide slide--4"&gt;&lt;h3&gt;slide 4&lt;/h3&gt;&lt;/div&gt;
+                                    &lt;div class="slide slide--5"&gt;&lt;h3&gt;slide 5&lt;/h3&gt;&lt;/div&gt;
+                                    &lt;div class="slide slide--6"&gt;&lt;h3&gt;slide 6&lt;/h3&gt;&lt;/div&gt;
+                                &lt;/agile&gt;
+                            </code>
+                        </pre>
                     </div>
 
                     <div class="col-xs-12 col-lg-6">
                         <div class="code">
                             <h4 class="code__title">Styles</h4>
                         </div>
-                        <div class="code__content">
-                            <pre><code class="css">.slide {
-    color: #fff;
-    height: 300px;
-    position: relative;
 
-    &--1 {
-        background-color: #f1c40f;
-    }
+                        <pre class="code__content">
+                            <code class="language-css">
+                                .slide {
+                                    color: #fff;
+                                    height: 300px;
+                                    position: relative;
 
-    ...
+                                    &--1 {
+                                        background-color: #f1c40f;
+                                    }
 
-    h3 {
-        font-size: 32px;
-        font-weight: 300;
-        left: 50%;
-        margin: 0;
-        position: absolute;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
-}
-</code>
-</pre>
-                        </div>
+                                    ...
+
+                                    h3 {
+                                        font-size: 32px;
+                                        font-weight: 300;
+                                        left: 50%;
+                                        margin: 0;
+                                        position: absolute;
+                                        top: 50%;
+                                        transform: translate(-50%, -50%);
+                                    }
+                                }
+                            </code>
+                        </pre>
                     </div>
                 </div>
             </div>
@@ -136,100 +138,102 @@
                         <div class="code">
                             <h4 class="code__title">Template</h4>
                         </div>
-                        <div class="code__content">
-                            <pre><code class="html">&lt;agile :infinite="false"&gt;
-    &lt;div class="slide slide--1"&gt;&lt;h3&gt;slide 1&lt;/h3&gt;&lt;/div&gt;
-    &lt;div class="slide slide--2"&gt;&lt;h3&gt;slide 2&lt;/h3&gt;&lt;/div&gt;
-    &lt;div class="slide slide--3"&gt;&lt;h3&gt;slide 3&lt;/h3&gt;&lt;/div&gt;
-    &lt;div class="slide slide--4"&gt;&lt;h3&gt;slide 4&lt;/h3&gt;&lt;/div&gt;
-    &lt;div class="slide slide--5"&gt;&lt;h3&gt;slide 5&lt;/h3&gt;&lt;/div&gt;
-    &lt;div class="slide slide--6"&gt;&lt;h3&gt;slide 6&lt;/h3&gt;&lt;/div&gt;
-&lt;/agile&gt;
-</code>
-</pre>
-                        </div>
+
+                        <pre class="code__content">
+                            <code class="language-html">
+                                &lt;agile :infinite="false"&gt;
+                                    &lt;div class="slide slide--1"&gt;&lt;h3&gt;slide 1&lt;/h3&gt;&lt;/div&gt;
+                                    &lt;div class="slide slide--2"&gt;&lt;h3&gt;slide 2&lt;/h3&gt;&lt;/div&gt;
+                                    &lt;div class="slide slide--3"&gt;&lt;h3&gt;slide 3&lt;/h3&gt;&lt;/div&gt;
+                                    &lt;div class="slide slide--4"&gt;&lt;h3&gt;slide 4&lt;/h3&gt;&lt;/div&gt;
+                                    &lt;div class="slide slide--5"&gt;&lt;h3&gt;slide 5&lt;/h3&gt;&lt;/div&gt;
+                                    &lt;div class="slide slide--6"&gt;&lt;h3&gt;slide 6&lt;/h3&gt;&lt;/div&gt;
+                                &lt;/agile&gt;
+                            </code>
+                        </pre>
                     </div>
 
                     <div class="col-xs-12 col-lg-6">
                         <div class="code">
                             <h4 class="code__title">Styles</h4>
                         </div>
-                        <div class="code__content">
-                            <pre><code class="css">.agile {
-    &__dots {
-        bottom: 0;
-        left: 50%;
-        position: absolute;
-        transform: translateX(-50%);
-    }
 
-    &__dot {
-        button {
-            background-color: transparent;
-            border: 1px solid #fff;
+                        <pre class="code__content">
+                            <code class="language-css">
+                                .agile {
+                                    &__dots {
+                                        bottom: 0;
+                                        left: 50%;
+                                        position: absolute;
+                                        transform: translateX(-50%);
+                                    }
 
-            &:hover {
-                background-color: #fff;
-            }
-        }
+                                    &__dot {
+                                        button {
+                                            background-color: transparent;
+                                            border: 1px solid #fff;
 
-        &--current {
-            button {
-                background-color: #fff;
-            }
-        }
-    }
+                                            &:hover {
+                                                background-color: #fff;
+                                            }
+                                        }
 
-    &__arrow {
-        height: 100%;
-        top: 0;
-        width: 80px;
+                                        &--current {
+                                            button {
+                                                background-color: #fff;
+                                            }
+                                        }
+                                    }
 
-        &:hover {
-            background-color: rgba(#000, .5);
+                                    &__arrow {
+                                        height: 100%;
+                                        top: 0;
+                                        width: 80px;
 
-            #arrow-svg {
-                fill: #fff;
-            }
-        }
+                                        &:hover {
+                                            background-color: rgba(#000, .5);
 
-        &[disabled] {
-            display: none;
-        }
+                                            #arrow-svg {
+                                                fill: #fff;
+                                            }
+                                        }
 
-        #arrow-svg {
-            fill: rgba(#fff, .4);
-            height: 25px;
-        }
-    }
-}
+                                        &[disabled] {
+                                            display: none;
+                                        }
 
-.slide {
-    background: {
-        position: center;
-        size: cover;
-    }
-    height: 500px;
+                                        #arrow-svg {
+                                            fill: rgba(#fff, .4);
+                                            height: 25px;
+                                        }
+                                    }
+                                }
 
-    &:before {
-        background-color: rgba(#000, .2);
-        content: '';
-        height: 100%;
-        left: 0;
-        position: absolute;
-        top: 0;
-        width: 100%;
-    }
+                                .slide {
+                                    background: {
+                                        position: center;
+                                        size: cover;
+                                    }
+                                    height: 500px;
 
-    &--1 {
-        background-image: url(../img/bg-1_1.jpg);
-    }
+                                    &:before {
+                                        background-color: rgba(#000, .2);
+                                        content: '';
+                                        height: 100%;
+                                        left: 0;
+                                        position: absolute;
+                                        top: 0;
+                                        width: 100%;
+                                    }
 
-    ...
-}
-</code>
-</pre>
-                        </div>
+                                    &--1 {
+                                        background-image: url(../img/bg-1_1.jpg);
+                                    }
+
+                                    ...
+                                }
+                            </code>
+                        </pre>
                     </div>
                 </div>
             </div>

@@ -133,17 +133,19 @@ h1, h2, h3 {
     }
 }
 
-.code {
-    &__content {
-        code {
-            height: 200px;
-            overflow-y: auto;
-            padding: $gutter-xs;
-        }
-    }
+pre[class*=language-] {
+    border-radius: 0;
+    height: 200px;
+    overflow-y: auto;
+}
 
+.code {
     &__title {
         text-transform: uppercase;
+    }
+
+    &__content {
+        font-size: 13px;
     }
 }
 
@@ -255,10 +257,12 @@ h1, h2, h3 {
             }
 
             &:hover {
-                background-color: rgba(#000, .5);
+                @include md {
+                    background-color: rgba(#000, .5);
 
-                #arrow-svg {
-                    fill: #fff;
+                    #arrow-svg {
+                        fill: #fff;
+                    }
                 }
             }
 

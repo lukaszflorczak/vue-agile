@@ -10,8 +10,8 @@
     <meta http-equiv="expires" content="7">
     <meta http-equiv="pragma" content="no-cache">
 
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/monokai-sublime.min.css">
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/themes/prism-okaidia.min.css" rel="stylesheet">
 
     <title>vue-agile | demo</title>
 
@@ -25,9 +25,18 @@
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/prism.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/prism/1.6.0/plugins/normalize-whitespace/prism-normalize-whitespace.min.js"></script>
 <script>
-    hljs.initHighlightingOnLoad()
+    Prism.plugins.NormalizeWhitespace.setDefaults({
+        'remove-trailing': true,
+        'remove-indent': true,
+        'left-trim': true,
+        'right-trim': true,
+//        'indent': 4,
+//        'remove-initial-line-feed': true,
+//        'tabs-to-spaces': 4
+    })
 </script>
 
 <script>
@@ -38,7 +47,6 @@
 
     ga('create', 'UA-104121614-1', 'auto');
     ga('send', 'pageview');
-
 </script>
 
 </body>
