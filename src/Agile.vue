@@ -1,8 +1,8 @@
 <template>
-    <div class="agile">
+    <div class="agile" :class="{'agile--fade': fade}">
         <div class="agile__list">
             <div class="agile__track"
-                 :style="{width: width.track + 'px', transform: 'translate(-' + transform + 'px)', transition: timing + ' ' + transitionDelay + 'ms'}">
+                 :style="{width: width.track + 'px', transform: 'translate(-' + transform + 'px)', transition: 'translate ' + timing + ' ' + transitionDelay + 'ms'}">
                 <slot></slot>
             </div>
 
@@ -48,6 +48,11 @@
                 default: true
             },
 
+            fade: {
+                type: Boolean,
+                default: false
+            },
+
             infinite: {
                 type: Boolean,
                 default: true
@@ -63,14 +68,14 @@
                 default: true
             },
 
-            speed: {
-                type: Number,
-                default: 300
-            },
-
             timing: {
                 type: String,
                 default: 'ease' // linear, ease-in, ease-out, ease-in-out
+            },
+
+            speed: {
+                type: Number,
+                default: 300
             }
         },
 
@@ -90,7 +95,7 @@
                 mouseDown: false,
                 dragStartX: 0,
                 dragDistance: 0,
-                swipeDistance: 30,
+                swipeDistance: 50,
                 transform: 0,
                 transitionDelay: 0,
                 width: {
@@ -114,7 +119,7 @@
             this.el.slides = this.$el.getElementsByClassName('agile__track')[0].children
             this.slidesCount = this.el.slides.length
 
-            if (this.infinite) {
+            if (this.infinite && !this.fade) {
                 this.allSlidesCount = this.slidesCount + 2
             } else {
                 this.allSlidesCount = this.slidesCount
@@ -122,13 +127,18 @@
 
             for (let i = 0; i < this.slidesCount; ++i) {
                 this.el.slides[i].classList.add('agile__slide')
+
+                // Prepare slides for fade mode
+                if (this.fade) {
+                    this.el.slides[i].style.transition = 'opacity ' + this.timing + ' ' + this.speed + 'ms'
+                }
             }
 
             // Prepare track
             this.el.track = this.$el.getElementsByClassName('agile__track')[0]
 
             // Prepare infinity mode
-            if (this.infinite) {
+            if (this.infinite && !this.fade) {
                 let firstSlide = this.el.track.firstChild.cloneNode(true)
                 let lastSlide = this.el.track.lastChild.cloneNode(true)
 
@@ -250,13 +260,44 @@
             },
 
             setSlide (n, transition = true) {
-                this.transform = n * this.width.slide
+                if (this.fade) {
+                    // Disable transition for initial slide
+                    if (transition === false) {
+                        this.el.slides[n].style.transition = '0ms'
+
+                        setTimeout(() => {
+                            this.el.slides[n].style.transition = 'opacity ' + this.timing + ' ' + this.speed + 'ms'
+                        }, 10)
+                    }
+
+                    for (let i = 0; i < this.allSlidesCount; ++i) {
+                        this.el.slides[i].classList.remove('agile__slide--expiring')
+                    }
+
+                    if (this.infinite && n < 0) {
+                        n = this.slidesCount - 1
+                    } else if (n >= this.slidesCount) {
+                        n = 0
+                    }
+
+                    // Set current slide as expiring
+                    let e = this.currentSlide
+                    this.el.slides[e].classList.add('agile__slide--expiring')
+
+                    setTimeout(() => {
+                        this.el.slides[e].classList.remove('agile__slide--expiring')
+                    }, this.speed)
+
+                    this.transform = 0
+                } else {
+                    this.transform = n * this.width.slide
+                }
 
                 for (let i = 0; i < this.allSlidesCount; ++i) {
                     this.el.slides[i].classList.remove('agile__slide--active')
                 }
 
-                if (this.infinite) {
+                if (this.infinite && !this.fade) {
                     this.transform += this.width.slide
                     this.addActiveClass(n + 1)
                 } else {
@@ -300,6 +341,11 @@
                 // Actions on document resize
                 for (let i = 0; i < this.allSlidesCount; ++i) {
                     this.el.slides[i].style.width = this.width.container + 'px'
+
+                    // Prepare slides for fade mode
+                    if (this.fade) {
+                        this.el.slides[i].style.transform = 'translate(-' + i * this.width.slide + 'px)'
+                    }
                 }
 
                 // Prepare track
@@ -360,6 +406,23 @@
 
         &__slide {
             display: block;
+
+            .agile--fade & {
+                opacity: 0;
+                position: relative;
+                z-index: 0;
+
+                &--active {
+                    opacity: 1;
+                    z-index: 2;
+                }
+
+                &--expiring {
+                    opacity: 1;
+                    transition-duration: 0s;
+                    z-index: 1;
+                }
+            }
         }
 
         &__arrow {
