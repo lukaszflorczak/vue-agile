@@ -92,6 +92,10 @@ h1, h2, h3 {
     margin-left: 5px;
     padding: 1px 7px 2px;
     vertical-align: super;
+
+    @include sm {
+        border-radius: 12px;
+    }
 }
 
 .section {
