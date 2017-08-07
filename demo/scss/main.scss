@@ -288,10 +288,10 @@ pre[class*=language-] {
             &:hover {
                 @include md {
                     background-color: rgba(#000, .5);
+                }
 
-                    #arrow-svg {
-                        fill: #fff;
-                    }
+                #arrow-svg {
+                    fill: #fff;
                 }
             }
 

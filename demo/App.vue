@@ -248,7 +248,7 @@
 
                 <div class="row">
                     <div class="col-xs-12">
-                        <agile :arrows="false" :speed="1000" :timing="'linear'" :infinite="true" :fade="true" :autoplay="true" :autoplaySpeed="5000" :pauseOnHover="false">
+                        <agile :arrows="false" :speed="750" :timing="'linear'" :infinite="true" :fade="true" :autoplay="true" :autoplaySpeed="5000" :pauseOnHover="false">
                             <div class="slide slide--1"></div>
                             <div class="slide slide--2"></div>
                             <div class="slide slide--3"></div>
@@ -264,7 +264,7 @@
 
                         <pre class="code__content">
                             <code class="language-html">
-                                &lt;agile :arrows="false" :speed="1000" :timing="'linear'" :fade="true" :autoplay="true" :pauseOnHover="false"&gt;
+                                &lt;agile :arrows="false" :speed="750" :timing="'linear'" :fade="true" :autoplay="true" :pauseOnHover="false"&gt;
                                     &lt;div class="slide slide--1"&gt;&lt;/div&gt;
                                     &lt;div class="slide slide--2"&gt;&lt;/div&gt;
                                     &lt;div class="slide slide--3"&gt;&lt;/div&gt;
