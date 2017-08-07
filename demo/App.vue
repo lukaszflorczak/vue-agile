@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h1 class="section__title">Demo of <strong>vue-agile</strong></h1>
+                        <h1 class="section__title">Demo of <strong>vue-agile</strong><span class="badge">0.2</span></h1>
                         <p class="section__description">vue-agile is a carousel component for Vue.js inspired by Slick. Simple, touch-friendly, written in Vue and Vanilla JS (without jQuery dependency).</p>
 
                         <div class="gh-buttons visible-md">
@@ -104,8 +104,6 @@
                 </div>
             </div>
         </section>
-
-
 
         <section class="section section--demo-2">
             <div class="container">
@@ -225,6 +223,99 @@
                                         top: 0;
                                         width: 100%;
                                     }
+
+                                    &--1 {
+                                        background-image: url(../img/bg-1_1.jpg);
+                                    }
+
+                                    ...
+                                }
+                            </code>
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section section--demo-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <h2 class="section__title"><strong>#3</strong> demo</h2>
+                        <p class="section__description">vue-agile with background-images, fade effect and autoplay</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <agile :arrows="false" :speed="1000" :timing="'linear'" :infinite="true" :fade="true" :autoplay="true" :autoplaySpeed="5000" :pauseOnHover="false">
+                            <div class="slide slide--1"></div>
+                            <div class="slide slide--2"></div>
+                            <div class="slide slide--3"></div>
+                        </agile>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-12 col-lg-6">
+                        <div class="code">
+                            <h4 class="code__title">Template</h4>
+                        </div>
+
+                        <pre class="code__content">
+                            <code class="language-html">
+                                &lt;agile :arrows="false" :speed="1000" :timing="'linear'" :fade="true" :autoplay="true" :pauseOnHover="false"&gt;
+                                    &lt;div class="slide slide--1"&gt;&lt;/div&gt;
+                                    &lt;div class="slide slide--2"&gt;&lt;/div&gt;
+                                    &lt;div class="slide slide--3"&gt;&lt;/div&gt;
+                                &lt;/agile&gt;
+                            </code>
+                        </pre>
+                    </div>
+
+                    <div class="col-xs-12 col-lg-6">
+                        <div class="code">
+                            <h4 class="code__title">Styles</h4>
+                        </div>
+
+                        <pre class="code__content">
+                            <code class="language-css">
+                                .agile {
+                                    &__dots {
+                                        bottom: 0;
+                                        display: block;
+                                        left: 10px;
+                                        position: absolute;
+                                        width: 30px;
+                                    }
+
+                                    &__dot {
+                                        margin-bottom: 10px;
+
+                                        button {
+                                            background-color: transparent;
+                                            border: 1px solid #fff;
+                                            margin-top: 10px;
+
+                                            &:hover {
+                                                background-color: #fff;
+                                            }
+                                        }
+
+                                        &--current {
+                                            button {
+                                                background-color: #fff;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                .slide {
+                                    background: {
+                                        position: center;
+                                        size: cover;
+                                    }
+                                    height: 500px;
 
                                     &--1 {
                                         background-image: url(../img/bg-1_1.jpg);
