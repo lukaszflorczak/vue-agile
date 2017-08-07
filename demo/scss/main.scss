@@ -83,6 +83,17 @@ h1, h2, h3 {
     }
 }
 
+.badge {
+    background-color: $green;
+    border-radius: 10px;
+    color: #fff;
+    font-size: .5em;
+    font-weight: 600;
+    margin-left: 5px;
+    padding: 1px 7px 2px;
+    vertical-align: super;
+}
+
 .section {
     margin: 30px 0;
 
@@ -93,9 +104,23 @@ h1, h2, h3 {
         @include md {
             text-align: left;
         }
+
+        .section__title {
+            font-size: 28px;
+
+            @include sm {
+                font-size: 36px;
+            }
+        }
     }
 
     &__title {
+        font-size: 26px;
+
+        @include sm {
+            font-size: 30x;
+        }
+
         .section--header & {
             border-bottom: $border;
             margin-bottom: 20px;
@@ -114,6 +139,10 @@ h1, h2, h3 {
 }
 
 .slide {
+    background: {
+        position: center;
+        size: cover;
+    }
     color: #fff;
     height: 200px;
     position: relative;
@@ -133,17 +162,19 @@ h1, h2, h3 {
     }
 }
 
-.code {
-    &__content {
-        code {
-            height: 200px;
-            overflow-y: auto;
-            padding: $gutter-xs;
-        }
-    }
+pre[class*=language-] {
+    border-radius: 0;
+    height: 200px;
+    overflow-y: auto;
+}
 
+.code {
     &__title {
         text-transform: uppercase;
+    }
+
+    &__content {
+        font-size: 13px;
     }
 }
 
@@ -226,21 +257,21 @@ h1, h2, h3 {
             left: 50%;
             position: absolute;
             transform: translateX(-50%);
+        }
 
-            li {
-                &.is-current {
-                    button {
-                        background-color: #fff;
-                    }
+        &__dot {
+            button {
+                background-color: transparent;
+                border: 1px solid #fff;
+
+                &:hover {
+                    background-color: #fff;
                 }
+            }
 
+            &--current {
                 button {
-                    background-color: transparent;
-                    border: 1px solid #fff;
-
-                    &:hover {
-                        background-color: #fff;
-                    }
+                    background-color: #fff;
                 }
             }
         }
@@ -255,10 +286,12 @@ h1, h2, h3 {
             }
 
             &:hover {
-                background-color: rgba(#000, .5);
+                @include md {
+                    background-color: rgba(#000, .5);
 
-                #arrow-svg {
-                    fill: #fff;
+                    #arrow-svg {
+                        fill: #fff;
+                    }
                 }
             }
 
@@ -277,10 +310,6 @@ h1, h2, h3 {
     }
 
     .slide {
-        background: {
-            position: center;
-            size: cover;
-        }
         height: 250px;
 
         @include md {
@@ -319,6 +348,63 @@ h1, h2, h3 {
 
         &--6 {
             background-image: url(../static/bg-06.jpg);
+        }
+    }
+}
+
+.section--demo-3 {
+    .agile {
+        &__dots {
+            bottom: 0;
+            display: block;
+            left: 10px;
+            position: absolute;
+            transform: none;
+            width: 30px;
+        }
+
+        &__dot {
+            margin-bottom: 10px;
+
+            &:hover {
+                button {
+                    background-color: #fff;
+                }
+            }
+
+            button {
+                background-color: rgba(#fff, .2);
+            }
+
+            &--current {
+                button {
+                    background-color: rgba(#fff, .6);
+                }
+            }
+        }
+    }
+
+    .slide {
+        height: 300px;
+
+        @include sm {
+            height: 400px
+        }
+
+        @include md {
+            height: 500px;
+        }
+
+        &--1 {
+            background-image: url(../static/bg-07.jpg);
+        }
+
+        &--2 {
+            background-image: url(../static/bg-08.jpg);
+        }
+
+        &--3 {
+            background-image: url(../static/bg-09.jpg);
         }
     }
 }
