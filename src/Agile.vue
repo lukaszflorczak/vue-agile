@@ -68,14 +68,14 @@
                 default: true
             },
 
-            timing: {
-                type: String,
-                default: 'ease' // linear, ease-in, ease-out, ease-in-out
-            },
-
             speed: {
                 type: Number,
                 default: 300
+            },
+
+            timing: {
+                type: String,
+                default: 'ease' // linear, ease-in, ease-out, ease-in-out
             }
         },
 
@@ -89,7 +89,8 @@
                 },
                 arrow: '<svg version="1.1" id="arrow-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 240.823 240.823" style="enable-background:new 0 0 240.823 240.823;" xml:space="preserve"><g><path id="arrow" d="M183.189,111.816L74.892,3.555c-4.752-4.74-12.451-4.74-17.215,0c-4.752,4.74-4.752,12.439,0,17.179 l99.707,99.671l-99.695,99.671c-4.752,4.74-4.752,12.439,0,17.191c4.752,4.74,12.463,4.74,17.215,0l108.297-108.261 C187.881,124.315,187.881,116.495,183.189,111.816z"/></g></svg>',
                 slidesCount: 0,
-                interval: null,
+                autoplayInterval: null,
+                autoplayTimeout: null,
                 allSlidesCount: 0,
                 currentSlide: 0,
                 mouseDown: false,
@@ -250,16 +251,25 @@
             },
 
             startAutoplay () {
-                this.interval = setInterval(() => {
+                this.autoplayInterval = setInterval(() => {
                     this.nextSlide()
                 }, this.autoplaySpeed)
             },
 
             stopAutoplay () {
-                clearInterval(this.interval)
+                clearInterval(this.autoplayInterval)
             },
 
-            setSlide (n, transition = true) {
+            setSlide (n, transition = true, autoplayTimeout = true) {
+                // Pause autoplay when slide is changing and rerun
+                if (this.autoplay && autoplayTimeout) {
+                    this.stopAutoplay()
+
+                    this.autoplayTimeout = setTimeout(() => {
+                        this.startAutoplay()
+                    }, this.speed)
+                }
+
                 if (this.fade) {
                     // Disable transition for initial slide
                     if (transition === false) {
@@ -350,7 +360,7 @@
 
                 // Prepare track
                 this.width.track = this.width.container * this.allSlidesCount
-                this.setSlide(this.currentSlide, false)
+                this.setSlide(this.currentSlide, false, false)
             },
 
             dragDistance () {
