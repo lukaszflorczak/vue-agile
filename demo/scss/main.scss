@@ -168,8 +168,12 @@ h1, h2, h3 {
 
 pre[class*=language-] {
     border-radius: 0;
-    height: 200px;
+    max-height: 200px;
     overflow-y: auto;
+
+    @include lg {
+        height: 200px;
+    }
 }
 
 .code {
