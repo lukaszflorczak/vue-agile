@@ -2,7 +2,7 @@
     <div class="agile" :class="{'agile--fade': fade}">
         <div class="agile__list">
             <div class="agile__track"
-                 :style="{width: width.track + 'px', transform: 'translate(-' + transform + 'px)', transition: 'translate ' + timing + ' ' + transitionDelay + 'ms'}">
+                 :style="{width: width.track + 'px', transform: 'translate(-' + transform + 'px)', transition: 'transform ' + timing + ' ' + transitionDelay + 'ms'}">
                 <slot></slot>
             </div>
 
@@ -115,11 +115,17 @@
                 this.infinite = true
             }
 
+            if (this.pauseOnDotsHover) {
+                this.dots = true
+            }
+
             // Prepare list
             this.el.list = this.$el.getElementsByClassName('agile__list')[0]
 
             // Prepare dots
-            this.el.dots = this.$el.getElementsByClassName('agile__dots')[0].children
+            if (this.dots) {
+                this.el.dots = this.$el.getElementsByClassName('agile__dots')[0].children
+            }
 
             // Prepare slides
             this.el.slides = this.$el.getElementsByClassName('agile__track')[0].children
