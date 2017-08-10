@@ -2,7 +2,7 @@
     <div class="agile" :class="{'agile--fade': fade}">
         <div class="agile__list">
             <div class="agile__track"
-                 :style="{width: width.track + 'px', transform: 'translate(-' + transform + 'px)', transition: 'translate ' + timing + ' ' + transitionDelay + 'ms'}">
+                 :style="{width: width.track + 'px', transform: 'translate(-' + transform + 'px)', transition: 'transform ' + timing + ' ' + transitionDelay + 'ms'}">
                 <slot></slot>
             </div>
 
@@ -68,14 +68,14 @@
                 default: true
             },
 
-            timing: {
-                type: String,
-                default: 'ease' // linear, ease-in, ease-out, ease-in-out
-            },
-
             speed: {
                 type: Number,
                 default: 300
+            },
+
+            timing: {
+                type: String,
+                default: 'ease' // linear, ease-in, ease-out, ease-in-out
             }
         },
 
@@ -89,11 +89,12 @@
                 },
                 arrow: '<svg version="1.1" id="arrow-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 240.823 240.823" style="enable-background:new 0 0 240.823 240.823;" xml:space="preserve"><g><path id="arrow" d="M183.189,111.816L74.892,3.555c-4.752-4.74-12.451-4.74-17.215,0c-4.752,4.74-4.752,12.439,0,17.179 l99.707,99.671l-99.695,99.671c-4.752,4.74-4.752,12.439,0,17.191c4.752,4.74,12.463,4.74,17.215,0l108.297-108.261 C187.881,124.315,187.881,116.495,183.189,111.816z"/></g></svg>',
                 slidesCount: 0,
-                interval: null,
+                autoplayTimeout: null,
                 allSlidesCount: 0,
                 currentSlide: 0,
                 mouseDown: false,
                 dragStartX: 0,
+                dragStaryY: 0,
                 dragDistance: 0,
                 swipeDistance: 50,
                 transform: 0,
@@ -109,11 +110,22 @@
         },
 
         mounted () {
+            // Protection against contradictory settings
+            if (this.autoplay) {
+                this.infinite = true
+            }
+
+            if (this.pauseOnDotsHover) {
+                this.dots = true
+            }
+
             // Prepare list
             this.el.list = this.$el.getElementsByClassName('agile__list')[0]
 
             // Prepare dots
-            this.el.dots = this.$el.getElementsByClassName('agile__dots')[0].children
+            if (this.dots) {
+                this.el.dots = this.$el.getElementsByClassName('agile__dots')[0].children
+            }
 
             // Prepare slides
             this.el.slides = this.$el.getElementsByClassName('agile__track')[0].children
@@ -234,15 +246,37 @@
 
                 this.mouseDown = true
                 this.dragStartX = ('ontouchstart' in window) ? e.touches[0].clientX : e.clientX
+                this.dragStartY = ('ontouchstart' in window) ? e.touches[0].clientY : e.clientY
             },
 
             handleMouseMove (e) {
                 let positionX = ('ontouchstart' in window) ? e.touches[0].clientX : e.clientX
-                this.dragDistance = (positionX - this.dragStartX)
+                let positionY = ('ontouchstart' in window) ? e.touches[0].clientY : e.clientY
+
+                let dragDistanceX = Math.abs(positionX - this.dragStartX)
+                let dragDistanceY = Math.abs(positionY - this.dragStartY)
+
+                if (dragDistanceX > 3 * dragDistanceY) {
+                    this.dragDistance = positionX - this.dragStartX
+                    this.disableScroll()
+                }
             },
 
             handleMouseUp () {
                 this.mouseDown = false
+                this.enableScroll()
+            },
+
+            disableScroll () {
+                document.ontouchmove = function (e) {
+                    e.preventDefault()
+                }
+            },
+
+            enableScroll () {
+                document.ontouchmove = function (e) {
+                    return true
+                }
             },
 
             addActiveClass (i) {
@@ -250,16 +284,22 @@
             },
 
             startAutoplay () {
-                this.interval = setInterval(() => {
+                this.autoplayTimeout = setTimeout(() => {
                     this.nextSlide()
                 }, this.autoplaySpeed)
             },
 
             stopAutoplay () {
-                clearInterval(this.interval)
+                clearTimeout(this.autoplayTimeout)
             },
 
-            setSlide (n, transition = true) {
+            setSlide (n, transition = true, autoplayTimeout = true) {
+                // Reset autoplay timeout and set new
+                if (this.autoplay && autoplayTimeout) {
+                    this.stopAutoplay()
+                    this.startAutoplay()
+                }
+
                 if (this.fade) {
                     // Disable transition for initial slide
                     if (transition === false) {
@@ -350,7 +390,7 @@
 
                 // Prepare track
                 this.width.track = this.width.container * this.allSlidesCount
-                this.setSlide(this.currentSlide, false)
+                this.setSlide(this.currentSlide, false, false)
             },
 
             dragDistance () {
