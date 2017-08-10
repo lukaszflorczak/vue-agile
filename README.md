@@ -1,9 +1,11 @@
 # vue-agile
 
 > Carousel component for Vue.js inspired by [Slick](https://github.com/kenwheeler/slick/).<br>
-> Simple, touch-friendly, written in Vue and Vanilla JS (without jQuery dependency).
+> ~~Simple~~ More powerfull with each version, touch-friendly, written in Vue and Vanilla JS (without jQuery dependency).
 
 **[Demo & examples](https://lukaszflorczak.github.io/vue-agile/)**
+
+🤝 Thanks to [Maciej Wach](https://github.com/wachu91) for inventing the name, testing and motivation.
 
 ## Installation
 
