@@ -1,23 +1,23 @@
 <template>
-    <div class="agile" :class="{'agile--fade': fade}">
+    <div class="agile" :class="{'agile--fade': fade_}">
         <div class="agile__list">
             <div class="agile__track"
-                 :style="{width: width.track + 'px', transform: 'translate(-' + transform + 'px)', transition: 'transform ' + timing + ' ' + transitionDelay + 'ms'}">
+                 :style="{width: width.track + 'px', transform: 'translate(-' + transform + 'px)', transition: 'transform ' + timing_ + ' ' + transitionDelay + 'ms'}">
                 <slot></slot>
             </div>
 
-            <ul v-if="dots" class="agile__dots">
+            <ul v-if="dots_" class="agile__dots">
                 <li v-for="n in slidesCount" class="agile__dot"
                     :class="{'agile__dot--current': n - 1 === currentSlide}">
                     <button @click="setSlide(n - 1)">{{n}}</button>
                 </li>
             </ul>
 
-            <button v-if="arrows" class="agile__arrow agile__arrow--prev"
-                    :disabled="currentSlide === 0 && !infinite" @click="prevSlide" v-html="arrow">
+            <button v-if="arrows_" class="agile__arrow agile__arrow--prev"
+                    :disabled="currentSlide === 0 && !infinite_" @click="prevSlide" v-html="arrow_">
             </button>
-            <button v-if="arrows" class="agile__arrow agile__arrow--next"
-                    :disabled="currentSlide === slidesCount - 1 && !infinite" @click="nextSlide" v-html="arrow">
+            <button v-if="arrows_" class="agile__arrow agile__arrow--next"
+                    :disabled="currentSlide === slidesCount - 1 && !infinite_" @click="nextSlide" v-html="arrow_">
             </button>
         </div>
     </div>
@@ -28,6 +28,11 @@
         name: 'agile',
 
         props: {
+            arrow: {
+                type: String,
+                default: '<svg version="1.1" id="arrow-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 240.823 240.823" style="enable-background:new 0 0 240.823 240.823;" xml:space="preserve"><g><path id="arrow" d="M183.189,111.816L74.892,3.555c-4.752-4.74-12.451-4.74-17.215,0c-4.752,4.74-4.752,12.439,0,17.179 l99.707,99.671l-99.695,99.671c-4.752,4.74-4.752,12.439,0,17.191c4.752,4.74,12.463,4.74,17.215,0l108.297-108.261 C187.881,124.315,187.881,116.495,183.189,111.816z"/></g></svg>'
+            },
+
             arrows: {
                 type: Boolean,
                 default: true
@@ -87,7 +92,6 @@
                     track: null,
                     slides: null
                 },
-                arrow: '<svg version="1.1" id="arrow-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 240.823 240.823" style="enable-background:new 0 0 240.823 240.823;" xml:space="preserve"><g><path id="arrow" d="M183.189,111.816L74.892,3.555c-4.752-4.74-12.451-4.74-17.215,0c-4.752,4.74-4.752,12.439,0,17.179 l99.707,99.671l-99.695,99.671c-4.752,4.74-4.752,12.439,0,17.191c4.752,4.74,12.463,4.74,17.215,0l108.297-108.261 C187.881,124.315,187.881,116.495,183.189,111.816z"/></g></svg>',
                 slidesCount: 0,
                 autoplayTimeout: null,
                 allSlidesCount: 0,
@@ -105,25 +109,36 @@
                     slide: 0,
                     track: 0
                 },
-                slidesToShow: 1
+                slidesToShow: 1,
+                arrow_: this.arrow,
+                arrows_: this.arrows,
+                autoplay_: this.autoplay,
+                autoplaySpeed_: this.autoplaySpeed,
+                dots_: this.dots,
+                fade_: this.fade,
+                infinite_: this.infinite,
+                pauseOnDotsHover_: this.pauseOnDotsHover,
+                pauseOnHover_: this.pauseOnHover,
+                speed_: this.speed,
+                timing_: this.timing
             }
         },
 
         mounted () {
             // Protection against contradictory settings
-            if (this.autoplay) {
-                this.infinite = true
+            if (this.autoplay_) {
+                this.infinite_ = true
             }
 
-            if (this.pauseOnDotsHover) {
-                this.dots = true
+            if (this.pauseOnDotsHover_) {
+                this.dots_ = true
             }
 
             // Prepare list
             this.el.list = this.$el.getElementsByClassName('agile__list')[0]
 
             // Prepare dots
-            if (this.dots) {
+            if (this.dots_) {
                 this.el.dots = this.$el.getElementsByClassName('agile__dots')[0].children
             }
 
@@ -131,7 +146,7 @@
             this.el.slides = this.$el.getElementsByClassName('agile__track')[0].children
             this.slidesCount = this.el.slides.length
 
-            if (this.infinite && !this.fade) {
+            if (this.infinite_ && !this.fade_) {
                 this.allSlidesCount = this.slidesCount + 2
             } else {
                 this.allSlidesCount = this.slidesCount
@@ -141,7 +156,7 @@
                 this.el.slides[i].classList.add('agile__slide')
 
                 // Prepare slides for fade mode
-                if (this.fade) {
+                if (this.fade_) {
                     this.el.slides[i].style.transition = 'opacity ' + this.timing + ' ' + this.speed + 'ms'
                 }
             }
@@ -150,7 +165,7 @@
             this.el.track = this.$el.getElementsByClassName('agile__track')[0]
 
             // Prepare infinity mode
-            if (this.infinite && !this.fade) {
+            if (this.infinite_ && !this.fade_) {
                 let firstSlide = this.el.track.firstChild.cloneNode(true)
                 let lastSlide = this.el.track.lastChild.cloneNode(true)
 
@@ -162,7 +177,7 @@
             }
 
             // Prepare autoplay
-            if (this.autoplay) {
+            if (this.autoplay_) {
                 this.startAutoplay()
             }
 
@@ -186,13 +201,13 @@
                 }
 
                 // Autoplay
-                if (this.autoplay) {
-                    if (this.pauseOnHover) {
+                if (this.autoplay_) {
+                    if (this.pauseOnHover_) {
                         this.el.track.addEventListener('mouseover', this.stopAutoplay)
                         this.el.track.addEventListener('mouseout', this.startAutoplay)
                     }
 
-                    if (this.pauseOnDotsHover) {
+                    if (this.pauseOnDotsHover_) {
                         for (let i = 0; i < this.slidesCount; ++i) {
                             this.el.dots[i].addEventListener('mouseover', this.stopAutoplay)
                             this.el.dots[i].addEventListener('mouseout', this.startAutoplay)
@@ -215,13 +230,13 @@
                 this.el.track.removeEventListener('mousemove')
             }
 
-            if (this.autoplay) {
-                if (this.pauseOnHover) {
+            if (this.autoplay_) {
+                if (this.pauseOnHover_) {
                     this.el.track.removeEventListener('mouseover')
                     this.el.track.removeEventListener('mouseout')
                 }
 
-                if (this.pauseOnDotsHover) {
+                if (this.pauseOnDotsHover_) {
                     for (let i = 0; i < this.slidesCount; ++i) {
                         this.el.dots[i].removeEventListener('mouseover')
                         this.el.dots[i].removeEventListener('mouseout')
@@ -295,12 +310,12 @@
 
             setSlide (n, transition = true, autoplayTimeout = true) {
                 // Reset autoplay timeout and set new
-                if (this.autoplay && autoplayTimeout) {
+                if (this.autoplay_ && autoplayTimeout) {
                     this.stopAutoplay()
                     this.startAutoplay()
                 }
 
-                if (this.fade) {
+                if (this.fade_) {
                     // Disable transition for initial slide
                     if (transition === false) {
                         this.el.slides[n].style.transition = '0ms'
@@ -314,7 +329,7 @@
                         this.el.slides[i].classList.remove('agile__slide--expiring')
                     }
 
-                    if (this.infinite && n < 0) {
+                    if (this.infinite_ && n < 0) {
                         n = this.slidesCount - 1
                     } else if (n >= this.slidesCount) {
                         n = 0
@@ -326,7 +341,7 @@
 
                     setTimeout(() => {
                         this.el.slides[e].classList.remove('agile__slide--expiring')
-                    }, this.speed)
+                    }, this.speed_)
 
                     this.transform = 0
                 } else {
@@ -337,7 +352,7 @@
                     this.el.slides[i].classList.remove('agile__slide--active')
                 }
 
-                if (this.infinite && !this.fade) {
+                if (this.infinite_ && !this.fade_) {
                     this.transform += this.width.slide
                     this.addActiveClass(n + 1)
                 } else {
@@ -350,18 +365,18 @@
                     this.transitionDelay = this.speed
                 }
 
-                if (this.infinite && n < 0) {
+                if (this.infinite_ && n < 0) {
                     this.currentSlide = this.slidesCount - 1
 
                     setTimeout(() => {
                         this.setSlide(this.slidesCount - 1, false)
                     }, this.speed)
-                } else if (this.infinite && n >= this.slidesCount) {
+                } else if (this.infinite_ && n >= this.slidesCount) {
                     this.currentSlide = 0
 
                     setTimeout(() => {
                         this.setSlide(0, false)
-                    }, this.speed)
+                    }, this.speed_)
                 } else {
                     this.currentSlide = n
                 }
@@ -383,7 +398,7 @@
                     this.el.slides[i].style.width = this.width.container + 'px'
 
                     // Prepare slides for fade mode
-                    if (this.fade) {
+                    if (this.fade_) {
                         this.el.slides[i].style.transform = 'translate(-' + i * this.width.slide + 'px)'
                     }
                 }
@@ -399,7 +414,7 @@
                 }
 
                 if (this.dragDistance > this.swipeDistance) {
-                    if (!this.infinite && this.currentSlide === 0) {
+                    if (!this.infinite_ && this.currentSlide === 0) {
                         return
                     }
 
@@ -408,7 +423,7 @@
                 }
 
                 if (this.dragDistance < -1 * this.swipeDistance) {
-                    if (!this.infinite && this.currentSlide === this.slidesCount - 1) {
+                    if (!this.infinite_ && this.currentSlide === this.slidesCount - 1) {
                         return
                     }
 
