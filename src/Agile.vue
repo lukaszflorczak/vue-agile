@@ -63,6 +63,13 @@
                 default: true
             },
 
+            options: {
+                type: Object,
+                default: function () {
+                    return null
+                }
+            },
+
             pauseOnDotsHover: {
                 type: Boolean,
                 default: false
@@ -125,6 +132,13 @@
         },
 
         mounted () {
+            // Read settings from options object
+            if (this.options) {
+                for (let key in this.options) {
+                    this[key + '_'] = this.options[key]
+                }
+            }
+
             // Protection against contradictory settings
             if (this.autoplay_) {
                 this.infinite_ = true
