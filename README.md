@@ -84,6 +84,7 @@ Vue.component('agile', VueAgile)
 
 ```js
 // nuxt.config.js
+
 module.exports = {
     plugins: [
         { src: '~/plugins/vue-agile', ssr: false }
