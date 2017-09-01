@@ -1,7 +1,7 @@
 # vue-agile
 
 > Carousel component for Vue.js inspired by [Slick](https://github.com/kenwheeler/slick/).<br>
-> ~~Simple~~ More powerfull with each version, touch-friendly, written in Vue and Vanilla JS (without jQuery dependency).
+> More powerfull with each version, touch-friendly, written in Vue and Vanilla JS (without jQuery dependency).
 
 **[Demo & examples](https://lukaszflorczak.github.io/vue-agile/)**
 
@@ -67,6 +67,40 @@ Every first-level child of `<agile>` is a new slide.
     ...
 </agile>
 ```
+
+## SSR Support
+
+The component uses browser specific attributes (like `window` and `document`). It is necessary, so probably the only option is to run vue-agile only on the client-side. It was tested on [nuxt v1.0.0-rc7](https://github.com/nuxt/nuxt.js/releases/tag/v1.0.0-rc7) and works fine.
+ 
+### Example
+```js
+// plugins/vue-agile.js
+
+import Vue from 'vue'
+import VueAgile from 'vue-agile'
+
+Vue.component('agile', VueAgile)
+```
+
+```js
+// nuxt.config.js
+
+module.exports = {
+    plugins: [
+        { src: '~/plugins/vue-agile', ssr: false }
+    ]
+}
+```
+
+```vue
+<no-ssr placeholder="Loading...">
+    <agile>
+        ... 
+    </agile>
+</no-ssr>
+```
+
+PS. If you know a better way to work the component with SSR please, [let me know about it](https://github.com/lukaszflorczak/vue-agile/issues).
 
 ## Contributing
 ```

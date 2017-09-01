@@ -195,65 +195,62 @@
                 this.startAutoplay()
             }
 
-            // Listeners
-            this.$nextTick(function () {
-                // Windows resize listener
-                window.addEventListener('resize', this.getWidth)
+            // Windows resize listener
+            window.addEventListener('resize', this.getWidth)
 
-                // Get width on start
-                this.getWidth()
+            // Get width on start
+            this.getWidth()
 
-                // Mouse and touch events
-                if ('ontouchstart' in window) {
-                    this.el.track.addEventListener('touchstart', this.handleMouseDown)
-                    this.el.track.addEventListener('touchend', this.handleMouseUp)
-                    this.el.track.addEventListener('touchmove', this.handleMouseMove)
-                } else {
-                    this.el.track.addEventListener('mousedown', this.handleMouseDown)
-                    this.el.track.addEventListener('mouseup', this.handleMouseUp)
-                    this.el.track.addEventListener('mousemove', this.handleMouseMove)
+            // Mouse and touch events
+            if ('ontouchstart' in window) {
+                this.el.track.addEventListener('touchstart', this.handleMouseDown)
+                this.el.track.addEventListener('touchend', this.handleMouseUp)
+                this.el.track.addEventListener('touchmove', this.handleMouseMove)
+            } else {
+                this.el.track.addEventListener('mousedown', this.handleMouseDown)
+                this.el.track.addEventListener('mouseup', this.handleMouseUp)
+                this.el.track.addEventListener('mousemove', this.handleMouseMove)
+            }
+
+            // Autoplay
+            if (this.autoplay_) {
+                if (this.pauseOnHover_) {
+                    this.el.track.addEventListener('mouseover', this.stopAutoplay)
+                    this.el.track.addEventListener('mouseout', this.startAutoplay)
                 }
 
-                // Autoplay
-                if (this.autoplay_) {
-                    if (this.pauseOnHover_) {
-                        this.el.track.addEventListener('mouseover', this.stopAutoplay)
-                        this.el.track.addEventListener('mouseout', this.startAutoplay)
-                    }
-
-                    if (this.pauseOnDotsHover_) {
-                        for (let i = 0; i < this.slidesCount; ++i) {
-                            this.el.dots[i].addEventListener('mouseover', this.stopAutoplay)
-                            this.el.dots[i].addEventListener('mouseout', this.startAutoplay)
-                        }
+                if (this.pauseOnDotsHover_) {
+                    for (let i = 0; i < this.slidesCount; ++i) {
+                        this.el.dots[i].addEventListener('mouseover', this.stopAutoplay)
+                        this.el.dots[i].addEventListener('mouseout', this.startAutoplay)
                     }
                 }
-            })
+            }
         },
 
         beforeDestroy () {
             window.removeEventListener('resize', this.getWidth)
 
             if ('ontouchstart' in window) {
-                this.el.track.removeEventListener('touchstart')
-                this.el.track.removeEventListener('touchend')
-                this.el.track.removeEventListener('touchmove')
+                this.el.track.removeEventListener('touchstart', this.handleMouseDown)
+                this.el.track.removeEventListener('touchend', this.handleMouseUp)
+                this.el.track.removeEventListener('touchmove', this.handleMouseMove)
             } else {
-                this.el.track.removeEventListener('mousedown')
-                this.el.track.removeEventListener('mouseup')
-                this.el.track.removeEventListener('mousemove')
+                this.el.track.removeEventListener('mousedown', this.handleMouseDown)
+                this.el.track.removeEventListener('mouseup', this.handleMouseUp)
+                this.el.track.removeEventListener('mousemove', this.handleMouseMove)
             }
 
             if (this.autoplay_) {
                 if (this.pauseOnHover_) {
-                    this.el.track.removeEventListener('mouseover')
-                    this.el.track.removeEventListener('mouseout')
+                    this.el.track.removeEventListener('mouseover', this.stopAutoplay)
+                    this.el.track.removeEventListener('mouseout', this.startAutoplay)
                 }
 
                 if (this.pauseOnDotsHover_) {
                     for (let i = 0; i < this.slidesCount; ++i) {
-                        this.el.dots[i].removeEventListener('mouseover')
-                        this.el.dots[i].removeEventListener('mouseout')
+                        this.el.dots[i].removeEventListener('mouseover', this.stopAutoplay)
+                        this.el.dots[i].removeEventListener('mouseout', this.startAutoplay)
                     }
                 }
             }
