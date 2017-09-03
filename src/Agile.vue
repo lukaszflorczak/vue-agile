@@ -188,12 +188,6 @@
             this.el.slides = this.$el.getElementsByClassName('agile__track')[0].children
             this.slidesCount = this.el.slides.length
 
-            if (this.settings.infinite && !this.settings.fade) {
-                this.allSlidesCount = this.slidesCount + 2
-            } else {
-                this.allSlidesCount = this.slidesCount
-            }
-
             for (let i = 0; i < this.slidesCount; ++i) {
                 this.el.slides[i].classList.add('agile__slide')
 
@@ -205,18 +199,6 @@
 
             // Prepare track
             this.el.track = this.$el.getElementsByClassName('agile__track')[0]
-
-            // Prepare infinity mode
-            if (this.settings.infinite && !this.settings.fade) {
-                let firstSlide = this.el.track.firstChild.cloneNode(true)
-                let lastSlide = this.el.track.lastChild.cloneNode(true)
-
-                firstSlide.classList.add('agile__slide--cloned')
-                lastSlide.classList.add('agile__slide--cloned')
-
-                this.el.track.prepend(lastSlide)
-                this.el.track.append(firstSlide)
-            }
 
             // Prepare autoplay
             if (this.settings.autoplay) {
@@ -329,6 +311,39 @@
             handleMouseUp () {
                 this.mouseDown = false
                 this.enableScroll()
+            },
+
+            enableInfiniteMode () {
+                if (!this.settings.fade && !this.el.list.getElementsByClassName('agile__slide--cloned')[0]) {
+                    let firstSlide = this.el.track.firstChild.cloneNode(true)
+                    let lastSlide = this.el.track.lastChild.cloneNode(true)
+
+                    firstSlide.classList.add('agile__slide--cloned')
+                    lastSlide.classList.add('agile__slide--cloned')
+
+                    this.el.track.prepend(lastSlide)
+                    this.el.track.append(firstSlide)
+                }
+
+                this.countSlides()
+            },
+
+            disableInfiniteMode () {
+                let clonedSlides = this.el.list.getElementsByClassName('agile__slide--cloned')
+
+                while (clonedSlides[0]) {
+                    clonedSlides[0].parentNode.removeChild(clonedSlides[0])
+                }
+
+                this.countSlides()
+            },
+
+            countSlides () {
+                if (this.settings.infinite && !this.settings.fade) {
+                    this.allSlidesCount = this.slidesCount + 2
+                } else {
+                    this.allSlidesCount = this.slidesCount
+                }
             },
 
             disableScroll () {
@@ -464,6 +479,13 @@
                     })
 
                     Object.assign(this.settings, responsiveSettings)
+                }
+
+                // Check infinity mode status and enable/disable
+                if (this.settings.infinite) {
+                    this.enableInfiniteMode()
+                } else {
+                    this.disableInfiniteMode()
                 }
 
                 // Actions on document resize
