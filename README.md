@@ -55,8 +55,11 @@ Every first-level child of `<agile>` is a new slide.
 | dots | boolean | `true` | Enable dot indicators/pagination |
 | fade | boolean | `false` | Enable fade effect |
 | infinite | boolen | `true` | Infinite loop sliding | 
+| mobileFirst | boolean | `true` | Enable mobile first calculation for responsive settings |
+| options | object | `null` | All settings as object | 
 | pauseOnHover | boolean | `true` | Pause autoplay when a slide is hovered |
 | pauseOnDotsHover | boolean | `false` | Pause autoplay when a dot is hovered |
+| responsive | object | `null` | Object containing breakpoints and settings objects | 
 | speed | integer (ms) | `300` | Slide animation speed in milliseconds | 
 | timing | string | `ease` | Transition timing function <br> (`linear`/`ease`/`ease-in`/`ease-out`/`ease-in-out`) |
 
@@ -66,6 +69,46 @@ Every first-level child of `<agile>` is a new slide.
 <agile :arrows="false" :dots="false" :infinite="false">
     ...
 </agile>
+```
+
+## Responsive
+
+To use a responsive, I recommend passing settings in options object.
+
+### Example
+
+``` vue
+<agile :options="options">
+    ...
+</agile>
+```
+
+``` js
+data () {
+    return {
+        options: {
+            arrows: false,
+            
+            responsive: [
+                {
+                    breakpoint: 600,
+                    settings: {
+                        dots: false
+                    }
+                },
+                
+                {
+                    breakpoint: 900,
+                    settings: {
+                        arrows: true,
+                        dots: true,
+                        infinite: false
+                    }
+                }
+            ]
+        }
+    }
+}
 ```
 
 ## SSR Support
