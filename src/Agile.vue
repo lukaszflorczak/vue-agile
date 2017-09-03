@@ -200,11 +200,6 @@
             // Prepare track
             this.el.track = this.$el.getElementsByClassName('agile__track')[0]
 
-            // Prepare autoplay
-            if (this.settings.autoplay) {
-                this.startAutoplay()
-            }
-
             // Windows resize listener
             window.addEventListener('resize', this.getWidth)
 
@@ -221,21 +216,6 @@
                 this.el.track.addEventListener('mouseup', this.handleMouseUp)
                 this.el.track.addEventListener('mousemove', this.handleMouseMove)
             }
-
-            // Autoplay
-            if (this.settings.autoplay) {
-                if (this.settings.pauseOnHover) {
-                    this.el.track.addEventListener('mouseover', this.stopAutoplay)
-                    this.el.track.addEventListener('mouseout', this.startAutoplay)
-                }
-
-                if (this.settings.pauseOnDotsHover) {
-                    for (let i = 0; i < this.slidesCount; ++i) {
-                        this.el.dots[i].addEventListener('mouseover', this.stopAutoplay)
-                        this.el.dots[i].addEventListener('mouseout', this.startAutoplay)
-                    }
-                }
-            }
         },
 
         beforeDestroy () {
@@ -251,19 +231,7 @@
                 this.el.track.removeEventListener('mousemove', this.handleMouseMove)
             }
 
-            if (this.settings.autoplay) {
-                if (this.settings.pauseOnHover) {
-                    this.el.track.removeEventListener('mouseover', this.stopAutoplay)
-                    this.el.track.removeEventListener('mouseout', this.startAutoplay)
-                }
-
-                if (this.settings.pauseOnDotsHover) {
-                    for (let i = 0; i < this.slidesCount; ++i) {
-                        this.el.dots[i].removeEventListener('mouseover', this.stopAutoplay)
-                        this.el.dots[i].removeEventListener('mouseout', this.startAutoplay)
-                    }
-                }
-            }
+            this.disableAutoplayMode()
         },
 
         methods: {
@@ -336,6 +304,39 @@
                 }
 
                 this.countSlides()
+            },
+
+            enableAutoplayMode () {
+                // Autoplay
+                if (this.settings.autoplay) {
+                    if (this.settings.pauseOnHover) {
+                        this.el.track.addEventListener('mouseover', this.stopAutoplay)
+                        this.el.track.addEventListener('mouseout', this.startAutoplay)
+                    }
+
+                    if (this.settings.pauseOnDotsHover) {
+                        for (let i = 0; i < this.slidesCount; ++i) {
+                            this.el.dots[i].addEventListener('mouseover', this.stopAutoplay)
+                            this.el.dots[i].addEventListener('mouseout', this.startAutoplay)
+                        }
+                    }
+                }
+            },
+
+            disableAutoplayMode () {
+                if (this.settings.autoplay) {
+                    if (this.settings.pauseOnHover) {
+                        this.el.track.removeEventListener('mouseover', this.stopAutoplay)
+                        this.el.track.removeEventListener('mouseout', this.startAutoplay)
+                    }
+
+                    if (this.settings.pauseOnDotsHover) {
+                        for (let i = 0; i < this.slidesCount; ++i) {
+                            this.el.dots[i].removeEventListener('mouseover', this.stopAutoplay)
+                            this.el.dots[i].removeEventListener('mouseout', this.startAutoplay)
+                        }
+                    }
+                }
             },
 
             countSlides () {
@@ -486,6 +487,15 @@
                     this.enableInfiniteMode()
                 } else {
                     this.disableInfiniteMode()
+                }
+
+                // Check autoplay mode status and enable/disable
+                if (this.settings.autoplay) {
+                    this.enableAutoplayMode()
+                    this.startAutoplay()
+                } else {
+                    this.stopAutoplay()
+                    this.disableAutoplayMode()
                 }
 
                 // Actions on document resize
