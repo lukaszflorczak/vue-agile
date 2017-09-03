@@ -113,6 +113,7 @@
                     slides: null
                 },
                 slidesCount: 0,
+                autoplayStatus: false,
                 autoplayTimeout: null,
                 allSlidesCount: 0,
                 currentSlide: 0,
@@ -164,15 +165,6 @@
 
             // Set first load settings
             Object.assign(this.settings, this.defaultSettings)
-
-            // Protection against contradictory settings
-            if (this.settings.autoplay) {
-                this.settings.infinite = true
-            }
-
-            if (this.settings.pauseOnDotsHover) {
-                this.settings.dots = true
-            }
         },
 
         mounted () {
@@ -307,36 +299,47 @@
             },
 
             enableAutoplayMode () {
-                // Autoplay
+                // Protection against contradictory settings
                 if (this.settings.autoplay) {
-                    if (this.settings.pauseOnHover) {
-                        this.el.track.addEventListener('mouseover', this.stopAutoplay)
-                        this.el.track.addEventListener('mouseout', this.startAutoplay)
-                    }
+                    this.settings.infinite = true
+                }
 
-                    if (this.settings.pauseOnDotsHover) {
-                        for (let i = 0; i < this.slidesCount; ++i) {
-                            this.el.dots[i].addEventListener('mouseover', this.stopAutoplay)
-                            this.el.dots[i].addEventListener('mouseout', this.startAutoplay)
-                        }
+                if (this.settings.pauseOnDotsHover) {
+                    this.settings.dots = true
+                }
+
+                // Autoplay
+                if (this.settings.pauseOnHover) {
+                    this.el.track.addEventListener('mouseover', this.stopAutoplay)
+                    this.el.track.addEventListener('mouseout', this.startAutoplay)
+                }
+
+                if (this.settings.pauseOnDotsHover) {
+                    for (let i = 0; i < this.slidesCount; ++i) {
+                        this.el.dots[i].addEventListener('mouseover', this.stopAutoplay)
+                        this.el.dots[i].addEventListener('mouseout', this.startAutoplay)
                     }
                 }
+
+                this.autoplayStatus = true
+                this.startAutoplay()
             },
 
             disableAutoplayMode () {
-                if (this.settings.autoplay) {
-                    if (this.settings.pauseOnHover) {
-                        this.el.track.removeEventListener('mouseover', this.stopAutoplay)
-                        this.el.track.removeEventListener('mouseout', this.startAutoplay)
-                    }
+                if (this.settings.pauseOnHover) {
+                    this.el.track.removeEventListener('mouseover', this.stopAutoplay)
+                    this.el.track.removeEventListener('mouseout', this.startAutoplay)
+                }
 
-                    if (this.settings.pauseOnDotsHover) {
-                        for (let i = 0; i < this.slidesCount; ++i) {
-                            this.el.dots[i].removeEventListener('mouseover', this.stopAutoplay)
-                            this.el.dots[i].removeEventListener('mouseout', this.startAutoplay)
-                        }
+                if (this.settings.pauseOnDotsHover) {
+                    for (let i = 0; i < this.slidesCount; ++i) {
+                        this.el.dots[i].removeEventListener('mouseover', this.stopAutoplay)
+                        this.el.dots[i].removeEventListener('mouseout', this.startAutoplay)
                     }
                 }
+
+                this.autoplayStatus = false
+                this.stopAutoplay()
             },
 
             countSlides () {
@@ -365,6 +368,13 @@
 
             startAutoplay () {
                 this.autoplayTimeout = setTimeout(() => {
+                    if (!this.settings.autoplay) {
+                        this.stopAutoplay()
+                        this.disableAutoplayMode()
+                        this.autoplayStatus = false
+                        return false
+                    }
+
                     this.nextSlide()
                 }, this.autoplaySpeed)
             },
@@ -490,11 +500,11 @@
                 }
 
                 // Check autoplay mode status and enable/disable
-                if (this.settings.autoplay) {
+                if (this.settings.autoplay && !this.autoplayStatus) {
                     this.enableAutoplayMode()
-                    this.startAutoplay()
-                } else {
-                    this.stopAutoplay()
+                }
+
+                if (!this.settings.autoplay && this.autoplayStatus) {
                     this.disableAutoplayMode()
                 }
 
