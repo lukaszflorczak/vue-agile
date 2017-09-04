@@ -46,6 +46,7 @@
             })
         })
     })([Element.prototype, Document.prototype, DocumentFragment.prototype])
+
     export default {
         name: 'agile',
 
