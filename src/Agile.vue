@@ -172,8 +172,8 @@
                 firstSlide.classList.add('agile__slide--cloned')
                 lastSlide.classList.add('agile__slide--cloned')
 
-                this.el.track.prepend(lastSlide)
-                this.el.track.append(firstSlide)
+                this.el.track.insertBefore(lastSlide, this.el.slides[0])
+                this.el.track.insertBefore(firstSlide, this.el.slides[this.slidesCount].nextSibling)
             }
 
             // Prepare autoplay
