@@ -1,7 +1,7 @@
 # vue-agile
 
 > Carousel component for Vue.js inspired by [Slick](https://github.com/kenwheeler/slick/).<br>
-> More powerfull with each version, touch-friendly, written in Vue and Vanilla JS (without jQuery dependency).
+> More powerful with each version, touch-friendly, written in Vue and Vanilla JS (without jQuery dependency).
 
 **[Demo & examples](https://lukaszflorczak.github.io/vue-agile/)**
 
@@ -73,7 +73,7 @@ Every first-level child of `<agile>` is a new slide.
 
 ## Responsive
 
-To use a responsive, I recommend passing settings in options object.
+To customize responsiveness, I recommend defining desired breakpoint and passing a settings object with the options to modify inside **options**.
 
 ### Example
 
