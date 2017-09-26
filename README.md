@@ -109,7 +109,7 @@ The component uses browser specific attributes (like `window` and `document`). I
 import Vue from 'vue'
 import VueAgile from 'vue-agile'
 
-Vue.component('agile', VueAgile)
+Vue.use(VueAgile)
 ```
 
 ```js
