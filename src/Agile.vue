@@ -5,21 +5,21 @@
                  :style="{width: width.track + 'px', transform: 'translate(-' + transform + 'px)', transition: 'transform ' + timing_ + ' ' + transitionDelay + 'ms'}">
                 <slot></slot>
             </div>
-
-            <ul v-if="dots_" class="agile__dots">
-                <li v-for="n in slidesCount" class="agile__dot"
-                    :class="{'agile__dot--current': n - 1 === currentSlide}">
-                    <button @click="setSlide(n - 1)">{{n}}</button>
-                </li>
-            </ul>
-
-            <button v-if="arrows_" class="agile__arrow agile__arrow--prev"
-                    :disabled="currentSlide === 0 && !infinite_" @click="prevSlide" v-html="arrow_">
-            </button>
-            <button v-if="arrows_" class="agile__arrow agile__arrow--next"
-                    :disabled="currentSlide === slidesCount - 1 && !infinite_" @click="nextSlide" v-html="arrow_">
-            </button>
         </div>
+
+        <ul v-if="dots_" class="agile__dots">
+            <li v-for="n in slidesCount" class="agile__dot"
+                :class="{'agile__dot--current': n - 1 === currentSlide}">
+                <button @click="setSlide(n - 1)">{{n}}</button>
+            </li>
+        </ul>
+
+        <button v-if="arrows_" class="agile__arrow agile__arrow--prev"
+                :disabled="currentSlide === 0 && !infinite_" @click="prevSlide" v-html="prevArrow_">
+        </button>
+        <button v-if="arrows_" class="agile__arrow agile__arrow--next"
+                :disabled="currentSlide === slidesCount - 1 && !infinite_" @click="nextSlide" v-html="nextArrow_">
+        </button>
     </div>
 </template>
 
@@ -28,9 +28,14 @@
         name: 'agile',
 
         props: {
-            arrow: {
+            prevArrow: {
                 type: String,
-                default: '<svg version="1.1" id="arrow-svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 240.823 240.823" style="enable-background:new 0 0 240.823 240.823;" xml:space="preserve"><g><path id="arrow" d="M183.189,111.816L74.892,3.555c-4.752-4.74-12.451-4.74-17.215,0c-4.752,4.74-4.752,12.439,0,17.179 l99.707,99.671l-99.695,99.671c-4.752,4.74-4.752,12.439,0,17.191c4.752,4.74,12.463,4.74,17.215,0l108.297-108.261 C187.881,124.315,187.881,116.495,183.189,111.816z"/></g></svg>'
+                default: '<svg x="0px" y="0px" viewBox="0 0 24 24"><path d="M16.2,21c0.3,0,0.5-0.1,0.7-0.3c0.4-0.4,0.4-1,0-1.4L9.6,12L17,4.7c0.4-0.4,0.4-1,0-1.4c-0.4-0.4-1-0.4-1.4,0L6.8,12l8.8,8.7C15.7,20.9,16,21,16.2,21z"/></svg>'
+            },
+
+            nextArrow: {
+                type: String,
+                default: '<svg x="0px" y="0px" viewBox="0 0 24 24"><path d="M7.8,21c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l7.4-7.3L7,4.7c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l8.8,8.7l-8.8,8.7C8.3,20.9,8,21,7.8,21z"/></svg>'
             },
 
             arrows: {
@@ -110,7 +115,8 @@
                     track: 0
                 },
                 slidesToShow: 1,
-                arrow_: this.arrow,
+                prevArrow_: this.prevArrow,
+                nextArrow_: this.nextArrow,
                 arrows_: this.arrows,
                 autoplay_: this.autoplay,
                 autoplaySpeed_: this.autoplaySpeed,
@@ -479,7 +485,7 @@
 
         &__arrow {
             border: none;
-            bottom: 10px;
+            bottom: -10px;
             margin: 0;
             padding: 0;
             position: absolute;
@@ -491,26 +497,22 @@
             }
 
             &:hover {
-                #arrow-svg {
+                svg {
                     fill: #333;
                 }
             }
 
             &--prev {
                 left: 0;
-
-                #arrow-svg {
-                    transform: scale(-1, 1);
-                }
             }
 
             &--next {
                 right: 0;
             }
 
-            #arrow-svg {
+            svg {
                 fill: #888;
-                height: 20px;
+                height: 24px;
                 transition-duration: .3s;
             }
         }
