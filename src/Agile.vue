@@ -440,6 +440,8 @@
 
 <style lang="scss" type="text/scss">
     .agile {
+        position: relative;
+        
         &, * {
             &:focus,
             &:active {
