@@ -191,7 +191,7 @@
                                         &:hover {
                                             background-color: rgba(#000, .5);
 
-                                            #arrow-svg {
+                                            svg {
                                                 fill: #fff;
                                             }
                                         }
@@ -200,7 +200,7 @@
                                             display: none;
                                         }
 
-                                        #arrow-svg {
+                                        svg {
                                             fill: rgba(#fff, .4);
                                             height: 25px;
                                         }

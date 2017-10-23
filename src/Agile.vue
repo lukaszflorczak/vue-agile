@@ -14,11 +14,11 @@
             </ul>
 
             <button v-show="settings.arrows" class="agile__arrow agile__arrow--prev"
-                    :disabled="currentSlide === 0 && !settings.infinite" @click="prevSlide" v-html="settings.arrow">
+                    :disabled="currentSlide === 0 && !settings.infinite" @click="prevSlide" v-html="settings.prevArrow">
             </button>
             <button v-show="settings.arrows" class="agile__arrow agile__arrow--next"
                     :disabled="currentSlide === slidesCount - 1 && !settings.infinite" @click="nextSlide"
-                    v-html="settings.arrow">
+                    v-html="settings.nextArrow">
             </button>
         </div>
     </div>
@@ -547,6 +547,8 @@
 
 <style lang="scss" type="text/scss">
     .agile {
+        position: relative;
+
         &, * {
             &:focus,
             &:active {

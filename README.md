@@ -50,6 +50,8 @@ Every first-level child of `<agile>` is a new slide.
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
 | arrows | boolean | `true` | Enable prev/next arrows |
+| prevArrow | string (HTML/SVG) | `<svg>` | Prev arrow code – more in „Arrows” section |
+| nextArrow | string (HTML/SVG) | `<svg>` | Next arrow code – more in „Arrows” section |
 | autoplay | boolean | `false` | Enable autoplay |
 | autoplaySpeed | integer (ms) | `3000` | Autoplay interval in milliseconds | 
 | dots | boolean | `true` | Enable dot indicators/pagination |
@@ -122,7 +124,7 @@ The component uses browser specific attributes (like `window` and `document`). I
 import Vue from 'vue'
 import VueAgile from 'vue-agile'
 
-Vue.component('agile', VueAgile)
+Vue.use(VueAgile)
 ```
 
 ```js

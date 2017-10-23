@@ -298,7 +298,7 @@ pre[class*=language-] {
                     background-color: rgba(#000, .5);
                 }
 
-                #arrow-svg {
+                svg {
                     fill: #fff;
                 }
             }
@@ -307,7 +307,7 @@ pre[class*=language-] {
                 display: none;
             }
 
-            #arrow-svg {
+            svg {
                 fill: rgba(#fff, .4);
 
                 @include md {
