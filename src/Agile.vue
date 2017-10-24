@@ -3,11 +3,11 @@
         <div ref="list" class="agile__list">
             <div ref="track" class="agile__track"
                  :style="{width: width.track + 'px', transform: 'translate(-' + transform + 'px)', transition: 'transform ' + settings.timing + ' ' + transitionDelay + 'ms'}"
-                 @mouseover="mouseOver('track')" @mouseout="mouseOut('track')">
+                 @mouseover="handleMouseOver('track')" @mouseout="handleMouseOut('track')">
                 <slot></slot>
             </div>
 
-            <ul v-if="settings.dots && !settings.unagile" class="agile__dots">
+            <ul ref="dots" v-if="settings.dots && !settings.unagile" class="agile__dots">
                 <li v-for="n in slidesCount" class="agile__dot"
                     :class="{'agile__dot--current': n - 1 === currentSlide}"
                     @mouseover="mouseOver('dot')" @mouseout="mouseOut('dot')">
@@ -271,6 +271,18 @@
                 this.enableScroll()
             },
 
+            handleMouseOver (element) {
+                if ((element === 'dot' && this.settings.pauseOnDotsHover) || (element === 'track' && this.settings.pauseOnHover)) {
+                    this.disableAutoplayMode()
+                }
+            },
+
+            handleMouseOut (element) {
+                if ((element === 'dot' && this.settings.pauseOnDotsHover) || (element === 'track' && this.settings.pauseOnHover)) {
+                    this.enableAutoplayMode()
+                }
+            },
+
             enableInfiniteMode () {
                 if (!this.settings.fade && !this.$refs.list.getElementsByClassName('agile__slide--cloned')[0]) {
                     let firstSlide = this.$refs.track.firstChild.cloneNode(true)
@@ -310,18 +322,6 @@
             disableAutoplayMode () {
                 this.autoplayStatus = false
                 this.stopAutoplay()
-            },
-
-            mouseOver (element) {
-                if ((element === 'dot' && this.settings.pauseOnDotsHover) || (element === 'track' && this.settings.pauseOnHover)) {
-                    this.disableAutoplayMode()
-                }
-            },
-
-            mouseOut (element) {
-                if ((element === 'dot' && this.settings.pauseOnDotsHover) || (element === 'track' && this.settings.pauseOnHover)) {
-                    this.enableAutoplayMode()
-                }
             },
 
             countSlides () {
