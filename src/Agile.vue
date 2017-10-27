@@ -11,7 +11,7 @@
         <ul ref="dots" v-if="settings.dots && !settings.unagile" class="agile__dots">
             <li v-for="n in slidesCount" class="agile__dot"
                 :class="{'agile__dot--current': n - 1 === currentSlide}"
-                @mouseover="mouseOver('dot')" @mouseout="mouseOut('dot')">
+                @mouseover="handleMouseOver('dot')" @mouseout="handleMouseOut('dot')">
                 <button @click="setSlide(n - 1)">{{n}}</button>
             </li>
         </ul>
