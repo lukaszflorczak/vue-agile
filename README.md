@@ -145,6 +145,26 @@ export default {
     }
 }
 ```
+## `v-if` & `v-show`
+
+If you have dynamically loaded slides, use `v-if` to show carousel when slides will be ready. Using `v-if` is also recommended in other situations if you want to hide/show the slideshow.
+
+If for some reason you need to use `v-show`, it's also possible, but you have to use an additional parameter `show` with the same value as for the `v-show`.
+
+### Example
+``` html
+<button @click="toggleAgile()">Toggle carousel</button>
+
+<agile v-show="isActive" :show="isActive">
+    ...
+</agile>
+```
+
+``` js
+toggleAgile () {
+    this.isActive = !this.isActive
+}
+```
 
 ## SSR Support
 
