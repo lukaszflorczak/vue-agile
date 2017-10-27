@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
-                        <h1 class="section__title">Demo of <strong>vue-agile</strong><span class="badge">0.2</span></h1>
+                        <h1 class="section__title">Demo of <strong>vue-agile</strong><span class="badge">0.3</span></h1>
                         <p class="section__description">vue-agile is a carousel component for Vue.js inspired by Slick. Simple, touch-friendly, written in Vue and Vanilla JS (without jQuery dependency).</p>
 
                         <div class="gh-buttons visible-md">
@@ -39,7 +39,7 @@
 
                 <div class="row">
                     <div class="col-xs-12">
-                        <agile>
+                        <agile :options="options">
                             <div class="slide slide--1"><h3>slide 1</h3></div>
                             <div class="slide slide--2"><h3>slide 2</h3></div>
                             <div class="slide slide--3"><h3>slide 3</h3></div>
