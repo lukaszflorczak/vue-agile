@@ -102,6 +102,11 @@
                 }
             },
 
+            show: {
+                type: Boolean,
+                default: true
+            },
+
             speed: {
                 type: Number,
                 default: 300
@@ -450,17 +455,9 @@
 
             prevSlide () {
                 this.setSlide(this.currentSlide - 1)
-            }
-        },
+            },
 
-        computed: {
-            documentWidth: function () {
-                return this.width.document
-            }
-        },
-
-        watch: {
-            documentWidth () {
+            reload () {
                 // Responsive
                 if (this.defaultSettings.responsive) {
                     let responsiveSettings = {}
@@ -521,6 +518,25 @@
                     this.width.track = this.width.container * this.allSlidesCount
                     this.setSlide(this.currentSlide, false, false)
                 }
+            }
+        },
+
+        computed: {
+            documentWidth: function () {
+                return this.width.document
+            }
+        },
+
+        watch: {
+            show () {
+                console.log(this.show)
+
+                this.getWidth()
+                this.reload()
+            },
+
+            documentWidth () {
+                this.reload()
             },
 
             dragDistance () {
