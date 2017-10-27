@@ -1,11 +1,15 @@
 # vue-agile
 
 > Carousel component for Vue.js inspired by [Slick](https://github.com/kenwheeler/slick/).<br>
-> More powerfull with each version, touch-friendly, written in Vue and Vanilla JS (without jQuery dependency).
+> More powerful with each version, touch-friendly, written in Vue and Vanilla JS (without jQuery dependency).
 
 **[Demo & examples](https://lukaszflorczak.github.io/vue-agile/)**
 
 🤝 Thanks to [Maciej Wach](https://github.com/wachu91) for inventing the name, testing and motivation.
+
+## Important – update to version >= `0.3`
+
+**In version `0.3.0`, I removed all styles that are responsible for the appearance of navigation elements** (like dots color and shape, arrows position, etc.). I think most people use their own styles and default styles are completely redundant. If you want to check out these defaults styles, you can find them [here](https://github.com/lukaszflorczak/vue-agile/blob/master/src/Agile.vue#L488).
 
 ## Installation
 
@@ -56,11 +60,15 @@ Every first-level child of `<agile>` is a new slide.
 | autoplaySpeed | integer (ms) | `3000` | Autoplay interval in milliseconds | 
 | dots | boolean | `true` | Enable dot indicators/pagination |
 | fade | boolean | `false` | Enable fade effect |
-| infinite | boolen | `true` | Infinite loop sliding | 
+| infinite | boolean | `true` | Infinite loop sliding | 
+| mobileFirst | boolean | `true` | Enable mobile first calculation for responsive settings |
+| options | object | `null` | All settings as one object | 
 | pauseOnHover | boolean | `true` | Pause autoplay when a slide is hovered |
 | pauseOnDotsHover | boolean | `false` | Pause autoplay when a dot is hovered |
+| responsive | object | `null` | Object containing breakpoints and settings objects | 
 | speed | integer (ms) | `300` | Slide animation speed in milliseconds | 
 | timing | string | `ease` | Transition timing function <br> (`linear`/`ease`/`ease-in`/`ease-out`/`ease-in-out`) |
+| unagile | boolean | `false` | Disable agile carousel | 
 
 ### Example
 
@@ -68,6 +76,46 @@ Every first-level child of `<agile>` is a new slide.
 <agile :arrows="false" :dots="false" :infinite="false">
     ...
 </agile>
+```
+
+## Responsive
+
+To customize responsiveness, I recommend defining desired breakpoint and passing a settings object with the options to modify inside **options**.
+
+### Example
+
+``` vue
+<agile :options="options">
+    ...
+</agile>
+```
+
+``` js
+data () {
+    return {
+        options: {
+            arrows: false,
+            
+            responsive: [
+                {
+                    breakpoint: 600,
+                    settings: {
+                        dots: false
+                    }
+                },
+                
+                {
+                    breakpoint: 900,
+                    settings: {
+                        arrows: true,
+                        dots: true,
+                        infinite: false
+                    }
+                }
+            ]
+        }
+    }
+}
 ```
 
 ## Arrows
