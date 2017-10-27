@@ -7,9 +7,11 @@
 
 🤝 Thanks to [Maciej Wach](https://github.com/wachu91) for inventing the name, testing and motivation.
 
-## Important – update to version >= `0.3`
+## Important – update from version < `0.3`
 
 **In version `0.3.0`, I removed all styles that are responsible for the appearance of navigation elements** (like dots color and shape, arrows position, etc.). I think most people use their own styles and default styles are completely redundant. If you want to check out these defaults styles, you can find them [here](https://github.com/lukaszflorczak/vue-agile/blob/master/src/Agile.vue#L488).
+
+**Additionally dots and arrows have been moved from the `.agile__list` to the main `.agile` container.** The layout is the same as in Slick and id should allow for better and more comfortable positioning of these elements.
 
 ## Installation
 
