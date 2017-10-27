@@ -13,6 +13,7 @@
             <li v-for="n in slidesCount" class="agile__dot"
                 :class="{'agile__dot--current': n - 1 === currentSlide}"
                 @mouseover="handleMouseOver('dot')" @mouseout="handleMouseOut('dot')">
+
                 <button @click="setSlide(n - 1)">{{n}}</button>
             </li>
         </ul>
@@ -548,7 +549,6 @@
 <style lang="scss" type="text/scss">
     .agile {
         position: relative;
-        user-select: none;
 
         &, * {
             &:focus,
