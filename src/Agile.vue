@@ -1,5 +1,6 @@
 <template>
-    <div class="agile" :class="{'agile--fade': settings.fade}">
+    <div class="agile"
+         :class="{'agile--fade': settings.fade && !settings.unagile, 'agile--disabled': settings.unagile}">
         <div ref="list" class="agile__list">
             <div ref="track" class="agile__track"
                  :style="{width: width.track + 'px', transform: 'translate(-' + transform + 'px)', transition: 'transform ' + settings.timing + ' ' + transitionDelay + 'ms'}"
@@ -228,7 +229,7 @@
             getWidth () {
                 this.width = {
                     document: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
-                    container: !this.settings.unagile ? this.$refs.list.clientWidth : 'auto',
+                    container: this.$refs.list.clientWidth,
                     slide: !this.settings.unagile ? this.$refs.list.clientWidth / this.slidesToShow : 'auto'
                 }
             },
@@ -325,7 +326,7 @@
             },
 
             countSlides () {
-                if (this.settings.infinite && !this.settings.fade) {
+                if (this.settings.infinite && !this.settings.fade && !this.settings.unagile) {
                     this.allSlidesCount = this.slidesCount + 2
                 } else {
                     this.allSlidesCount = this.slidesCount
@@ -365,6 +366,10 @@
             },
 
             setSlide (n, transition = true, autoplayTimeout = true) {
+                if (this.settings.unagile) {
+                    return false
+                }
+
                 // Reset autoplay timeout and set new
                 if (this.settings.autoplay && autoplayTimeout) {
                     this.stopAutoplay()
@@ -480,7 +485,7 @@
                 }
 
                 // Check infinity mode status and enable/disable
-                if (this.settings.infinite && !this.settings.fade) {
+                if (this.settings.infinite && !this.settings.fade && !this.settings.unagile) {
                     this.enableInfiniteMode()
                 } else {
                     this.disableInfiniteMode()
@@ -491,7 +496,7 @@
                     this.enableAutoplayMode()
                 }
 
-                if (!this.settings.autoplay && this.autoplayStatus) {
+                if ((!this.settings.autoplay && this.autoplayStatus) || this.settings.unagile) {
                     this.disableAutoplayMode()
                 }
 
@@ -500,7 +505,7 @@
                     this.slides[i].style.width = this.width.container + 'px'
 
                     // Prepare slides for fade mode
-                    if (this.settings.fade) {
+                    if (this.settings.fade && !this.settings.unagile) {
                         this.slides[i].style.transform = 'translate(-' + i * this.width.slide + 'px)'
                     } else {
                         this.slides[i].style.transform = 'translate(0)'
@@ -508,15 +513,16 @@
                 }
 
                 // Prepare track
-                this.width.track = this.width.container * this.allSlidesCount
-                this.setSlide(this.currentSlide, false, false)
+                if (this.settings.unagile) {
+                    this.width.track = this.width.container
+                    this.transform = 0
+                } else {
+                    this.width.track = this.width.container * this.allSlidesCount
+                    this.setSlide(this.currentSlide, false, false)
+                }
             },
 
             dragDistance () {
-                if (!this.mouseDown) {
-                    return
-                }
-
                 if (this.dragDistance > this.swipeDistance) {
                     if (!this.settings.infinite && this.currentSlide === 0) {
                         return
@@ -562,6 +568,10 @@
             align-items: center;
             display: flex;
             justify-content: flex-start;
+
+            .agile--disabled & {
+                display: block;
+            }
         }
 
         &__slide {
