@@ -38,6 +38,13 @@
                 default: true
             },
 
+            asNavFor: {
+                type: Array,
+                default: function () {
+                    return []
+                }
+            },
+
             autoplay: {
                 type: Boolean,
                 default: false
@@ -154,7 +161,6 @@
                     dots: this.dots,
                     fade: this.fade,
                     infinite: this.infinite,
-                    mobileFirst: this.mobileFirst,
                     pauseOnDotsHover: this.pauseOnDotsHover,
                     pauseOnHover: this.pauseOnHover,
                     responsive: this.responsive,
@@ -242,9 +248,9 @@
 
             compare (a, b) {
                 if (a.breakpoint < b.breakpoint) {
-                    return this.defaultSettings.mobileFirst ? -1 : 1
+                    return this.this.mobileFirst ? -1 : 1
                 } else if (a.breakpoint > b.breakpoint) {
-                    return this.defaultSettings.mobileFirst ? 1 : -1
+                    return this.this.mobileFirst ? 1 : -1
                 } else {
                     return 0
                 }
@@ -376,6 +382,10 @@
                     return false
                 }
 
+                for (let i = 0; i < this.asNavFor.length; i++) {
+                    this.$parent.$refs[this.asNavFor[i]].setSlide(n, transition, autoplayTimeout)
+                }
+
                 if (transition) {
                     let realNextSlide = n
 
@@ -480,7 +490,7 @@
                     Object.assign(responsiveSettings, this.defaultSettings)
 
                     responsiveSettings.responsive.forEach((responsive) => {
-                        if (this.defaultSettings.mobileFirst) {
+                        if (this.this.mobileFirst) {
                             if (responsive.breakpoint < this.width.document) {
                                 for (let key in responsive.settings) {
                                     responsiveSettings[key] = responsive.settings[key]
