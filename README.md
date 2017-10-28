@@ -140,7 +140,7 @@ With this parameter you can synchronize several Agile carousels. For example, on
 </agile>
 ```
 
-You can also combine slides on both sides:
+You can also combine carousel in two ways:
 
 ```html
 <agile ref="bigImage" asNavFor="['thumbnails']">
