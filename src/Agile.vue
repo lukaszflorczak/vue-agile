@@ -14,15 +14,15 @@
                 :class="{'agile__dot--current': n - 1 === currentSlide}"
                 @mouseover="handleMouseOver('dot')" @mouseout="handleMouseOut('dot')">
 
-                <button @click="setSlide(n - 1)">{{n}}</button>
+                <button @click="goTo(n - 1)">{{n}}</button>
             </li>
         </ul>
 
         <button v-if="settings.arrows && !settings.unagile" class="agile__arrow agile__arrow--prev"
-                :disabled="currentSlide === 0 && !settings.infinite" @click="prevSlide" v-html="settings.prevArrow">
+                :disabled="currentSlide === 0 && !settings.infinite" @click="goToPrev" v-html="settings.prevArrow">
         </button>
         <button v-if="settings.arrows && !settings.unagile" class="agile__arrow agile__arrow--next"
-                :disabled="currentSlide === slidesCount - 1 && !settings.infinite" @click="nextSlide"
+                :disabled="currentSlide === slidesCount - 1 && !settings.infinite" @click="goToNext"
                 v-html="settings.nextArrow">
         </button>
     </div>
@@ -244,6 +244,8 @@
                     container: this.$refs.list.clientWidth,
                     slide: !this.settings.unagile ? this.$refs.list.clientWidth / this.slidesToShow : 'auto'
                 }
+
+                return this.width
             },
 
             compare (a, b) {
@@ -369,7 +371,7 @@
                         return false
                     }
 
-                    this.nextSlide()
+                    this.goToNext()
                 }, this.autoplaySpeed)
             },
 
@@ -377,8 +379,8 @@
                 clearTimeout(this.autoplayTimeout)
             },
 
-            setSlide (n, transition = true, autoplayTimeout = true, asNav = false) {
-                // Break setSlide() if unagile is active
+            goTo (n, transition = true, autoplayTimeout = true, asNav = false) {
+                // Break goTo() if unagile is active
                 if (this.settings.unagile) {
                     return false
                 }
@@ -386,7 +388,7 @@
                 // asNavFor – set the same slide on all related Agiles
                 if (!asNav) {
                     for (let i = 0; i < this.asNavFor.length; i++) {
-                        this.$parent.$refs[this.asNavFor[i]].setSlide(n, transition, autoplayTimeout, true)
+                        this.$parent.$refs[this.asNavFor[i]].goTo(n, transition, autoplayTimeout, true)
                     }
                 }
 
@@ -399,7 +401,7 @@
                         realNextSlide = 0
                     }
 
-                    this.$emit('beforeChange', {currentSlide: this.currentSlide, nextSlide: realNextSlide})
+                    this.$emit('beforeChange', {currentSlide: this.currentSlide, goToNext: realNextSlide})
                 }
 
                 // Reset autoplay timeout and set new
@@ -462,13 +464,13 @@
                     this.currentSlide = this.slidesCount - 1
 
                     setTimeout(() => {
-                        this.setSlide(this.slidesCount - 1, false)
+                        this.goTo(this.slidesCount - 1, false)
                     }, this.speed)
                 } else if (this.settings.infinite && n >= this.slidesCount) {
                     this.currentSlide = 0
 
                     setTimeout(() => {
-                        this.setSlide(0, false)
+                        this.goTo(0, false)
                     }, this.settings.speed)
                 } else {
                     this.currentSlide = n
@@ -479,12 +481,12 @@
                 }
             },
 
-            nextSlide () {
-                this.setSlide(this.currentSlide + 1)
+            goToNext () {
+                this.goTo(this.currentSlide + 1)
             },
 
-            prevSlide () {
-                this.setSlide(this.currentSlide - 1)
+            goToPrev () {
+                this.goTo(this.currentSlide - 1)
             },
 
             reload () {
@@ -546,8 +548,12 @@
                     this.transform = 0
                 } else {
                     this.width.track = this.width.container * this.allSlidesCount
-                    this.setSlide(this.currentSlide, false, false)
+                    this.goTo(this.currentSlide, false, false)
                 }
+            },
+
+            getCurrentSlide () {
+                return this.currentSlide
             }
         },
 
@@ -559,8 +565,6 @@
 
         watch: {
             show () {
-                console.log(this.show)
-
                 this.getWidth()
                 this.reload()
             },
@@ -575,7 +579,7 @@
                         return
                     }
 
-                    this.prevSlide()
+                    this.goToPrev()
                     this.handleMouseUp()
                 }
 
@@ -584,7 +588,7 @@
                         return
                     }
 
-                    this.nextSlide()
+                    this.goToNext()
                     this.handleMouseUp()
                 }
             }
