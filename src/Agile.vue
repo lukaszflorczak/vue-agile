@@ -377,13 +377,17 @@
                 clearTimeout(this.autoplayTimeout)
             },
 
-            setSlide (n, transition = true, autoplayTimeout = true) {
+            setSlide (n, transition = true, autoplayTimeout = true, asNav = false) {
+                // Break setSlide() if unagile is active
                 if (this.settings.unagile) {
                     return false
                 }
 
-                for (let i = 0; i < this.asNavFor.length; i++) {
-                    this.$parent.$refs[this.asNavFor[i]].setSlide(n, transition, autoplayTimeout)
+                // asNavFor – set the same slide on all related Agiles
+                if (!asNav) {
+                    for (let i = 0; i < this.asNavFor.length; i++) {
+                        this.$parent.$refs[this.asNavFor[i]].setSlide(n, transition, autoplayTimeout, true)
+                    }
                 }
 
                 if (transition) {
