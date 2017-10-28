@@ -183,6 +183,7 @@ export default {
 ## Events
 
 | Name | Returned data | Description |
+| --- | --- | --- |
 | `beforeChange` | `{currentSlide, nextSlide}` | Fires before slide change |
 | `afterChange` | `{currentSlide}` | Fires after slide change |
 
@@ -203,6 +204,7 @@ newSlide ($event) {
 
 ## Methods
 | Name | Parameters | Returned data | Description |
+| --- | --- | --- | --- |
 | `goTo()` | slide number (`integer`), don't animate (optional `boolean`) | — | Navigates to a slide by index |
 | `goToNext()` | — | — | Navigates to the next slide |
 | `goToPrev()` | — | — | Navigates to the previous slide | 
