@@ -56,6 +56,7 @@ Every first-level child of `<agile>` is a new slide.
 | Parameter | Type | Default | Description |
 | --- | --- | --- | --- |
 | arrows | boolean | `true` | Enable prev/next arrows |
+| asNavFor | array (refs) | `[]` | Set the slider to be the navigation of other one – more in „asNavFor” section |
 | prevArrow | string (HTML/SVG) | `<svg>` | Prev arrow code – more in „Arrows” section |
 | nextArrow | string (HTML/SVG) | `<svg>` | Next arrow code – more in „Arrows” section |
 | autoplay | boolean | `false` | Enable autoplay |
@@ -120,6 +121,37 @@ data () {
 }
 ```
 
+## asNavFor
+
+With this parameter you can synchronize several Agile carousels. For example, one can show thumbnails of photos and the second big picture. Changing a slide on one carousel will cause a change to another.
+
+### Example
+```html
+<agile ref="agile1" asNavFor="['agile2', 'agile3']">
+    ...
+</agile>
+ 
+<agile ref="agile2">
+    ...
+</agile>
+
+<agile ref="agile3">
+    ...
+</agile>
+```
+
+You can also combine slides on both sides:
+
+```html
+<agile ref="bigImage" asNavFor="['thumbnails']">
+    ...
+</agile>
+
+<agile ref="thumbnails" asNavFor="['bigImage']">
+    ...
+</agile>
+```
+
 ## Arrows
 
 By default carousel contains SVG arrows. You can change them using CSS or `prevArrow` & `nextArrow` parameters. 
@@ -147,6 +179,52 @@ export default {
     }
 }
 ```
+
+## Events
+
+| Name | Returned data | Description |
+| `beforeChange` | `{currentSlide, nextSlide}` | Fires before slide change |
+| `afterChange` | `{currentSlide}` | Fires after slide change |
+
+
+### Example
+
+``` html
+<agile @afterChange="newSlide($event)">
+    ...
+</agile>
+```
+
+``` js
+newSlide ($event) {
+    console.log($event.currentSlide)
+}
+```
+
+## Methods
+| Name | Parameters | Returned data | Description |
+| `goTo()` | slide number (`integer`), don't animate (optional `boolean`) | — | Navigates to a slide by index |
+| `goToNext()` | — | — | Navigates to the next slide |
+| `goToPrev()` | — | — | Navigates to the previous slide | 
+| `getCurrentSlide()` | — | slide number (`integer`) | Returns the current slide index (numbered from zero) |
+
+### Example
+
+``` html
+<agile ref="carousel">
+    ...
+</agile>    
+```
+
+``` js
+// Go to slide 3 without animation
+this.$refs.carousel.goTo(3, false)
+
+// Get current slide number
+let currentSlide = this.$refs.carousel.getCurrentSlide()
+```
+
+
 ## `v-if` & `v-show`
 
 If you have dynamically loaded slides, use `v-if` to show carousel when slides will be ready. Using `v-if` is also recommended in other situations if you want to hide/show the slideshow.
