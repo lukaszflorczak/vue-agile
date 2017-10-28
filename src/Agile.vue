@@ -376,6 +376,18 @@
                     return false
                 }
 
+                if (transition) {
+                    let realNextSlide = n
+
+                    if (this.settings.infinite && n < 0) {
+                        realNextSlide = this.slidesCount - 1
+                    } else if (n >= this.slidesCount) {
+                        realNextSlide = 0
+                    }
+
+                    this.$emit('beforeChange', {currentSlide: this.currentSlide, nextSlide: realNextSlide})
+                }
+
                 // Reset autoplay timeout and set new
                 if (this.settings.autoplay && autoplayTimeout) {
                     this.stopAutoplay()
@@ -384,7 +396,7 @@
 
                 if (this.settings.fade) {
                     // Disable transition for initial slide
-                    if (transition === false) {
+                    if (!transition) {
                         this.slides[n].style.transition = '0ms'
 
                         setTimeout(() => {
@@ -446,6 +458,10 @@
                     }, this.settings.speed)
                 } else {
                     this.currentSlide = n
+                }
+
+                if (transition) {
+                    this.$emit('afterChange', {currentSlide: this.currentSlide})
                 }
             },
 
