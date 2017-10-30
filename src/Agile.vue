@@ -540,6 +540,10 @@
             },
 
             dragDistance () {
+                if (!this.mouseDown) {
+                    return false
+                }
+
                 if (this.dragDistance > this.swipeDistance) {
                     if (!this.settings.infinite && this.currentSlide === 0) {
                         return
