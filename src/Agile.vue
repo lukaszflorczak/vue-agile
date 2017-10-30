@@ -1,7 +1,7 @@
 <template>
     <div class="agile"
          :class="{'agile--fade': settings.fade && !settings.unagile, 'agile--disabled': settings.unagile}">
-        <div ref="list" class="agile__list">
+        <div ref="list" class="agile__list" :style="{paddingLeft: listPadding, paddingRight: listPadding}">
             <div ref="track" class="agile__track"
                  :style="{width: width.track + 'px', transform: 'translate(-' + transform + 'px)', transition: 'transform ' + settings.timing + ' ' + transitionDelay + 'ms'}"
                  @mouseover="handleMouseOver('track')" @mouseout="handleMouseOut('track')">
@@ -53,6 +53,16 @@
             autoplaySpeed: {
                 type: Number,
                 default: 3000
+            },
+
+            centerMode: {
+                type: Boolean,
+                default: false
+            },
+
+            centerPadding: {
+                type: String,
+                default: '15%'
             },
 
             dots: {
@@ -170,6 +180,8 @@
                     arrows: this.arrows,
                     autoplay: this.autoplay,
                     autoplaySpeed: this.autoplaySpeed,
+                    centerMode: this.centerMode,
+                    centerPadding: this.centerPadding,
                     dots: this.dots,
                     fade: this.fade,
                     infinite: this.infinite,
@@ -256,13 +268,14 @@
 
         methods: {
             getWidth () {
+                let computedStyle = getComputedStyle(this.$refs.list)
+
                 this.width = {
                     document: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
-                    container: this.$refs.list.clientWidth,
-                    slide: !this.settings.unagile ? this.$refs.list.clientWidth / this.settings.slidesToShow : 'auto'
+                    container: this.settings.centerMode ? this.$refs.list.clientWidth - parseFloat(computedStyle.paddingLeft) - parseFloat(computedStyle.paddingRight) : this.$refs.list.clientWidth
                 }
 
-                return this.width
+                this.width.slide = !this.settings.unagile ? this.width.container / this.settings.slidesToShow : 'auto'
             },
 
             compare (a, b) {
@@ -324,14 +337,14 @@
                     let slides = {}
                     Object.assign(slides, this.slides)
 
-                    for (let i = 0; i < this.settings.slidesToShow; i++) {
+                    for (let i = 0; i < this.settings.slidesToShow + 1; i++) {
                         let index = this.slidesCount + i - 1
                         let cloned = slides[i].cloneNode(true)
                         cloned.classList.add('agile__slide--cloned')
                         this.$refs.track.insertBefore(cloned, this.slides[index].nextSibling)
                     }
 
-                    for (let i = this.slidesCount - 1; i > this.slidesCount - 1 - this.settings.slidesToShow; i--) {
+                    for (let i = this.slidesCount - 1; i > this.slidesCount - 2 - this.settings.slidesToShow; i--) {
                         let cloned = slides[i].cloneNode(true)
                         cloned.classList.add('agile__slide--cloned')
                         this.$refs.track.insertBefore(cloned, this.slides[0])
@@ -369,7 +382,7 @@
 
             countSlides () {
                 if (this.settings.infinite && !this.settings.fade && !this.settings.unagile) {
-                    this.allSlidesCount = this.slidesCount + (2 * this.settings.slidesToShow)
+                    this.allSlidesCount = this.slidesCount + (2 * (this.settings.slidesToShow + 1))
                 } else {
                     this.allSlidesCount = this.slidesCount
                 }
@@ -470,8 +483,16 @@
                 } else {
                     let transform = n * this.width.slide
 
-                    if (!this.settings.infinite && this.slidesCount - n < this.settings.slidesToShow) {
-                        transform = this.width.slide * (this.slidesCount - this.settings.slidesToShow)
+                    if (!this.settings.infinite && this.slidesCount - n < this.settings.slidesToShow + 1) {
+                        transform = this.width.slide * (this.slidesCount - this.settings.slidesToShow + 1)
+                    }
+
+                    if (this.settings.centerMode) {
+                        if (this.settings.slidesToShow % 2) {
+                            transform -= Math.floor(this.settings.slidesToShow / 2) * this.width.slide
+                        } else if (this.settings.slidesToShow >= 4) {
+                            // transform -= Math.floor(this.settings.slidesToShow / 3) * this.width.slide
+                        }
                     }
 
                     this.transform = transform
@@ -482,7 +503,7 @@
                 }
 
                 if (this.settings.infinite && !this.settings.fade) {
-                    this.transform += this.width.slide * this.settings.slidesToShow
+                    this.transform += this.width.slide * (this.settings.slidesToShow + 1)
                     this.addActiveClass(n + 1)
                 } else {
                     this.addActiveClass(n)
@@ -548,6 +569,12 @@
                     Object.assign(this.settings, responsiveSettings)
                 }
 
+                if (this.settings.centerMode && this.settings.slidesToShow > this.slidesCount - 1) {
+                    this.settings.slidesToShow = this.slidesCount - 1
+                } else if (this.settings.slidesToShow > this.slidesCount) {
+                    this.settings.slidesToShow = this.slidesCount
+                }
+
                 // Check infinity mode status and enable/disable
                 if (this.settings.infinite && !this.settings.fade && !this.settings.unagile) {
                     this.enableInfiniteMode()
@@ -597,6 +624,14 @@
         },
 
         computed: {
+            listPadding: function () {
+                if (this.settings.centerMode) {
+                    return this.settings.centerPadding
+                } else {
+                    return 0
+                }
+            },
+
             documentWidth: function () {
                 return this.width.document
             }

@@ -57,10 +57,12 @@ Every first-level child of `<agile>` is a new slide.
 | --- | --- | --- | --- |
 | arrows | boolean | `true` | Enable prev/next arrows |
 | asNavFor | array (refs) | `[]` | Set the slider to be the navigation of other one – more in „asNavFor” section |
-| prevArrow | string (HTML/SVG) | `<svg>` | Prev arrow code – more in „Arrows” section |
-| nextArrow | string (HTML/SVG) | `<svg>` | Next arrow code – more in „Arrows” section |
+| prevArrow | string (HTML / SVG) | `<svg>` | Prev arrow code – more in „Arrows” section |
+| nextArrow | string (HTML / SVG) | `<svg>` | Next arrow code – more in „Arrows” section |
 | autoplay | boolean | `false` | Enable autoplay |
 | autoplaySpeed | integer (ms) | `3000` | Autoplay interval in milliseconds | 
+| centerMode | boolean | `false` | Enables active slides centering |
+| centerPadding | string (px / % ) | `15%` | Side padding for center mode |
 | dots | boolean | `true` | Enable dot indicators/pagination |
 | fade | boolean | `false` | Enable fade effect |
 | infinite | boolean | `true` | Infinite loop sliding | 
