@@ -70,6 +70,11 @@
                 default: true
             },
 
+            initialSlide: {
+                type: Number,
+                default: 0
+            },
+
             mobileFirst: {
                 type: Boolean,
                 default: true
@@ -147,7 +152,7 @@
                 autoplayStatus: false,
                 autoplayTimeout: null,
                 allSlidesCount: 0,
-                currentSlide: 0,
+                currentSlide: null,
                 mouseDown: false,
                 dragStartX: 0,
                 dragStaryY: 0,
@@ -162,16 +167,17 @@
                     track: 0
                 },
                 defaultSettings: {
-                    prevArrow: this.prevArrow,
-                    nextArrow: this.nextArrow,
                     arrows: this.arrows,
                     autoplay: this.autoplay,
                     autoplaySpeed: this.autoplaySpeed,
                     dots: this.dots,
                     fade: this.fade,
                     infinite: this.infinite,
+                    initialSlide: this.initialSlide,
+                    nextArrow: this.nextArrow,
                     pauseOnDotsHover: this.pauseOnDotsHover,
                     pauseOnHover: this.pauseOnHover,
+                    prevArrow: this.prevArrow,
                     responsive: this.responsive,
                     slidesToScroll: this.slidesToScroll,
                     slidesToShow: this.slidesToShow,
@@ -576,6 +582,11 @@
                     this.transform = 0
                 } else {
                     this.width.track = this.width.slide * this.allSlidesCount
+
+                    if (this.currentSlide === null) {
+                        this.currentSlide = this.settings.initialSlide
+                    }
+
                     this.goTo(this.currentSlide, false, false)
                 }
             },
