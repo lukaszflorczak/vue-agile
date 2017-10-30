@@ -465,7 +465,7 @@
                     let transform = n * this.width.slide
 
                     if (!this.settings.infinite && this.slidesCount - n < this.settings.slidesToShow) {
-                        transform -= this.width.slide * (this.slidesCount - n)
+                        transform = this.width.slide * (this.slidesCount - this.settings.slidesToShow)
                     }
 
                     this.transform = transform
