@@ -279,14 +279,18 @@
             },
 
             handleMouseOver (element) {
-                if ((element === 'dot' && this.settings.pauseOnDotsHover) || (element === 'track' && this.settings.pauseOnHover)) {
-                    this.disableAutoplayMode()
+                if (this.settings.autoplay) {
+                    if ((element === 'dot' && this.settings.pauseOnDotsHover) || (element === 'track' && this.settings.pauseOnHover)) {
+                        this.disableAutoplayMode()
+                    }
                 }
             },
 
             handleMouseOut (element) {
-                if ((element === 'dot' && this.settings.pauseOnDotsHover) || (element === 'track' && this.settings.pauseOnHover)) {
-                    this.enableAutoplayMode()
+                if (this.settings.autoplay) {
+                    if ((element === 'dot' && this.settings.pauseOnDotsHover) || (element === 'track' && this.settings.pauseOnHover)) {
+                        this.enableAutoplayMode()
+                    }
                 }
             },
 
@@ -529,8 +533,6 @@
 
         watch: {
             show () {
-                console.log(this.show)
-
                 this.getWidth()
                 this.reload()
             },
@@ -540,26 +542,24 @@
             },
 
             dragDistance () {
-                if (!this.mouseDown) {
-                    return false
-                }
+                if (this.mouseDown) {
+                    if (this.dragDistance > this.swipeDistance) {
+                        if (!this.settings.infinite && this.currentSlide === 0) {
+                            return
+                        }
 
-                if (this.dragDistance > this.swipeDistance) {
-                    if (!this.settings.infinite && this.currentSlide === 0) {
-                        return
+                        this.prevSlide()
+                        this.handleMouseUp()
                     }
 
-                    this.prevSlide()
-                    this.handleMouseUp()
-                }
+                    if (this.dragDistance < -1 * this.swipeDistance) {
+                        if (!this.settings.infinite && this.currentSlide === this.slidesCount - 1) {
+                            return
+                        }
 
-                if (this.dragDistance < -1 * this.swipeDistance) {
-                    if (!this.settings.infinite && this.currentSlide === this.slidesCount - 1) {
-                        return
+                        this.nextSlide()
+                        this.handleMouseUp()
                     }
-
-                    this.nextSlide()
-                    this.handleMouseUp()
                 }
             }
         }
