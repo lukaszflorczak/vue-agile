@@ -57,23 +57,23 @@ Every first-level child of `<agile>` is a new slide.
 | --- | --- | --- | --- |
 | arrows | boolean | `true` | Enable prev/next arrows |
 | asNavFor | array (refs) | `[]` | Set the slider to be the navigation of other one – more in „asNavFor” section |
-| prevArrow | string (HTML / SVG) | `<svg>` | Prev arrow code – more in „Arrows” section |
-| nextArrow | string (HTML / SVG) | `<svg>` | Next arrow code – more in „Arrows” section |
 | autoplay | boolean | `false` | Enable autoplay |
-| autoplaySpeed | integer (ms) | `3000` | Autoplay interval in milliseconds | 
+| autoplaySpeed | integer (ms) | `3000` | Autoplay interval in milliseconds | 
 | centerMode | boolean | `false` | Enables active slides centering |
-| centerPadding | string (px / % ) | `15%` | Side padding for center mode |
+| centerPadding | string (px/%) | `15%` | Side padding for center mode |
 | dots | boolean | `true` | Enable dot indicators/pagination |
 | fade | boolean | `false` | Enable fade effect |
 | infinite | boolean | `true` | Infinite loop sliding | 
 | initialSlide | integer | Slide to start on (numbered from zero) | 
 | mobileFirst | boolean | `true` | Enable mobile first calculation for responsive settings |
+| nextArrow | string (HTML/SVG) | `<svg>` | Next arrow code – more in „Arrows” section |
 | options | object | `null` | All settings as one object | 
 | pauseOnHover | boolean | `true` | Pause autoplay when a slide is hovered |
 | pauseOnDotsHover | boolean | `false` | Pause autoplay when a dot is hovered |
+| prevArrow | string (HTML/SVG) | `<svg>` | Prev arrow code – more in „Arrows” section |
 | responsive | object | `null` | Object containing breakpoints and settings objects | 
 | slidesToShow | integer | `1` | Number of slides to show |
-| speed | integer (ms) | `300` | Slide animation speed in milliseconds | 
+| speed | integer (ms) | `300` | Slide animation speed in milliseconds | 
 | timing | string | `ease` | Transition timing function <br> (`linear`/`ease`/`ease-in`/`ease-out`/`ease-in-out`) |
 | unagile | boolean | `false` | Disable agile carousel | 
 
