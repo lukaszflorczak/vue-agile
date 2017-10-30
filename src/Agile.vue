@@ -621,6 +621,8 @@
             align-items: center;
             display: flex;
             list-style: none;
+            margin: 0;
+            padding: 0;
             white-space: nowrap;
         }
 
