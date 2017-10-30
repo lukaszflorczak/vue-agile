@@ -626,12 +626,10 @@
 
         &__dot {
             button {
-                border: none;
                 cursor: pointer;
                 display: block;
                 font-size: 0;
                 line-height: 0;
-                margin: 0;
             }
         }
     }
