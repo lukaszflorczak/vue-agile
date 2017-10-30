@@ -114,6 +114,16 @@
                 default: true
             },
 
+            slidesToScroll: {
+                type: Number,
+                default: 1
+            },
+
+            slidesToShow: {
+                type: Number,
+                default: 1
+            },
+
             speed: {
                 type: Number,
                 default: 300
@@ -151,7 +161,6 @@
                     slide: 0,
                     track: 0
                 },
-                slidesToShow: 1,
                 defaultSettings: {
                     prevArrow: this.prevArrow,
                     nextArrow: this.nextArrow,
@@ -164,6 +173,8 @@
                     pauseOnDotsHover: this.pauseOnDotsHover,
                     pauseOnHover: this.pauseOnHover,
                     responsive: this.responsive,
+                    slidesToScroll: this.slidesToScroll,
+                    slidesToShow: this.slidesToShow,
                     speed: this.speed,
                     timing: this.timing,
                     unagile: this.unagile
@@ -242,7 +253,7 @@
                 this.width = {
                     document: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
                     container: this.$refs.list.clientWidth,
-                    slide: !this.settings.unagile ? this.$refs.list.clientWidth / this.slidesToShow : 'auto'
+                    slide: !this.settings.unagile ? this.$refs.list.clientWidth / this.settings.slidesToShow : 'auto'
                 }
 
                 return this.width
@@ -304,17 +315,24 @@
 
             enableInfiniteMode () {
                 if (!this.settings.fade && !this.$refs.list.getElementsByClassName('agile__slide--cloned')[0]) {
-                    let firstSlide = this.$refs.track.firstChild.cloneNode(true)
-                    let lastSlide = this.$refs.track.lastChild.cloneNode(true)
+                    let slides = {}
+                    Object.assign(slides, this.slides)
 
-                    firstSlide.classList.add('agile__slide--cloned')
-                    lastSlide.classList.add('agile__slide--cloned')
+                    for (let i = 0; i < this.settings.slidesToShow; i++) {
+                        let index = this.slidesCount + i - 1
+                        let cloned = slides[i].cloneNode(true)
+                        cloned.classList.add('agile__slide--cloned')
+                        this.$refs.track.insertBefore(cloned, this.slides[index].nextSibling)
+                    }
 
-                    this.$refs.track.insertBefore(lastSlide, this.slides[0])
-                    this.$refs.track.insertBefore(firstSlide, this.slides[this.slidesCount].nextSibling)
+                    for (let i = this.slidesCount - 1; i > this.slidesCount - 1 - this.settings.slidesToShow; i--) {
+                        let cloned = slides[i].cloneNode(true)
+                        cloned.classList.add('agile__slide--cloned')
+                        this.$refs.track.insertBefore(cloned, this.slides[0])
+                    }
+
+                    this.countSlides()
                 }
-
-                this.countSlides()
             },
 
             disableInfiniteMode () {
@@ -345,7 +363,7 @@
 
             countSlides () {
                 if (this.settings.infinite && !this.settings.fade && !this.settings.unagile) {
-                    this.allSlidesCount = this.slidesCount + 2
+                    this.allSlidesCount = this.slidesCount + (2 * this.settings.slidesToShow)
                 } else {
                     this.allSlidesCount = this.slidesCount
                 }
@@ -444,7 +462,13 @@
 
                     this.transform = 0
                 } else {
-                    this.transform = n * this.width.slide
+                    let transform = n * this.width.slide
+
+                    if (!this.settings.infinite && this.slidesCount - n < this.settings.slidesToShow) {
+                        transform -= this.width.slide * (this.slidesCount - n)
+                    }
+
+                    this.transform = transform
                 }
 
                 for (let i = 0; i < this.allSlidesCount; ++i) {
@@ -452,7 +476,7 @@
                 }
 
                 if (this.settings.infinite && !this.settings.fade) {
-                    this.transform += this.width.slide
+                    this.transform += this.width.slide * this.settings.slidesToShow
                     this.addActiveClass(n + 1)
                 } else {
                     this.addActiveClass(n)
@@ -536,7 +560,7 @@
 
                 // Actions on document resize
                 for (let i = 0; i < this.allSlidesCount; ++i) {
-                    this.slides[i].style.width = this.width.container + 'px'
+                    this.slides[i].style.width = this.width.slide + 'px'
 
                     // Prepare slides for fade mode
                     if (this.settings.fade && !this.settings.unagile) {
@@ -551,7 +575,7 @@
                     this.width.track = this.width.container
                     this.transform = 0
                 } else {
-                    this.width.track = this.width.container * this.allSlidesCount
+                    this.width.track = this.width.slide * this.allSlidesCount
                     this.goTo(this.currentSlide, false, false)
                 }
             },
@@ -584,7 +608,8 @@
                             return
                         }
 
-                        this.prevSlide()
+                        this.goToPrev()
+                        this.handleMouseUp()
                     }
 
                     if (this.dragDistance < -1 * this.swipeDistance) {
@@ -592,10 +617,9 @@
                             return
                         }
 
-                        this.nextSlide()
+                        this.goToNext()
+                        this.handleMouseUp()
                     }
-
-                    this.handleMouseUp()
                 }
             }
         }
@@ -661,7 +685,6 @@
             align-items: center;
             display: flex;
             list-style: none;
-            margin: 0;
             padding: 0;
             white-space: nowrap;
         }

@@ -69,6 +69,7 @@ Every first-level child of `<agile>` is a new slide.
 | pauseOnHover | boolean | `true` | Pause autoplay when a slide is hovered |
 | pauseOnDotsHover | boolean | `false` | Pause autoplay when a dot is hovered |
 | responsive | object | `null` | Object containing breakpoints and settings objects | 
+| slidesToShow | integer | `1` | Number of slides to show |
 | speed | integer (ms) | `300` | Slide animation speed in milliseconds | 
 | timing | string | `ease` | Transition timing function <br> (`linear`/`ease`/`ease-in`/`ease-out`/`ease-in-out`) |
 | unagile | boolean | `false` | Disable agile carousel | 
