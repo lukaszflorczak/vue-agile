@@ -574,6 +574,10 @@
             },
 
             dragDistance () {
+                if (!this.mouseDown) {
+                    return false
+                }
+
                 if (this.dragDistance > this.swipeDistance) {
                     if (!this.settings.infinite && this.currentSlide === 0) {
                         return
@@ -655,17 +659,17 @@
             align-items: center;
             display: flex;
             list-style: none;
+            margin: 0;
+            padding: 0;
             white-space: nowrap;
         }
 
         &__dot {
             button {
-                border: none;
                 cursor: pointer;
                 display: block;
                 font-size: 0;
                 line-height: 0;
-                margin: 0;
             }
         }
     }
