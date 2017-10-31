@@ -7,7 +7,11 @@
 
 🤝 Thanks to [Maciej Wach](https://github.com/wachu91) for inventing the name, testing and motivation.
 
+---
+
 **Please note that the plugin is currently in relatively early development phase. I try to keep the stability of each version and keep up with all issues, but unfortunately at this stage there may still be a lot some bugs.**
+
+---
 
 ## Important – update from version < `0.3`
 
