@@ -178,6 +178,7 @@
                 },
                 defaultSettings: {
                     arrows: this.arrows,
+                    asNavFor: this.asNavFor,
                     autoplay: this.autoplay,
                     autoplaySpeed: this.autoplaySpeed,
                     centerMode: this.centerMode,
@@ -428,8 +429,12 @@
 
                 // asNavFor – set the same slide on all related Agiles
                 if (!asNav) {
-                    for (let i = 0; i < this.asNavFor.length; i++) {
-                        this.$parent.$refs[this.asNavFor[i]].goTo(n, transition, autoplayTimeout, true)
+                    for (let i = 0; i < this.settings.asNavFor.length; i++) {
+                        if (this.$refs[this.settings.asNavFor[i]]) {
+                            this.$refs[this.settings.asNavFor[i]].goTo(n, transition, autoplayTimeout, true)
+                        } else if (this.$parent.$refs[this.settings.asNavFor[i]]) {
+                            this.$parent.$refs[this.settings.asNavFor[i]].goTo(n, transition, autoplayTimeout, true)
+                        }
                     }
                 }
 
