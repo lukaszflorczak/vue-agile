@@ -64,7 +64,7 @@ Every first-level child of `<agile>` is a new slide.
 | dots | boolean | `true` | Enable dot indicators/pagination |
 | fade | boolean | `false` | Enable fade effect |
 | infinite | boolean | `true` | Infinite loop sliding | 
-| initialSlide | integer | Slide to start on (numbered from zero) | 
+| initialSlide | integer | `0` | Slide to start on (numbered from zero) | 
 | mobileFirst | boolean | `true` | Enable mobile first calculation for responsive settings |
 | nextArrow | string (HTML/SVG) | `<svg>` | Next arrow code – more in „Arrows” section |
 | options | object | `null` | All settings as one object | 
