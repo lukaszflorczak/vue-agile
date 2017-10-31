@@ -326,8 +326,9 @@
                     this.enableInfiniteMode()
                 }
 
-                this.autoplayStatus = true
+                this.stopAutoplay()
                 this.startAutoplay()
+                this.autoplayStatus = true
             },
 
             disableAutoplayMode () {
