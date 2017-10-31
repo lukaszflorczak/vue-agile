@@ -9,7 +9,7 @@
 
 ---
 
-**Please note that the plugin is currently in relatively early development phase. I try to keep the stability of each version and keep up with all issues, but unfortunately at this stage there may still be a lot some bugs.**
+**Please note that the plugin is currently in relatively early development phase. I try to keep the stability of each version and keep up with all issues, but unfortunately at this stage there may still be some bugs.**
 
 ---
 
