@@ -3,7 +3,7 @@
          :class="{'agile--fade': settings.fade && !settings.unagile, 'agile--disabled': settings.unagile}">
         <div ref="list" class="agile__list" :style="{paddingLeft: listPadding, paddingRight: listPadding}">
             <div ref="track" class="agile__track"
-                 :style="{width: width.track + 'px', transform: 'translate(-' + transform + 'px)', transition: 'transform ' + settings.timing + ' ' + transitionDelay + 'ms'}"
+                 :style="{width: widthTrack + 'px', transform: 'translate(-' + transform + 'px)', transition: 'transform ' + settings.timing + ' ' + transitionDelay + 'ms'}"
                  @mouseover="handleMouseOver('track')" @mouseout="handleMouseOut('track')">
                 <slot></slot>
             </div>
@@ -170,12 +170,10 @@
                 swipeDistance: 50,
                 transform: 0,
                 transitionDelay: 0,
-                width: {
-                    document: 0,
-                    container: 0,
-                    slide: 0,
-                    track: 0
-                },
+                widthWindow: 0,
+                widthContainer: 0,
+                widthSlide: 0,
+                widthTrack: 0,
                 defaultSettings: {
                     arrows: this.arrows,
                     asNavFor: this.asNavFor,
@@ -271,19 +269,15 @@
             getWidth () {
                 let computedStyle = getComputedStyle(this.$refs.list)
 
-                this.width = {
-                    document: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
-                    container: this.settings.centerMode ? this.$refs.list.clientWidth - parseFloat(computedStyle.paddingLeft) - parseFloat(computedStyle.paddingRight) : this.$refs.list.clientWidth
-                }
-
-                this.width.slide = !this.settings.unagile ? this.width.container / this.settings.slidesToShow : 'auto'
+                this.widthWindow = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+                this.widthContainer = this.settings.centerMode ? this.$refs.list.clientWidth - parseFloat(computedStyle.paddingLeft) - parseFloat(computedStyle.paddingRight) : this.$refs.list.clientWidth
             },
 
             compare (a, b) {
                 if (a.breakpoint < b.breakpoint) {
-                    return this.this.mobileFirst ? -1 : 1
+                    return this.defaultSettings.mobileFirst ? -1 : 1
                 } else if (a.breakpoint > b.breakpoint) {
-                    return this.this.mobileFirst ? 1 : -1
+                    return this.defaultSettings.mobileFirst ? 1 : -1
                 } else {
                     return 0
                 }
@@ -486,17 +480,17 @@
 
                     this.transform = 0
                 } else {
-                    let transform = n * this.width.slide
+                    let transform = n * this.widthSlide
 
                     if (!this.settings.infinite && this.slidesCount - n < this.settings.slidesToShow + 1) {
-                        transform = this.width.slide * (this.slidesCount - this.settings.slidesToShow + 1)
+                        transform = this.widthSlide * (this.slidesCount - this.settings.slidesToShow + 1)
                     }
 
                     if (this.settings.centerMode) {
                         if (this.settings.slidesToShow % 2) {
-                            transform -= Math.floor(this.settings.slidesToShow / 2) * this.width.slide
+                            transform -= Math.floor(this.settings.slidesToShow / 2) * this.widthSlide
                         } else if (this.settings.slidesToShow >= 4) {
-                            // transform -= Math.floor(this.settings.slidesToShow / 3) * this.width.slide
+                            // transform -= Math.floor(this.settings.slidesToShow / 3) * this.widthSlide
                         }
                     }
 
@@ -508,7 +502,7 @@
                 }
 
                 if (this.settings.infinite && !this.settings.fade) {
-                    this.transform += this.width.slide * (this.settings.slidesToShow + 1)
+                    this.transform += this.widthSlide * (this.settings.slidesToShow + 1)
                     this.addActiveClass(n + 1)
                 } else {
                     this.addActiveClass(n)
@@ -556,14 +550,14 @@
                     Object.assign(responsiveSettings, this.defaultSettings)
 
                     responsiveSettings.responsive.forEach((responsive) => {
-                        if (this.this.mobileFirst) {
-                            if (responsive.breakpoint < this.width.document) {
+                        if (this.defaultSettings.mobileFirst) {
+                            if (responsive.breakpoint < this.widthWindow) {
                                 for (let key in responsive.settings) {
                                     responsiveSettings[key] = responsive.settings[key]
                                 }
                             }
                         } else {
-                            if (responsive.breakpoint > this.width.document) {
+                            if (responsive.breakpoint > this.widthWindow) {
                                 for (let key in responsive.settings) {
                                     responsiveSettings[key] = responsive.settings[key]
                                 }
@@ -573,6 +567,8 @@
 
                     Object.assign(this.settings, responsiveSettings)
                 }
+
+                this.widthSlide = !this.settings.unagile ? this.widthContainer / this.settings.slidesToShow : 'auto'
 
                 if (this.settings.centerMode && this.settings.slidesToShow > this.slidesCount - 1) {
                     this.settings.slidesToShow = this.slidesCount - 1
@@ -598,11 +594,11 @@
 
                 // Actions on document resize
                 for (let i = 0; i < this.allSlidesCount; ++i) {
-                    this.slides[i].style.width = this.width.slide + 'px'
+                    this.slides[i].style.width = this.widthSlide + 'px'
 
                     // Prepare slides for fade mode
                     if (this.settings.fade && !this.settings.unagile) {
-                        this.slides[i].style.transform = 'translate(-' + i * this.width.slide + 'px)'
+                        this.slides[i].style.transform = 'translate(-' + i * this.widthSlide + 'px)'
                     } else {
                         this.slides[i].style.transform = 'translate(0)'
                     }
@@ -610,10 +606,10 @@
 
                 // Prepare track
                 if (this.settings.unagile) {
-                    this.width.track = this.width.container
+                    this.widthTrack = this.widthContainer
                     this.transform = 0
                 } else {
-                    this.width.track = this.width.slide * this.allSlidesCount
+                    this.widthTrack = this.widthSlide * this.allSlidesCount
 
                     if (this.currentSlide === null) {
                         this.currentSlide = this.settings.initialSlide
@@ -635,10 +631,6 @@
                 } else {
                     return 0
                 }
-            },
-
-            documentWidth: function () {
-                return this.width.document
             }
         },
 
@@ -648,7 +640,7 @@
                 this.reload()
             },
 
-            documentWidth () {
+            widthWindow () {
                 this.reload()
             },
 
