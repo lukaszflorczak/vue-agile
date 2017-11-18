@@ -397,6 +397,14 @@
 
             addActiveClass (i) {
                 this.slides[i].classList.add('agile__slide--active')
+
+                if (this.settings.slidesToShow > 1) {
+                    let h = Math.floor(this.settings.slidesToShow / 2)
+
+                    for (let j = i - h; j <= i + h; j++) {
+                        this.slides[j].classList.add('agile__slide--current')
+                    }
+                }
             },
 
             startAutoplay () {
@@ -499,11 +507,12 @@
 
                 for (let i = 0; i < this.allSlidesCount; ++i) {
                     this.slides[i].classList.remove('agile__slide--active')
+                    this.slides[i].classList.remove('agile__slide--current')
                 }
 
                 if (this.settings.infinite && !this.settings.fade) {
                     this.transform += this.widthSlide * (this.settings.slidesToShow + 1)
-                    this.addActiveClass(n + 1)
+                    this.addActiveClass(n + this.settings.slidesToShow + 1)
                 } else {
                     this.addActiveClass(n)
                 }
