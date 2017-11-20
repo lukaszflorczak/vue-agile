@@ -332,17 +332,33 @@
                     let slides = {}
                     Object.assign(slides, this.slides)
 
+                    let x = 0
+
                     for (let i = 0; i < this.settings.slidesToShow + 1; i++) {
                         let index = this.slidesCount + i - 1
-                        let cloned = slides[i].cloneNode(true)
+                        let cloned = slides[x].cloneNode(true)
                         cloned.classList.add('agile__slide--cloned')
                         this.$refs.track.insertBefore(cloned, this.slides[index].nextSibling)
+
+                        x += 1
+
+                        if (x >= this.slidesCount) {
+                            x = 0
+                        }
                     }
 
+                    let y = this.slidesCount - 1
+
                     for (let i = this.slidesCount - 1; i > this.slidesCount - 2 - this.settings.slidesToShow; i--) {
-                        let cloned = slides[i].cloneNode(true)
+                        let cloned = slides[y].cloneNode(true)
                         cloned.classList.add('agile__slide--cloned')
                         this.$refs.track.insertBefore(cloned, this.slides[0])
+
+                        y -= 1
+
+                        if (y <= 0) {
+                            y = this.slidesCount - 1
+                        }
                     }
 
                     this.countSlides()
@@ -402,6 +418,10 @@
                     let h = Math.floor(this.settings.slidesToShow / 2)
 
                     for (let j = i - h; j <= i + h; j++) {
+                        if (!this.settings.infinite && (j < 0 || j >= this.slidesCount - 1)) {
+                            continue
+                        }
+
                         this.slides[j].classList.add('agile__slide--current')
                     }
                 }
@@ -490,15 +510,19 @@
                 } else {
                     let transform = n * this.widthSlide
 
-                    if (!this.settings.infinite && this.slidesCount - n < this.settings.slidesToShow + 1) {
-                        transform = this.widthSlide * (this.slidesCount - this.settings.slidesToShow + 1)
+                    if (!this.settings.infinite && this.slidesCount - n < this.settings.slidesToShow) {
+                        transform = this.widthSlide * (this.slidesCount - this.settings.slidesToShow)
                     }
 
                     if (this.settings.centerMode) {
-                        if (this.settings.slidesToShow % 2) {
+                        if (this.settings.slidesToShow % 2 === 0) {
+                            transform -= (Math.floor(this.settings.slidesToShow / 2) - 1) * this.widthSlide
+
+                            if (this.settings.slidesToShow >= 4) {
+                                // transform -= Math.floor(this.settings.slidesToShow / 3) * this.widthSlide
+                            }
+                        } else {
                             transform -= Math.floor(this.settings.slidesToShow / 2) * this.widthSlide
-                        } else if (this.settings.slidesToShow >= 4) {
-                            // transform -= Math.floor(this.settings.slidesToShow / 3) * this.widthSlide
                         }
                     }
 
