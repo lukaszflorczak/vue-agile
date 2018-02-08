@@ -533,6 +533,10 @@
         },
 
         watch: {
+            currentSlide (index) {
+                this.$emit('slideChange', index)
+            },
+
             show () {
                 this.getWidth()
                 this.reload()
