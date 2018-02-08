@@ -14,7 +14,7 @@
                 :class="{'agile__dot--current': n - 1 === currentSlide}"
                 @mouseover="handleMouseOver('dot')" @mouseout="handleMouseOut('dot')">
 
-                <button @click="setSlide(n - 1)">{{n}}</button>
+                <button @click="setSlide(n - 1)" type="button">{{n}}</button>
             </li>
         </ul>
 
