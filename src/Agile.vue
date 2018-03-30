@@ -553,7 +553,11 @@
                             return
                         }
 
-                        this.prevSlide()
+                        if (!this.isArabic) {
+                            this.prevSlide()
+                        } else {
+                            this.nextSlide()
+                        }
                         this.handleMouseUp()
                     }
 
@@ -562,7 +566,11 @@
                             return
                         }
 
-                        this.nextSlide()
+                        if (!this.isArabic) {
+                            this.nextSlide()
+                        } else {
+                            this.prevSlide()
+                        }
                         this.handleMouseUp()
                     }
                 }
