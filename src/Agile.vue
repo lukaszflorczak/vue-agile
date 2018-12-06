@@ -296,8 +296,8 @@
 
             enableInfiniteMode () {
                 if (!this.settings.fade && !this.$refs.list.getElementsByClassName('agile__slide--cloned')[0]) {
-                    let firstSlide = this.$refs.track.firstChild.cloneNode(true)
-                    let lastSlide = this.$refs.track.lastChild.cloneNode(true)
+                    let firstSlide = this.$refs.track.firstElementChild.cloneNode(true)
+                    let lastSlide = this.$refs.track.lastElementChild.cloneNode(true)
 
                     firstSlide.classList.add('agile__slide--cloned')
                     lastSlide.classList.add('agile__slide--cloned')
