@@ -549,9 +549,7 @@
                 // Reset track
                 this.width.track = 'auto'
                 this.transform = 0
-
-                console.log(this.width)
-
+              
                 for (let i = 0; i < this.allSlidesCount; ++i) {
                     var slide = this.slides[i]
                     if (slide) {
