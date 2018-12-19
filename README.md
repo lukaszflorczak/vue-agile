@@ -7,6 +7,12 @@
 
 🤝 Thanks to [Maciej Wach](https://github.com/wachu91) for inventing the name, testing and motivation.
 
+---
+
+**Please note that the plugin is currently in relatively early development phase. I try to keep the stability of each version and keep up with all issues, but unfortunately at this stage there may still be some bugs.**
+
+---
+
 ## Important – update from version < `0.3`
 
 **In version `0.3.0`, I removed all styles that are responsible for the appearance of navigation elements** (like dots color and shape, arrows position, etc.). I think most people use their own styles and default styles are completely redundant. If you want to check out these defaults styles, you can find them [here](https://github.com/lukaszflorczak/vue-agile/blob/master/src/Agile.vue#L488).
