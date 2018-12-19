@@ -3,7 +3,7 @@
          :class="{'agile--fade': settings.fade && !settings.unagile, 'agile--disabled': settings.unagile}">
         <div ref="list" class="agile__list">
             <div ref="track" class="agile__track"
-                 :style="{width: width.track + 'px', transform: 'translate(-' + transform + 'px)', transition: 'transform ' + settings.timing + ' ' + transitionDelay + 'ms'}"
+                 :style="{width: width.track, transform: 'translate(-' + transform + 'px)', transition: 'transform ' + settings.timing + ' ' + transitionDelay + 'ms'}"
                  @mouseover="handleMouseOver('track')" @mouseout="handleMouseOut('track')">
                 <slot></slot>
             </div>
@@ -142,7 +142,7 @@
                     document: 0,
                     container: 0,
                     slide: 0,
-                    track: 0
+                    track: 'auto'
                 },
                 slidesToShow: 1,
                 defaultSettings: {
@@ -184,60 +184,77 @@
         },
 
         mounted () {
-            // Prepare slides
-            this.slides = this.$refs.track.children
-            this.slidesCount = this.slides.length
-
-            for (let i = 0; i < this.slidesCount; ++i) {
-                this.slides[i].classList.add('agile__slide')
-
-                // Prepare slides for fade mode
-                if (this.settings.fade) {
-                    this.slides[i].style.transition = 'opacity ' + this.timing + ' ' + this.speed + 'ms'
-                }
-            }
-
-            // Windows resize listener
-            window.addEventListener('resize', this.getWidth)
-
-            // Mouse and touch events
-            if ('ontouchstart' in window) {
-                this.$refs.track.addEventListener('touchstart', this.handleMouseDown)
-                this.$refs.track.addEventListener('touchend', this.handleMouseUp)
-                this.$refs.track.addEventListener('touchmove', this.handleMouseMove)
-            } else {
-                this.$refs.track.addEventListener('mousedown', this.handleMouseDown)
-                this.$refs.track.addEventListener('mouseup', this.handleMouseUp)
-                this.$refs.track.addEventListener('mousemove', this.handleMouseMove)
-            }
-
-            // Get width on start
-            this.getWidth()
+            this.initialize()
         },
 
         beforeDestroy () {
-            window.removeEventListener('resize', this.getWidth)
-
-            if ('ontouchstart' in window) {
-                this.$refs.track.removeEventListener('touchstart', this.handleMouseDown)
-                this.$refs.track.removeEventListener('touchend', this.handleMouseUp)
-                this.$refs.track.removeEventListener('touchmove', this.handleMouseMove)
-            } else {
-                this.$refs.track.removeEventListener('mousedown', this.handleMouseDown)
-                this.$refs.track.removeEventListener('mouseup', this.handleMouseUp)
-                this.$refs.track.removeEventListener('mousemove', this.handleMouseMove)
-            }
-
+            this.removeEventListeners()
             this.disableAutoplayMode()
         },
 
         methods: {
-            getWidth () {
-                this.width = {
-                    document: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
-                    container: this.$refs.list.clientWidth,
-                    slide: !this.settings.unagile ? this.$refs.list.clientWidth / this.slidesToShow : 'auto'
+            initialize () {
+                // Prepare slides
+                this.slides = this.$refs.track.children
+                this.slidesCount = this.slides.length
+
+                for (let i = 0; i < this.slidesCount; ++i) {
+                    this.slides[i].classList.add('agile__slide')
+
+                    // Prepare slides for fade mode
+                    if (this.settings.fade) {
+                        this.slides[i].style.transition = 'opacity ' + this.timing + ' ' + this.speed + 'ms'
+                    }
                 }
+
+                this.addEventListeners()
+
+                // Get width on start
+                this.getWidth()
+            },
+
+            addEventListeners () {
+                // Windows resize listener
+                window.addEventListener('resize', this.getWidth)
+
+                // Mouse and touch events
+                if ('ontouchstart' in window) {
+                    this.$refs.track.addEventListener('touchstart', this.handleMouseDown)
+                    this.$refs.track.addEventListener('touchend', this.handleMouseUp)
+                    this.$refs.track.addEventListener('touchmove', this.handleMouseMove)
+                } else {
+                    this.$refs.track.addEventListener('mousedown', this.handleMouseDown)
+                    this.$refs.track.addEventListener('mouseup', this.handleMouseUp)
+                    this.$refs.track.addEventListener('mousemove', this.handleMouseMove)
+                }
+            },
+
+            removeEventListeners () {
+                window.removeEventListener('resize', this.getWidth)
+
+                if ('ontouchstart' in window) {
+                    this.$refs.track.removeEventListener('touchstart', this.handleMouseDown)
+                    this.$refs.track.removeEventListener('touchend', this.handleMouseUp)
+                    this.$refs.track.removeEventListener('touchmove', this.handleMouseMove)
+                } else {
+                    this.$refs.track.removeEventListener('mousedown', this.handleMouseDown)
+                    this.$refs.track.removeEventListener('mouseup', this.handleMouseUp)
+                    this.$refs.track.removeEventListener('mousemove', this.handleMouseMove)
+                }
+            },
+
+            getWidth () {
+                if (!this.settings.unagile) {
+                    this.width = {
+                        document: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+                        container: this.$refs.list.clientWidth,
+                        slide: !this.settings.unagile ? this.$refs.list.clientWidth / this.slidesToShow : 'auto'
+                    }
+                }
+            },
+
+            handleUnagile () {
+                (this.settings.unagile) ? this.destroy() : this.reload()
             },
 
             compare (a, b) {
@@ -517,11 +534,30 @@
 
                 // Prepare track
                 if (this.settings.unagile) {
-                    this.width.track = this.width.container
+                    this.width.track = this.width.container + 'px'
                     this.transform = 0
                 } else {
-                    this.width.track = this.width.container * this.allSlidesCount
+                    this.width.track = this.width.container * this.allSlidesCount + 'px'
                     this.setSlide(this.currentSlide, false, false)
+                }
+            },
+
+            destroy () {
+                this.disableInfiniteMode()
+                this.disableAutoplayMode()
+
+                // Reset track
+                this.width.track = 'auto'
+                this.transform = 0
+
+                console.log(this.width)
+
+                for (let i = 0; i < this.allSlidesCount; ++i) {
+                    var slide = this.slides[i]
+                    if (slide) {
+                        slide.style.width = 'auto'
+                        slide.style.transform = 'none'
+                    }
                 }
             }
         },
@@ -533,6 +569,11 @@
         },
 
         watch: {
+            unagile (n, o) {
+                if (n === o) return
+                this.settings.unagile = n
+                this.handleUnagile()
+            },
             show () {
                 this.getWidth()
                 this.reload()
@@ -570,44 +611,36 @@
 <style lang="scss" type="text/scss">
     .agile {
         position: relative;
-
         &, * {
             &:focus,
             &:active {
                 outline: none;
             }
         }
-
         &__list {
             display: block;
             overflow: hidden;
             position: relative;
             width: 100%;
         }
-
         &__track {
             align-items: center;
             display: flex;
             justify-content: flex-start;
-
             .agile--disabled & {
                 display: block;
             }
         }
-
         &__slide {
             display: block;
-
             .agile--fade & {
                 opacity: 0;
                 position: relative;
                 z-index: 0;
-
                 &--active {
                     opacity: 1;
                     z-index: 2;
                 }
-
                 &--expiring {
                     opacity: 1;
                     transition-duration: 0s;
@@ -615,13 +648,11 @@
                 }
             }
         }
-
         &__arrow {
             &[disabled] {
                 cursor: default;
             }
         }
-
         &__dots {
             align-items: center;
             display: flex;
@@ -630,7 +661,6 @@
             padding: 0;
             white-space: nowrap;
         }
-
         &__dot {
             button {
                 cursor: pointer;
