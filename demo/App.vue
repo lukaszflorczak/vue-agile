@@ -5,36 +5,23 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <h1 class="section__title">Demo of <strong>vue-agile</strong><span class="badge">0.3</span></h1>
-                        <p class="section__description">vue-agile is a carousel component for Vue.js inspired by Slick.
-                            Simple, touch-friendly, written in Vue and Vanilla JS (without jQuery dependency).</p>
+                        <p class="section__description">vue-agile is a carousel component for Vue.js inspired by Slick. Simple, touch-friendly, written in Vue and Vanilla JS (without jQuery dependency).</p>
 
                         <div class="gh-buttons visible-md">
-                            <a class="github-button" href="https://github.com/lukaszflorczak/vue-agile"
-                               data-icon="octicon-star" data-size="large" data-show-count="true"
-                               aria-label="Star lukaszflorczak/vue-agile on GitHub">Star</a>
+                            <a class="github-button" href="https://github.com/lukaszflorczak/vue-agile" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star lukaszflorczak/vue-agile on GitHub">Star</a>
 
-                            <a class="github-button" href="https://github.com/lukaszflorczak/vue-agile/subscription"
-                               data-icon="octicon-eye" data-size="large" data-show-count="true"
-                               aria-label="Watch lukaszflorczak/vue-agile on GitHub">Watch</a>
+                            <a class="github-button" href="https://github.com/lukaszflorczak/vue-agile/subscription" data-icon="octicon-eye" data-size="large" data-show-count="true" aria-label="Watch lukaszflorczak/vue-agile on GitHub">Watch</a>
 
-                            <a class="github-button" href="https://github.com/lukaszflorczak/vue-agile/issues"
-                               data-icon="octicon-issue-opened" data-size="large" data-show-count="true"
-                               aria-label="Issue lukaszflorczak/vue-agile on GitHub">Issue</a>
+                            <a class="github-button" href="https://github.com/lukaszflorczak/vue-agile/issues" data-icon="octicon-issue-opened" data-size="large" data-show-count="true" aria-label="Issue lukaszflorczak/vue-agile on GitHub">Issue</a>
                         </div>
                     </div>
 
                     <div class="col-xs-12 hidden-md gh-buttons">
-                        <a class="github-button" href="https://github.com/lukaszflorczak/vue-agile"
-                           data-icon="octicon-star" data-size="large" data-show-count="false"
-                           aria-label="Star lukaszflorczak/vue-agile on GitHub">Star</a>
+                        <a class="github-button" href="https://github.com/lukaszflorczak/vue-agile" data-icon="octicon-star" data-size="large" data-show-count="false" aria-label="Star lukaszflorczak/vue-agile on GitHub">Star</a>
 
-                        <a class="github-button" href="https://github.com/lukaszflorczak/vue-agile/subscription"
-                           data-icon="octicon-eye" data-size="large" data-show-count="false"
-                           aria-label="Watch lukaszflorczak/vue-agile on GitHub">Watch</a>
+                        <a class="github-button" href="https://github.com/lukaszflorczak/vue-agile/subscription" data-icon="octicon-eye" data-size="large" data-show-count="false" aria-label="Watch lukaszflorczak/vue-agile on GitHub">Watch</a>
 
-                        <a class="github-button" href="https://github.com/lukaszflorczak/vue-agile/issues"
-                           data-icon="octicon-issue-opened" data-size="large" data-show-count="false"
-                           aria-label="Issue lukaszflorczak/vue-agile on GitHub">Issue</a>
+                        <a class="github-button" href="https://github.com/lukaszflorczak/vue-agile/issues" data-icon="octicon-issue-opened" data-size="large" data-show-count="false" aria-label="Issue lukaszflorczak/vue-agile on GitHub">Issue</a>
                     </div>
                 </div>
             </div>
@@ -123,8 +110,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <h2 class="section__title"><strong>#2</strong> demo</h2>
-                        <p class="section__description">vue-agile with background-images, disabled infinite mode and
-                            custom styles for arrows and dots indicators</p>
+                        <p class="section__description">vue-agile with background-images, disabled infinite mode and custom styles for arrows and dots indicators</p>
                     </div>
                 </div>
             </div>
@@ -262,8 +248,7 @@
 
                 <div class="row">
                     <div class="col-xs-12">
-                        <agile :arrows="false" :speed="750" :timing="'linear'" :infinite="true" :fade="true"
-                               :autoplay="true" :pauseOnHover="false">
+                        <agile :arrows="false" :speed="750" :timing="'linear'" :infinite="true" :fade="true" :autoplay="true" :pauseOnHover="false">
                             <div class="slide slide--1"></div>
                             <div class="slide slide--2"></div>
                             <div class="slide slide--3"></div>
@@ -352,8 +337,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <h2 class="section__title"><strong>#4</strong> demo</h2>
-                        <p class="section__description">vue-agile for screens that are less than 700px wide and with
-                            unagile option for that are wider screens</p>
+                        <p class="section__description">vue-agile for screens that are less than 700px wide and with unagile option for that are wider screens</p>
                     </div>
                 </div>
 
@@ -414,9 +398,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="copyright">
-                            <span>Copyright © 2017 <strong>Łukasz Florczak</strong></span> <a
-                            href="https://twitter.com/lukaszflorczak" class="twitter-follow-button"
-                            data-show-count="false">Follow @lukaszflorczak</a>
+                            <span>Copyright © 2017 <strong>Łukasz Florczak</strong></span> <a href="https://twitter.com/lukaszflorczak" class="twitter-follow-button" data-show-count="false">Follow @lukaszflorczak</a>
                         </div>
                     </div>
                 </div>
