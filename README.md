@@ -76,7 +76,8 @@ Every first-level child of `<agile>` is a new slide.
 | responsive | object | `null` | Object containing breakpoints and settings objects | 
 | speed | integer (ms) | `300` | Slide animation speed in milliseconds | 
 | timing | string | `ease` | Transition timing function <br> (`linear`/`ease`/`ease-in`/`ease-out`/`ease-in-out`) |
-| unagile | boolean | `false` | Disable agile carousel | 
+| unagile | boolean | `false` | Disable agile carousel (can be updated at runtime) | 
+| slidesToShow | integer | `1` | Amount of slides to show | 
 
 ### Example
 
