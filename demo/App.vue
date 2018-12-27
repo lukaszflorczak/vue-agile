@@ -397,7 +397,7 @@
         <div class="container">
           <div class="row">
             <div class="col-xs-12">
-              <h2 class="section__title"><strong>#1</strong> demo</h2>
+              <h2 class="section__title"><strong>#5</strong> demo</h2>
               <p class="section__description">vue-agile with two slides to show</p>
             </div>
           </div>
