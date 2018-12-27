@@ -149,7 +149,6 @@
                     slide: 0,
                     track: 'auto'
                 },
-                slidesToShow: 1,
                 defaultSettings: {
                     prevArrow: this.prevArrow,
                     nextArrow: this.nextArrow,
