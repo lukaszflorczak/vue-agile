@@ -393,7 +393,84 @@
             </div>
         </section>
 
-        <footer class="site-footer">
+        <section class="section section--demo-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12">
+              <h2 class="section__title"><strong>#1</strong> demo</h2>
+              <p class="section__description">vue-agile with two slides to show</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12">
+              <agile :slides-to-show="2">
+                <div class="slide slide--1"><h3>slide 1</h3></div>
+                <div class="slide slide--2"><h3>slide 2</h3></div>
+                <div class="slide slide--3"><h3>slide 3</h3></div>
+                <div class="slide slide--4"><h3>slide 4</h3></div>
+                <div class="slide slide--5"><h3>slide 5</h3></div>
+                <div class="slide slide--6"><h3>slide 6</h3></div>
+              </agile>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-lg-6">
+              <div class="code">
+                <h4 class="code__title">Template</h4>
+              </div>
+
+              <pre class="code__content">
+                            <code class="language-html">
+                                &lt;agile :slides-to-show="2">
+                                    &lt;div class="slide slide--1"&gt;&lt;h3&gt;slide 1&lt;/h3&gt;&lt;/div&gt;
+                                    &lt;div class="slide slide--2"&gt;&lt;h3&gt;slide 2&lt;/h3&gt;&lt;/div&gt;
+                                    &lt;div class="slide slide--3"&gt;&lt;h3&gt;slide 3&lt;/h3&gt;&lt;/div&gt;
+                                    &lt;div class="slide slide--4"&gt;&lt;h3&gt;slide 4&lt;/h3&gt;&lt;/div&gt;
+                                    &lt;div class="slide slide--5"&gt;&lt;h3&gt;slide 5&lt;/h3&gt;&lt;/div&gt;
+                                    &lt;div class="slide slide--6"&gt;&lt;h3&gt;slide 6&lt;/h3&gt;&lt;/div&gt;
+                                &lt;/agile&gt;
+                            </code>
+                        </pre>
+            </div>
+
+            <div class="col-xs-12 col-lg-6">
+              <div class="code">
+                <h4 class="code__title">Styles</h4>
+              </div>
+
+              <pre class="code__content">
+                            <code class="language-css">
+                                .slide {
+                                    color: #fff;
+                                    height: 300px;
+                                    position: relative;
+
+                                    &--1 {
+                                        background-color: #f1c40f;
+                                    }
+
+                                    ...
+
+                                    h3 {
+                                        font-size: 32px;
+                                        font-weight: 300;
+                                        left: 50%;
+                                        margin: 0;
+                                        position: absolute;
+                                        top: 50%;
+                                        transform: translate(-50%, -50%);
+                                    }
+                                }
+                            </code>
+                        </pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="site-footer">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">

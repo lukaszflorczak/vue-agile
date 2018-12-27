@@ -342,7 +342,8 @@ pre[class*=language-] {
 }
 
 .section--demo-1,
-.section--demo-4 {
+.section--demo-4 ,
+.section--demo-5{
     .slide {
         &--1 {
             background-color: $yellow;

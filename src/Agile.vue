@@ -120,6 +120,11 @@
             unagile: {
                 type: Boolean,
                 default: false
+            },
+
+            slidesToShow: {
+                type: Number,
+                default: 1
             }
         },
 
@@ -522,7 +527,7 @@
 
                 // Actions on document resize
                 for (let i = 0; i < this.allSlidesCount; ++i) {
-                    this.slides[i].style.width = this.width.container + 'px'
+                    this.slides[i].style.width = this.width.container / this.slidesToShow + 'px'
 
                     // Prepare slides for fade mode
                     if (this.settings.fade && !this.settings.unagile) {
@@ -537,7 +542,7 @@
                     this.width.track = this.width.container + 'px'
                     this.transform = 0
                 } else {
-                    this.width.track = this.width.container * this.allSlidesCount + 'px'
+                    this.width.track = this.width.container * this.allSlidesCount / this.slidesToShow + 'px'
                     this.setSlide(this.currentSlide, false, false)
                 }
             },
