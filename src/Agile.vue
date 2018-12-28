@@ -570,6 +570,14 @@
         },
 
         watch: {
+            dots (n, o) {
+                if (n === o) return
+                this.settings.dots = n
+            },
+            arrows (n, o) {
+                if (n === o) return
+                this.settings.arrows = n
+            },
             unagile (n, o) {
                 if (n === o) return
                 this.settings.unagile = n
