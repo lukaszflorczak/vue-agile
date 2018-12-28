@@ -258,7 +258,12 @@
             },
 
             handleUnagile () {
-                (this.settings.unagile) ? this.destroy() : this.reload()
+                if (this.settings.unagile) {
+                    this.destroy()
+                } else {
+                    this.initialize()
+                    this.reload()
+                }
             },
 
             compare (a, b) {
