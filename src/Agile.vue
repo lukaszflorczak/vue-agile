@@ -2,6 +2,8 @@
 	<div>
 		<div>auto play: {{ autoPlayInterval }}</div>
 		<div>pause auto play: {{ pauseAutoPlay }}</div>
+		<div>auto play remaining: {{ autoPlayRemaining }}</div>
+		<div>auto play start: {{ autoPlayStart }}</div>
 
 		<div class="agile" :class="{'agile--auto-play': settings.autoPlay, 'agile--infinite': settings.infinite, 'agile--fade': settings.fade && !settings.un-agile, 'agile--disabled': settings.unAgile}">
 			<div ref="list" class="agile__list">
@@ -177,7 +179,10 @@
 				slidesClonedBefore: [],
 				slidesClonedAfter: [],
 				autoPlayInterval: null,
+				autoPlayTimeout: null,
 				pauseAutoPlay: false,
+				autoPlayStart: null,
+				autoPlayRemaining: null,
 				// autoplayStatus: false,
 				// autoplayTimeout: null,
 				currentSlide: null,
@@ -265,6 +270,10 @@
 			// Watch current slide change
 			currentSlide () {
 				this.prepareSlidesClasses()
+
+				// Set start time of slide
+				this.autoPlayStart = (this.settings.autoPlay) ? +new Date() : null
+
 				this.$emit('afterChange', { currentSlide: this.currentSlide })
 			},
 
@@ -295,6 +304,23 @@
 
 			'settings.autoPlay' () {
 				this.toggleAutoPlay()
+			},
+
+			pauseAutoPlay (nevValue) {
+				if (nevValue) {
+					// Store current slide remaining time and disable auto play mode
+					this.remaining = this.settings.autoPlaySpeed - (+new Date() - this.autoPlayStart)
+					console.log(this.remaining, this.settings.autoPlaySpeed, +new Date(), this.autoPlayStart)
+					this.disableAutoPlay()
+					this.clearAutoPlayPause()
+				} else {
+					// Go to next after remaining time and rerun auto play mode
+					this.autoPlayTimeout = setTimeout(() => {
+						this.clearAutoPlayPause()
+						this.goToNext()
+						this.toggleAutoPlay()
+					}, this.remaining)
+				}
 			}
 		},
 
@@ -516,11 +542,17 @@
 				let enabled = (!this.settings.unagile && this.settings.autoPlay)
 
 				if (!this.autoPlayInterval && enabled) {
+					// Set start time of first slide if not exist
+					// if (!this.autoPlayStart) {
+					// 	this.autoPlayStart = +new Date()
+					// }
+
 					this.autoPlayInterval = setInterval(() => {
-						if (!this.pauseAutoPlay && !document.hidden) {
+						if (!document.hidden) {
 							if (!this.canGoToNext) {
 								this.disableAutoPlay()
 							} else {
+								// this.autoPlayStart = +new Date()
 								this.goToNext()
 							}
 						}
@@ -538,6 +570,11 @@
 			disableAutoPlay () {
 				clearInterval(this.autoPlayInterval)
 				this.autoPlayInterval = null
+			},
+
+			clearAutoPlayPause () {
+				clearTimeout(this.autoPlayTimeout)
+				this.autoPlayRemaining = null
 			},
 
 			disableScroll () {
