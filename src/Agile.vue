@@ -5,9 +5,9 @@
 		<div>auto play remaining: {{ autoPlayRemaining }}</div>
 		<div>auto play start: {{ autoPlayStart }}</div>
 
-		<div class="agile" :class="{'agile--auto-play': settings.autoPlay, 'agile--infinite': settings.infinite, 'agile--fade': settings.fade && !settings.un-agile, 'agile--disabled': settings.unAgile}">
+		<div class="agile" :class="{'agile--auto-play': settings.autoPlay, 'agile--disabled': settings.unAgile, 'agile--fade': settings.fade && !settings.unAgile, 'agile--rtl': settings.rtl}">
 			<div ref="list" class="agile__list">
-				<div ref="track" class="agile__track" :style="{transform: `translate(-${transform + margin}px)`, transition: `transform ${settings.timing} ${transitionDelay}ms`}" @mouseover="handleMouseOver('track')" @mouseout="handleMouseOut('track')">
+				<div ref="track" class="agile__track" :style="{transform: `translate(${transform + margin}px)`, transition: `transform ${settings.timing} ${transitionDelay}ms`}" @mouseover="handleMouseOver('track')" @mouseout="handleMouseOut('track')">
 					<div class="agile__slides agile__slides--cloned" ref="slidesClonedBefore" v-if="clonedSlides">
 						<slot></slot>
 					</div>
@@ -147,6 +147,11 @@
 				default: () => null
 			},
 
+			rtl: {
+				type: Boolean,
+				default: false
+			},
+
 			slidesToScroll: {
 				type: Number,
 				default: 1
@@ -211,6 +216,7 @@
 					pauseOnDotsHover: this.pauseOnDotsHover,
 					pauseOnHover: this.pauseOnHover,
 					responsive: this.responsive,
+					rtl: this.rtl,
 					slidesToScroll: this.slidesToScroll,
 					slidesToShow: this.slidesToShow,
 					speed: this.speed,
@@ -256,7 +262,8 @@
 			},
 
 			margin: function () {
-				return (this.clonedSlides) ? this.slidesCount * this.widthSlide : 0
+				let margin = (this.clonedSlides) ? this.slidesCount * this.widthSlide : 0
+				return margin // (this.settings.rtl) ? -1 * margin : margin
 			}
 		},
 
@@ -650,7 +657,7 @@
 				}
 
 				this.transitionDelay = (transition) ? this.speed : 0
-				this.transform = transform
+				this.transform = (this.settings.rtl) ? transform : -1 * transform
 			}
 		}
 	}
@@ -659,6 +666,12 @@
 <style lang="sass">
 	.agile
 		position: relative
+
+		&--rtl
+			.agile__track,
+			.agile__slides,
+			.agile__dots
+				flex-direction: row-reverse
 
 		&, *
 			&:focus,
