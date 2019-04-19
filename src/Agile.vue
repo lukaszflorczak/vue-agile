@@ -1,9 +1,9 @@
 <template>
-    <div class="agile"
+    <div class="agile" ref="agile"
          :class="{'agile--fade': settings.fade && !settings.unagile, 'agile--disabled': settings.unagile}">
         <div ref="list" class="agile__list">
             <div ref="track" class="agile__track"
-                 :style="{width: width.track + 'px', transform: 'translate(-' + transform + 'px)', transition: 'transform ' + settings.timing + ' ' + transitionDelay + 'ms'}"
+                 :style="{width: width.track + 'px', transform: 'translate(' + (isArabic ? '' : '-') + transform + 'px)', transition: 'transform ' + settings.timing + ' ' + transitionDelay + 'ms'}"
                  @mouseover="handleMouseOver('track')" @mouseout="handleMouseOut('track')">
                 <slot></slot>
             </div>
@@ -162,7 +162,8 @@
                     timing: this.timing,
                     unagile: this.unagile
                 },
-                settings: {}
+                settings: {},
+                isArabic: false
             }
         },
 
@@ -213,6 +214,9 @@
 
             // Get width on start
             this.getWidth()
+
+            // check if it is in arabic environment
+            this.isArabic = getComputedStyle(this.$refs.agile).direction === 'rtl'
         },
 
         beforeDestroy () {
@@ -511,7 +515,7 @@
 
                     // Prepare slides for fade mode
                     if (this.settings.fade && !this.settings.unagile) {
-                        this.slides[i].style.transform = 'translate(-' + i * this.width.slide + 'px)'
+                        this.slides[i].style.transform = 'translate(' + (this.isArabic ? '' : '-') + i * this.width.slide + 'px)'
                     } else {
                         this.slides[i].style.transform = 'translate(0)'
                     }
@@ -551,7 +555,11 @@
                             return
                         }
 
-                        this.prevSlide()
+                        if (!this.isArabic) {
+                            this.prevSlide()
+                        } else {
+                            this.nextSlide()
+                        }
                         this.handleMouseUp()
                     }
 
@@ -560,7 +568,11 @@
                             return
                         }
 
-                        this.nextSlide()
+                        if (!this.isArabic) {
+                            this.nextSlide()
+                        } else {
+                            this.prevSlide()
+                        }
                         this.handleMouseUp()
                     }
                 }
