@@ -263,6 +263,12 @@
 
 			marginX: function () {
 				let marginX = (this.clonedSlides) ? this.slidesCount * this.widthSlide : 0
+
+				// Center mode margin
+				if (this.settings.centerMode) {
+					marginX -= (Math.floor(this.settings.slidesToShow / 2) - +(this.settings.slidesToShow % 2 === 0)) * this.widthSlide
+				}
+
 				return (this.settings.rtl) ? marginX : -1 * marginX
 			}
 		},
