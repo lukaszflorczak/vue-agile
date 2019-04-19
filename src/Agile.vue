@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="agile" :class="{'agile--auto-play': settings.autoPlay, 'agile--disabled': settings.unAgile, 'agile--fade': settings.fade && !settings.unAgile, 'agile--rtl': settings.rtl}">
+		<div class="agile" :class="{'agile--auto-play': settings.autoplay, 'agile--disabled': settings.unAgile, 'agile--fade': settings.fade && !settings.unAgile, 'agile--rtl': settings.rtl}">
 			<div ref="list" class="agile__list">
 				<div ref="track" class="agile__track" :style="{transform: `translate(${translateX + marginX}px)`, transition: `transform ${settings.timing} ${transitionDelay}ms`}" @mouseover="handleMouseOver('track')" @mouseout="handleMouseOut('track')">
 					<div class="agile__slides agile__slides--cloned" ref="slidesClonedBefore" v-if="clonedSlides">
@@ -17,27 +17,29 @@
 				</div>
 			</div>
 
-			<ul ref="dots" v-if="settings.dots && !settings.unagile" class="agile__dots">
-				<li v-for="n in slidesCount" :key="n" class="agile__dot" :class="{'agile__dot--current': n - 1 === currentSlide}" @mouseover="handleMouseOver('dot')" @mouseout="handleMouseOut('dot')">
-					<button @click="goTo(n - 1), restartAutoPlay()">{{n}}</button>
-				</li>
-			</ul>
+			<div class="agile__actions">
+				<button v-if="settings.navButtons && !settings.unagile" class="agile__nav-button agile__nav-button--prev" :disabled="!canGoToPrev" @click="goToPrev(), restartAutoPlay()" ref="prevButton">
+					<slot name="prevButton">
+						<svg x="0px" y="0px" viewBox="0 0 24 24">
+							<path d="M16.2,21c0.3,0,0.5-0.1,0.7-0.3c0.4-0.4,0.4-1,0-1.4L9.6,12L17,4.7c0.4-0.4,0.4-1,0-1.4c-0.4-0.4-1-0.4-1.4,0L6.8,12l8.8,8.7C15.7,20.9,16,21,16.2,21z"/>
+						</svg>
+					</slot>
+				</button>
 
-			<button v-if="settings.navButtons && !settings.unagile" class="agile__nav-button agile__nav-button--prev" :disabled="!canGoToPrev" @click="goToPrev(), restartAutoPlay()" ref="prevButton">
-				<slot name="prevButton">
-					<svg x="0px" y="0px" viewBox="0 0 24 24">
-						<path d="M16.2,21c0.3,0,0.5-0.1,0.7-0.3c0.4-0.4,0.4-1,0-1.4L9.6,12L17,4.7c0.4-0.4,0.4-1,0-1.4c-0.4-0.4-1-0.4-1.4,0L6.8,12l8.8,8.7C15.7,20.9,16,21,16.2,21z"/>
-					</svg>
-				</slot>
-			</button>
+				<ul ref="dots" v-if="settings.dots && !settings.unagile" class="agile__dots">
+					<li v-for="n in slidesCount" :key="n" class="agile__dot" :class="{'agile__dot--current': n - 1 === currentSlide}" @mouseover="handleMouseOver('dot')" @mouseout="handleMouseOut('dot')">
+						<button @click="goTo(n - 1), restartAutoPlay()">{{n}}</button>
+					</li>
+				</ul>
 
-			<button v-if="settings.navButtons && !settings.unagile" class="agile__nav-button agile__nav-button--next" :disabled="!canGoToNext" @click="goToNext(), restartAutoPlay()" ref="nextButton">
-				<slot name="nextButton">
-					<svg x="0px" y="0px" viewBox="0 0 24 24">
-						<path d="M7.8,21c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l7.4-7.3L7,4.7c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l8.8,8.7l-8.8,8.7C8.3,20.9,8,21,7.8,21z"/>
-					</svg>
-				</slot>
-			</button>
+				<button v-if="settings.navButtons && !settings.unagile" class="agile__nav-button agile__nav-button--next" :disabled="!canGoToNext" @click="goToNext(), restartAutoPlay()" ref="nextButton">
+					<slot name="nextButton">
+						<svg x="0px" y="0px" viewBox="0 0 24 24">
+							<path d="M7.8,21c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l7.4-7.3L7,4.7c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l8.8,8.7l-8.8,8.7C8.3,20.9,8,21,7.8,21z"/>
+						</svg>
+					</slot>
+				</button>
+			</div>
 		</div>
 	</div>
 </template>
@@ -60,12 +62,12 @@
 				}
 			},
 
-			autoPlay: {
+			autoplay: {
 				type: Boolean,
 				default: false
 			},
 
-			autoPlaySpeed: {
+			autoplaySpeed: {
 				type: Number,
 				default: 3000
 			},
@@ -178,11 +180,11 @@
 				slides: [],
 				slidesClonedBefore: [],
 				slidesClonedAfter: [],
-				autoPlayInterval: null,
-				autoPlayTimeout: null,
+				autoplayInterval: null,
+				autoplayTimeout: null,
 				pauseAutoPlay: false,
-				autoPlayStart: null,
-				autoPlayRemaining: null,
+				autoplayStart: null,
+				autoplayRemaining: null,
 				// autoplayStatus: false,
 				// autoplayTimeout: null,
 				currentSlide: null,
@@ -198,8 +200,8 @@
 				widthSlide: 0,
 				initialSettings: {
 					asNavFor: this.asNavFor,
-					autoPlay: this.autoPlay,
-					autoPlaySpeed: this.autoPlaySpeed,
+					autoplay: this.autoplay,
+					autoplaySpeed: this.autoplaySpeed,
 					centerMode: this.centerMode,
 					centerPadding: this.centerPadding,
 					dots: this.dots,
@@ -271,7 +273,6 @@
 		watch: {
 			// Watch window width change
 			widthWindow () {
-				// this.reload()
 				this.prepareCarousel()
 			},
 
@@ -280,7 +281,7 @@
 				this.prepareSlidesClasses()
 
 				// Set start time of slide
-				this.autoPlayStart = (this.settings.autoPlay) ? +new Date() : null
+				this.autoplayStart = (this.settings.autoplay) ? +new Date() : null
 
 				this.$emit('afterChange', { currentSlide: this.currentSlide })
 			},
@@ -310,19 +311,19 @@
 				this.toggleFade()
 			},
 
-			'settings.autoPlay' () {
+			'settings.autoplay' () {
 				this.toggleAutoPlay()
 			},
 
 			pauseAutoPlay (nevValue) {
 				if (nevValue) {
 					// Store current slide remaining time and disable auto play mode
-					this.remaining = this.settings.autoPlaySpeed - (+new Date() - this.autoPlayStart)
+					this.remaining = this.settings.autoplaySpeed - (+new Date() - this.autoplayStart)
 					this.disableAutoPlay()
 					this.clearAutoPlayPause()
 				} else {
 					// Go to next after remaining time and rerun auto play mode
-					this.autoPlayTimeout = setTimeout(() => {
+					this.autoplayTimeout = setTimeout(() => {
 						this.clearAutoPlayPause()
 						this.goToNext()
 						this.toggleAutoPlay()
@@ -377,11 +378,7 @@
 			}
 
 			// Init
-			this.getWidth()
-			this.prepareSettings()
-			this.prepareCarousel()
-			this.prepareSlides()
-			this.toggleFade()
+			this.reload()
 		},
 
 		beforeDestroy () {
@@ -418,9 +415,7 @@
 			},
 
 			getWidth () {
-				// let computedStyle = getComputedStyle(this.$refs.list)
 				this.widthWindow = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-				// this.widthContainer = (this.settings.centerMode) ? this.$refs.list.clientWidth - parseFloat(computedStyle.paddingLeft) - parseFloat(computedStyle.paddingRight) : this.$refs.list.clientWidth
 				this.widthContainer = this.$refs.list.clientWidth
 			},
 
@@ -450,7 +445,7 @@
 			},
 
 			handleMouseOver (element) {
-				if (this.settings.autoPlay) {
+				if (this.settings.autoplay) {
 					if ((element === 'dot' && this.settings.pauseOnDotsHover) || (element === 'track' && this.settings.pauseOnHover)) {
 						this.pauseAutoPlay = true
 					}
@@ -458,11 +453,20 @@
 			},
 
 			handleMouseOut (element) {
-				if (this.settings.autoPlay) {
+				if (this.settings.autoplay) {
 					if ((element === 'dot' && this.settings.pauseOnDotsHover) || (element === 'track' && this.settings.pauseOnHover)) {
 						this.pauseAutoPlay = false
 					}
 				}
+			},
+
+			// Reload carousel
+			reload () {
+				this.getWidth()
+				this.prepareSettings()
+				this.prepareCarousel()
+				this.prepareSlides()
+				this.toggleFade()
 			},
 
 			// Prepare settings object
@@ -556,24 +560,18 @@
 			},
 
 			toggleAutoPlay () {
-				let enabled = (!this.settings.unagile && this.settings.autoPlay)
+				let enabled = (!this.settings.unagile && this.settings.autoplay)
 
-				if (!this.autoPlayInterval && enabled) {
-					// Set start time of first slide if not exist
-					// if (!this.autoPlayStart) {
-					// 	this.autoPlayStart = +new Date()
-					// }
-
-					this.autoPlayInterval = setInterval(() => {
+				if (!this.autoplayInterval && enabled) {
+					this.autoplayInterval = setInterval(() => {
 						if (!document.hidden) {
 							if (!this.canGoToNext) {
 								this.disableAutoPlay()
 							} else {
-								// this.autoPlayStart = +new Date()
 								this.goToNext()
 							}
 						}
-					}, this.settings.autoPlaySpeed)
+					}, this.settings.autoplaySpeed)
 				} else {
 					this.disableAutoPlay()
 				}
@@ -585,13 +583,13 @@
 			},
 
 			disableAutoPlay () {
-				clearInterval(this.autoPlayInterval)
-				this.autoPlayInterval = null
+				clearInterval(this.autoplayInterval)
+				this.autoplayInterval = null
 			},
 
 			clearAutoPlayPause () {
-				clearTimeout(this.autoPlayTimeout)
-				this.autoPlayRemaining = null
+				clearTimeout(this.autoplayTimeout)
+				this.autoplayRemaining = null
 			},
 
 			disableScroll () {

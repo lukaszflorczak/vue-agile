@@ -1,7 +1,7 @@
 {
   "name": "vue-agile",
-  "version": "0.5.0",
-  "description": "Carousel component for Vue.js",
+  "version": "1.0.0-rc.1",
+  "description": "A carousel component for Vue.js",
   "author": "Łukasz Florczak <lukaszflorczak@icloud.com>",
   "license": "MIT",
   "keywords": [
