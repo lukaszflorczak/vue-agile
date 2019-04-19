@@ -310,7 +310,6 @@
 				if (nevValue) {
 					// Store current slide remaining time and disable auto play mode
 					this.remaining = this.settings.autoPlaySpeed - (+new Date() - this.autoPlayStart)
-					console.log(this.remaining, this.settings.autoPlaySpeed, +new Date(), this.autoPlayStart)
 					this.disableAutoPlay()
 					this.clearAutoPlayPause()
 				} else {
