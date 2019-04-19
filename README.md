@@ -9,7 +9,7 @@
 
 ---
 
-**Please note that the plugin is currently in a relatively early development phase. I will try to keep up with all issues and maintain stability with each version, but unfortunately at this stage there may still be some bugs.**
+🎉 **After about a year from the last version, I'm happy and excited to inform, that new `v1.0` version is coming soon! Some features I planed in version `v0.4` were for me impossible to realise and I got stuck in it completely. Version [`2.6 of Vue.js`](https://github.com/vuejs/vue/releases/tag/v2.6.0) opened new slots opportunities and now I can return to developing the plugin. I've learned a lot for that time so I also decided to refactor all code – it should be now cleaner and better optimised. Stay tuned!**
 
 ---
 

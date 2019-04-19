@@ -346,7 +346,9 @@
 
             disableScroll () {
                 document.ontouchmove = function (e) {
-                    e.preventDefault()
+                    if (!e.touches) {
+                        e.preventDefault()
+                    }
                 }
             },
 
