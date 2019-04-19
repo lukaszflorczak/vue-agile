@@ -7,7 +7,7 @@
 
 		<div class="agile" :class="{'agile--auto-play': settings.autoPlay, 'agile--disabled': settings.unAgile, 'agile--fade': settings.fade && !settings.unAgile, 'agile--rtl': settings.rtl}">
 			<div ref="list" class="agile__list">
-				<div ref="track" class="agile__track" :style="{transform: `translate(${transform + margin}px)`, transition: `transform ${settings.timing} ${transitionDelay}ms`}" @mouseover="handleMouseOver('track')" @mouseout="handleMouseOut('track')">
+				<div ref="track" class="agile__track" :style="{transform: `translate(${translateX + marginX}px)`, transition: `transform ${settings.timing} ${transitionDelay}ms`}" @mouseover="handleMouseOver('track')" @mouseout="handleMouseOut('track')">
 					<div class="agile__slides agile__slides--cloned" ref="slidesClonedBefore" v-if="clonedSlides">
 						<slot></slot>
 					</div>
@@ -196,7 +196,7 @@
 				dragStartY: 0,
 				dragDistance: 0,
 				swipeDistance: 50,
-				transform: 0,
+				translateX: 0,
 				transitionDelay: 0,
 				widthWindow: 0,
 				widthContainer: 0,
@@ -261,8 +261,9 @@
 				return this.allSlides.length
 			},
 
-			margin: function () {
-				return (this.clonedSlides) ? this.slidesCount * this.widthSlide : 0
+			marginX: function () {
+				let marginX = (this.clonedSlides) ? this.slidesCount * this.widthSlide : 0
+				return (this.settings.rtl) ? marginX : -1 * marginX
 			}
 		},
 
@@ -415,9 +416,10 @@
 			},
 
 			getWidth () {
-				let computedStyle = getComputedStyle(this.$refs.list)
+				// let computedStyle = getComputedStyle(this.$refs.list)
 				this.widthWindow = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-				this.widthContainer = this.settings.centerMode ? this.$refs.list.clientWidth - parseFloat(computedStyle.paddingLeft) - parseFloat(computedStyle.paddingRight) : this.$refs.list.clientWidth
+				// this.widthContainer = (this.settings.centerMode) ? this.$refs.list.clientWidth - parseFloat(computedStyle.paddingLeft) - parseFloat(computedStyle.paddingRight) : this.$refs.list.clientWidth
+				this.widthContainer = this.$refs.list.clientWidth
 			},
 
 			handleMouseDown (e) {
@@ -524,7 +526,7 @@
 
 				// Prepare track
 				if (this.settings.unagile) {
-					this.transform = 0
+					this.translateX = 0
 				} else {
 					if (this.currentSlide === null) {
 						this.currentSlide = this.settings.initialSlide
@@ -643,7 +645,7 @@
 					this.$emit('beforeChange', { currentSlide: this.currentSlide, nextSlide: realNextSlide })
 				}
 
-				let transform = (!this.settings.fade) ? n * this.widthSlide * this.settings.slidesToScroll : 0
+				let translateX = (!this.settings.fade) ? n * this.widthSlide * this.settings.slidesToScroll : 0
 
 				if (transition) {
 					this.currentSlide = realNextSlide
@@ -656,7 +658,7 @@
 				}
 
 				this.transitionDelay = (transition) ? this.speed : 0
-				this.transform = (this.settings.rtl) ? transform : -1 * transform
+				this.translateX = (this.settings.rtl) ? translateX : -1 * translateX
 			}
 		}
 	}
