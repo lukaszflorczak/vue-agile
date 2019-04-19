@@ -515,6 +515,21 @@
 				return this.currentSlide
 			},
 
+			// Return current breakpoint
+			getCurrentBreakpoint () {
+				return this.currentBreakpoint
+			},
+
+			// Return settings for current breakpoint
+			getCurrentSettings () {
+				return this.settings
+			},
+
+			// Return initial settings
+			getInitialSettings () {
+				return this.initialSettings
+			},
+
 			// Go to next slide
 			goToNext () {
 				if (this.canGoToNext) {
