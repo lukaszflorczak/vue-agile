@@ -513,8 +513,15 @@
 				// Add active & current class for current slide
 				this.slides[this.currentSlide].classList.add('agile__slide--active')
 
-				// TODO: centerMode, slidesToShow, slidesToScroll
-				this.slides[this.currentSlide].classList.add('agile__slide--current')
+				let start = (this.clonedSlides) ? this.slidesCount + this.currentSlide : this.currentSlide
+
+				if (this.centerMode) {
+					start -= (Math.floor(this.settings.slidesToShow / 2) - +(this.settings.slidesToShow % 2 === 0))
+				}
+
+				for (let i = start; i < start + this.settings.slidesToShow; i++) {
+					this.allSlides[i].classList.add('agile__slide--current')
+				}
 			},
 
 			// Prepare carousel styles
