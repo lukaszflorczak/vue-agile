@@ -262,8 +262,7 @@
 			},
 
 			margin: function () {
-				let margin = (this.clonedSlides) ? this.slidesCount * this.widthSlide : 0
-				return margin // (this.settings.rtl) ? -1 * margin : margin
+				return (this.clonedSlides) ? this.slidesCount * this.widthSlide : 0
 			}
 		},
 
