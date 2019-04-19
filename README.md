@@ -9,9 +9,7 @@
 
 ---
 
-**
-After about a year of the last version, I'm happy and excited to inform, that new `v1.0` version is coming soon! Some features I planed in version `v0.4` are for me impossible to realise and I'm completely stuck on them. Probably version [`2.6 of Vue.js`](https://github.com/vuejs/vue/releases/tag/v2.6.0) opened new slots opportunities and now I can return to developing the plugin. I've learned a lot for that time so I also decided to refactor all code – it should be now cleaner and better optimised. Stay tuned!
-**
+**After about a year of the last version, I'm happy and excited to inform, that new `v1.0` version is coming soon! Some features I planed in version `v0.4` are for me impossible to realise and I'm completely stuck on them. Probably version [`2.6 of Vue.js`](https://github.com/vuejs/vue/releases/tag/v2.6.0) opened new slots opportunities and now I can return to developing the plugin. I've learned a lot for that time so I also decided to refactor all code – it should be now cleaner and better optimised. Stay tuned!**
 
 ---
 
