@@ -1,10 +1,5 @@
 <template>
 	<div>
-		<div>auto play: {{ autoPlayInterval }}</div>
-		<div>pause auto play: {{ pauseAutoPlay }}</div>
-		<div>auto play remaining: {{ autoPlayRemaining }}</div>
-		<div>auto play start: {{ autoPlayStart }}</div>
-
 		<div class="agile" :class="{'agile--auto-play': settings.autoPlay, 'agile--disabled': settings.unAgile, 'agile--fade': settings.fade && !settings.unAgile, 'agile--rtl': settings.rtl}">
 			<div ref="list" class="agile__list">
 				<div ref="track" class="agile__track" :style="{transform: `translate(${translateX + marginX}px)`, transition: `transform ${settings.timing} ${transitionDelay}ms`}" @mouseover="handleMouseOver('track')" @mouseout="handleMouseOut('track')">
@@ -382,10 +377,11 @@
 			}
 
 			// Init
-			// this.prepareSlides()
 			this.getWidth()
 			this.prepareSettings()
+			this.prepareCarousel()
 			this.prepareSlides()
+			this.toggleFade()
 		},
 
 		beforeDestroy () {
@@ -546,6 +542,7 @@
 				let enabled = (!this.settings.unagile && this.settings.fade)
 
 				for (let i = 0; i < this.slidesCount; i++) {
+					console.log(this.widthSlide)
 					this.slides[i].style.transition = (enabled) ? 'opacity ' + this.settings.timing + ' ' + this.settings.speed + 'ms' : 'none'
 					this.slides[i].style.transform = (enabled) ? `translate(-${i * this.widthSlide}px)` : 'none'
 				}
@@ -633,10 +630,18 @@
 			},
 
 			// Go to slide
-			goTo (n, transition = true) {
+			goTo (n, transition = true, asNav = false) {
 				// Break goTo() if unagile is active
 				if (this.settings.unagile) {
 					return false
+				}
+
+				if (!asNav) {
+					this.settings.asNavFor.forEach(carousel => {
+						if (carousel) {
+							carousel.goTo(n, transition, true)
+						}
+					})
 				}
 
 				let realNextSlide = n
@@ -649,11 +654,7 @@
 					}
 
 					this.$emit('beforeChange', { currentSlide: this.currentSlide, nextSlide: realNextSlide })
-				}
 
-				let translateX = (!this.settings.fade) ? n * this.widthSlide * this.settings.slidesToScroll : 0
-
-				if (transition) {
 					this.currentSlide = realNextSlide
 
 					if (n !== realNextSlide) {
@@ -663,6 +664,7 @@
 					}
 				}
 
+				let translateX = (!this.settings.fade) ? n * this.widthSlide * this.settings.slidesToScroll : 0
 				this.transitionDelay = (transition) ? this.speed : 0
 				this.translateX = (this.settings.rtl) ? translateX : -1 * translateX
 			}
