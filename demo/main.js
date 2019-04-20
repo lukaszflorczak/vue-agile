@@ -1,11 +1,11 @@
 import Vue from 'vue'
-import App from './App'
+import App from './App.vue'
+import Agile from '../src/main'
 
 Vue.config.productionTip = false
 
-/* eslint-disable no-new */
+Vue.use(Agile)
+
 new Vue({
-    el: '#app',
-    template: '<App/>',
-    components: {App}
-})
+	render: h => h(App)
+}).$mount('#app')

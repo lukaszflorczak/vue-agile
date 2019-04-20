@@ -1,107 +1,170 @@
-# vue-agile
+# vue-agile [![](https://img.shields.io/npm/v/vue-agile.svg?style=flat-square&logo=npm)](https://www.npmjs.com/package/vue-agile) [![](https://img.shields.io/npm/l/vue-agile.svg?style=flat-square&logo=github)](https://github.com/lukaszflorczak/vue-agile/blob/master/LICENSE.md) [![](https://img.shields.io/codacy/grade/509a536ebcf64a71a119e988bd888af2.svg?style=flat-square&logo=codacy)](https://app.codacy.com/project/lukaszflorczak/vue-agile/dashboard) [![](https://img.shields.io/npm/dm/vue-agile.svg?style=flat-square&logo=npm)](https://www.npmjs.com/package/vue-agile) [![](https://img.shields.io/badge/buy%20me%20a%20coffee-+3€-red.svg?style=flat-square&logo=ko-fi)](http://ko-fi.com/lukaszflorczak)
 
-> Carousel component for Vue.js inspired by [Slick](https://github.com/kenwheeler/slick/).<br>
-> More powerful with each version, touch-friendly, written in Vue and Vanilla JS (without jQuery dependency).
+> A carousel component for Vue.js inspired by [Slick](https://github.com/kenwheeler/slick/).<br>
+> Powerful, touch-friendly, and written in Vue and Vanilla JS (without a jQuery dependency).
 
 **[Demo & examples](https://lukaszflorczak.github.io/vue-agile/)**
 
-🤝 Thanks to [Maciej Wach](https://github.com/wachu91) for inventing the name, testing and motivation.
+More demos and examples coming soon in [vue-agile CodePens collection](https://codepen.io/collection/AdRzJW/).
 
-## Important – update from version < `0.3`
+---
 
-**In version `0.3.0`, I removed all styles that are responsible for the appearance of navigation elements** (like dots color and shape, arrows position, etc.). I think most people use their own styles and default styles are completely redundant. If you want to check out these defaults styles, you can find them [here](https://github.com/lukaszflorczak/vue-agile/blob/master/src/Agile.vue#L488).
+🤝 Thanks to [Maciej Wach](https://github.com/wachu91) for inventing the name and to all [Contributors](https://github.com/lukaszflorczak/vue-agile/graphs/contributors) for your development.
 
-**Additionally dots and arrows have been moved from the `.agile__list` to the main `.agile` container.** The layout is the same as in Slick and id should allow for better and more comfortable positioning of these elements.
+---
+
+🎉 **After about a year from the last version, I'm happy and excited to inform, that new `v1.0` version is available now!** Some features I planed in version `0.4` were for me impossible to realise and I got stuck in it completely. Version [`2.6 of Vue.js`](https://github.com/vuejs/vue/releases/tag/v2.6.0) opened new slots opportunities and I've returned to developing the plugin now. I've learned a lot for that time so I also decided to refactor all code – it should be now cleaner and better optimised.
+
+---
+
+## Important – update from version < `1.0`
+
+**Depreciated => new props:**
+* `arrows` => `navButtons`
+* `prevArrow` => `prevButton` slot
+* `nextArrow` => `nextButton` slot
+* `show` => `reload()` method
+
+**Depreciated => new classes:**
+* `.agile__arrow` => `.agile__nav-button`
+* `.agile__arrow--prev` => `.agile__nav-button--prev`
+* `.agile__arrow--next` => `.agile__nav-button--next`
+* `.agile__slide--cloned` => cloned slides are grouped in `.agile__slides--cloned` container now
+
+**Structure:**
+* Nav buttons and dots are grouped in `.agile__actions` container now
+
+Read a full changelog here.
 
 ## Installation
 
-``` bash
+```bash
 yarn add vue-agile
 ```
 
 or
 
-``` bash
+```bash
 npm install vue-agile
 ```
 
+## Styles
+
+**The component is delivered without styles for the appearance of the navigation elements** (like dots color and shape, arrows position, etc.). I think most people use their own styles and default styles are completely redundant. If you want, feel free to use styles from [CodePen demos](https://codepen.io/collection/AdRzJW/).
+
 ## Usage
-``` js
+```js
 import Vue from 'vue'
 import VueAgile from 'vue-agile'
 
 Vue.use(VueAgile)
 ```
-``` vue
+```vue
 <template>
-    <main>
-        <agile>
-            <div class="slide">
-                <h3>slide 1</h3>
-            </div>
-            
-            ...
-            
-            <div class="slide">
-                <h3>slide n</h3>
-            </div>
-        </agile>
-    </main>
+	<agile>
+		<div class="slide">
+			<h3>slide 1</h3>
+		</div>
+		
+		...
+		
+		<div class="slide">
+			<h3>slide n</h3>
+		</div>
+	</agile>
 </template>
 ```
 
-Every first-level child of `<agile>` is a new slide.
+Every first-level child of `<agile>` is a new slide. You also can group them inside `<template v-slot:default>...</template>` tags.
 
 ## Options
 | Parameter | Type | Default | Description |
-| --- | --- | --- | --- |
-| arrows | boolean | `true` | Enable prev/next arrows |
-| asNavFor | array (refs) | `[]` | Set the slider to be the navigation of other one – more in „asNavFor” section |
+| --- | :---: | :---: | --- |
+| [asNavFor](#asNavFor) | array | `[]` | Set the carousel to be the navigation of other carousels | 
 | autoplay | boolean | `false` | Enable autoplay |
-| autoplaySpeed | integer (ms) | `3000` | Autoplay interval in milliseconds | 
-| centerMode | boolean | `false` | Enables active slides centering |
-| centerPadding | string (px/%) | `15%` | Side padding for center mode |
+| autoplaySpeed | integer (ms) | `3000` | Autoplay interval in milliseconds | 
+| centerMode | boolean | `false` | Enable centered view when `slidesToShow` > `1` |
 | dots | boolean | `true` | Enable dot indicators/pagination |
 | fade | boolean | `false` | Enable fade effect |
 | infinite | boolean | `true` | Infinite loop sliding | 
-| initialSlide | integer | `0` | Slide to start on (numbered from zero) | 
+| initialSlide | integer | `0` | Index of slide to start on |
 | mobileFirst | boolean | `true` | Enable mobile first calculation for responsive settings |
-| nextArrow | string (HTML/SVG) | `<svg>` | Next arrow code – more in „Arrows” section |
+| navButtons | boolean | `true` | Enable prev/next navigation buttons |
 | options | object | `null` | All settings as one object | 
-| pauseOnHover | boolean | `true` | Pause autoplay when a slide is hovered |
 | pauseOnDotsHover | boolean | `false` | Pause autoplay when a dot is hovered |
-| prevArrow | string (HTML/SVG) | `<svg>` | Prev arrow code – more in „Arrows” section |
-| responsive | object | `null` | Object containing breakpoints and settings objects | 
+| pauseOnHover | boolean | `true` | Pause autoplay when a slide is hovered |
+| [responsive](#Responsive) | object | `null` | Object containing breakpoints and settings objects | 
+| rtl | boolean | `false` | Enable right-to-left mode |
 | slidesToShow | integer | `1` | Number of slides to show |
-| speed | integer (ms) | `300` | Slide animation speed in milliseconds | 
+| speed | integer (ms) | `300` | Slide animation speed in milliseconds | 
 | timing | string | `ease` | Transition timing function <br> (`linear`/`ease`/`ease-in`/`ease-out`/`ease-in-out`) |
-| unagile | boolean | `false` | Disable agile carousel | 
+| unagile | boolean | `false` | Disable Agile carousel | 
 
 ### Example
 
-``` vue
-<agile :arrows="false" :dots="false" :infinite="false">
-    ...
-</agile>
+```vue
+<agile :dots="false" :infinite="false" :autoplay-speed="5000">...</agile>
+```
+
+**Important!** If you use props inline, convert props names from `camelCase` to `kebab-case`.
+
+## Methods
+
+| Name | Description |
+| --- | --- |
+| `getCurrentSlide()` | Returns index of current slide | 
+| `getCurrentBreakpoint()` | Returns current breakpoint (can returns `0` in mobile first for the smallest breakpoint and `null` for desktop first for the largest) | 
+| `getCurrentSettings()` | Returns settings object for current breakpoint – useful for debugging | 
+| `getInitialSettings()` | Returns full settings object with all options – useful for debugging | 
+| `goTo()` | Navigates to a slide by index |
+| `goToNext()` | Navigates to next slide |
+| `goToPrev()` | Navigate to previous slide | 
+| `reload()` | Reload carousel & slides settings, classes and inline styles |
+
+### Example
+
+```vue
+<agile ref="carousel">...</agile>
+
+<button @click="$refs.carousel.goToNext()">My custom button</button>
+```
+
+## Events
+
+| Name | Value | Description |
+| --- | --- | --- |
+| afterChange | `{ currentSlide }` | Fires after slide change |
+| beforeChange | `{ currentSlide, nextSlide }` | Fires before slide change |
+| breakpoint | `{ breakpoint } ` | Fires after breakpoint change |
+
+### Example
+
+```vue
+<agile @afterChange="showCurrentSlide($event)">...</agile>
+```
+
+```js
+showCurrentSlide (event) {
+	console.log(event)
+	// Shows for example: { currentSlide: 1 }
+}
 ```
 
 ## Responsive
 
-To customize responsiveness, I recommend defining desired breakpoint and passing a settings object with the options to modify inside **options**.
+To customize responsiveness, I recommend defining your desired breakpoints and passing a settings object with your modification options inside **options**.
 
 ### Example
 
-``` vue
-<agile :options="options">
-    ...
-</agile>
+```vue
+<agile :options="myOptions">...</agile>
 ```
 
-``` js
+```js
 data () {
     return {
-        options: {
-            arrows: false,
+        myOptions: {
+            navButtons: false,
             
             responsive: [
                 {
@@ -114,7 +177,7 @@ data () {
                 {
                     breakpoint: 900,
                     settings: {
-                        arrows: true,
+                        navButtons: true,
                         dots: true,
                         infinite: false
                     }
@@ -125,138 +188,58 @@ data () {
 }
 ```
 
+How does it work? Mobile first mode is used by default. It means, that `navButtons: false` option will be used on screens from 0 to 600 px width (+ all default carousel options). On screens from 600 to 900 px  `dots: false`  will be added to options from breakpoint before. And on screens over 900 px width `navButtons` and `dots` options will be overwritten and `infinite: false` will be added.  
+
+## Custom arrows / nav buttons
+
+From version `1.0` the component use slots for custom navigation buttons. It means you can put inside whatever you want – any HTML with text, image, icon etc.
+
+### Example
+
+```vue
+<agile>
+    ... <!-- slides -->
+    
+    <template slot="prevButton">prev</template>
+    <template slot="nextButton">next</template>
+</agile>
+```
+
 ## asNavFor
 
-With this parameter you can synchronize several Agile carousels. For example, one can show thumbnails of photos and the second big picture. Changing a slide on one carousel will cause a change to another.
-
-### Example
-```html
-<agile ref="agile1" asNavFor="['agile2', 'agile3']">
-    ...
-</agile>
- 
-<agile ref="agile2">
-    ...
-</agile>
-
-<agile ref="agile3">
-    ...
-</agile>
-```
-
-You can also combine carousel in two ways:
-
-```html
-<agile ref="bigImage" asNavFor="['thumbnails']">
-    ...
-</agile>
-
-<agile ref="thumbnails" asNavFor="['bigImage']">
-    ...
-</agile>
-```
-
-## Arrows
-
-By default carousel contains SVG arrows. You can change them using CSS or `prevArrow` & `nextArrow` parameters. 
-
-There are two important things:
-
-1. You should put your SVG/HTML code in one line, without new line chars etc.
-2. You should define arrows code as variables in `data()`.
+This option is useful for example for creating a photo gallery with two related slider – one big with only one slide in view and second for navigation with thumbnails.
 
 ### Example
 
-``` vue
-<agile :prevArrow="left" :nextArrow="right">
-    ...
-</agile>
+```vue
+<agile ref="main" :fade="true">...</agile>
+
+<agile ref="thumbnails" :as-nav-for="[$refs.main]" :slides-to-show="4" autoplay>...</agile>
 ```
 
-```js
-export default {
-    data () {
-        return {
-            left: '<svg x="0px" y="0px" viewBox="0 0 24 24"><path d="M16.2,21c0.3,0,0.5-0.1,0.7-0.3c0.4-0.4,0.4-1,0-1.4L9.6,12L17,4.7c0.4-0.4,0.4-1,0-1.4c-0.4-0.4-1-0.4-1.4,0L6.8,12l8.8,8.7C15.7,20.9,16,21,16.2,21z"/></svg>',
-            right: '<svg x="0px" y="0px" viewBox="0 0 24 24"><path d="M7.8,21c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l7.4-7.3L7,4.7c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l8.8,8.7l-8.8,8.7C8.3,20.9,8,21,7.8,21z"/></svg>'
-        }
-    }
-}
-```
-
-## Events
-
-| Name | Returned data | Description |
-| --- | --- | --- |
-| `beforeChange` | `{currentSlide, nextSlide}` | Fires before slide change |
-| `afterChange` | `{currentSlide}` | Fires after slide change |
-
-
-### Example
-
-``` html
-<agile @afterChange="newSlide($event)">
-    ...
-</agile>
-```
-
-``` js
-newSlide ($event) {
-    console.log($event.currentSlide)
-}
-```
-
-## Methods
-| Name | Parameters | Returned data | Description |
-| --- | --- | --- | --- |
-| `goTo()` | slide number (`integer`), don't animate (optional `boolean`) | — | Navigates to a slide by index |
-| `goToNext()` | — | — | Navigates to the next slide |
-| `goToPrev()` | — | — | Navigates to the previous slide | 
-| `getCurrentSlide()` | — | slide number (`integer`) | Returns the current slide index (numbered from zero) |
-
-### Example
-
-``` html
-<agile ref="carousel">
-    ...
-</agile>    
-```
-
-``` js
-// Go to slide 3 without animation
-this.$refs.carousel.goTo(3, false)
-
-// Get current slide number
-let currentSlide = this.$refs.carousel.getCurrentSlide()
-```
-
+**Important!** If you want to use the autoplay mode is it only in one of the related carousels.
 
 ## `v-if` & `v-show`
 
-If you have dynamically loaded slides, use `v-if` to show carousel when slides will be ready. Using `v-if` is also recommended in other situations if you want to hide/show the slideshow.
+If you have slides being dynamically loaded, use `v-if` to show the carousel after the slides are ready. Using `v-if` is also recommended in other situations if you want to hide/show the slideshow.
 
-If for some reason you need to use `v-show`, it's also possible, but you have to use an additional parameter `show` with the same value as for the `v-show`.
+It is also possible to use `v-show`, but you have to use the `reload()` method.
 
 ### Example
-``` html
-<button @click="toggleAgile()">Toggle carousel</button>
+```vue
+<button @click="isActive = !isActive">Toggle carousel</button>
 
-<agile v-show="isActive" :show="isActive">
-    ...
-</agile>
-```
-
-``` js
-toggleAgile () {
-    this.isActive = !this.isActive
-}
+<agile v-if="isActive">...</agile>
 ```
 
 ## SSR Support
 
-The component uses browser specific attributes (like `window` and `document`). It is necessary, so probably the only option is to run vue-agile only on the client-side. It was tested on [nuxt v1.0.0-rc7](https://github.com/nuxt/nuxt.js/releases/tag/v1.0.0-rc7) and works fine.
+The component uses browser specific attributes (like `window` and `document`). Unfortunately, it is necessary -- so as of now, the only option is to run vue-agile solely on the client-side. 
+
+Full support for Nuxt.js is a known issue that will be addressed in a next version.
  
 ### Example
+
 ```js
 // plugins/vue-agile.js
 
@@ -278,22 +261,21 @@ module.exports = {
 
 ```vue
 <no-ssr placeholder="Loading...">
-    <agile>
-        ... 
-    </agile>
+    <agile>...</agile>
 </no-ssr>
 ```
 
-PS. If you know a better way to work the component with SSR please, [let me know about it](https://github.com/lukaszflorczak/vue-agile/issues).
-
 ## Contributing
-```
-# install dependencies
+```bash
+# project setup
 yarn install
  
-# serve with hot reload at localhost:8080
-yarn run dev
+# compiles and hot-reloads for developmen
+yarn serve
  
-# create UMD bundle.
-yarn run bundle
+# compiles and minifies for production
+yarn build-bundle
+
+# lint and fixes files
+yarn run lint
 ```
