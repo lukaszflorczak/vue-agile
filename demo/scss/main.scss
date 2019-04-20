@@ -87,7 +87,7 @@ h1, h2, h3 {
         }
     }
 
-    &__arrow {
+    &__nav-button {
         border: none;
         bottom: -11px;
         margin: 0;
@@ -264,30 +264,6 @@ h1, h2, h3 {
     }
 }
 
-.slide {
-    background: {
-        position: center;
-        size: cover;
-    }
-    color: #fff;
-    height: 200px;
-    position: relative;
-
-    @include md {
-        height: 300px;
-    }
-
-    h3 {
-        font-size: 32px;
-        font-weight: 300;
-        left: 50%;
-        margin: 0;
-        position: absolute;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
-}
-
 pre[class*=language-] {
     border-radius: 0;
     max-height: 200px;
@@ -346,34 +322,6 @@ pre[class*=language-] {
     margin: 15px auto;
 }
 
-.section--demo-1 {
-    .slide {
-        &--1 {
-            background-color: $yellow;
-        }
-
-        &--2 {
-            background-color: $orange;
-        }
-
-        &--3 {
-            background-color: $red;
-        }
-
-        &--4 {
-            background-color: $purple;
-        }
-
-        &--5 {
-            background-color: $blue;
-        }
-
-        &--6 {
-            background-color: $green;
-        }
-    }
-}
-
 .section--demo-2 {
     .container-fluid {
         padding: 0;
@@ -406,7 +354,7 @@ pre[class*=language-] {
             }
         }
 
-        &__arrow {
+        &__nav-button {
             height: 100%;
             top: 0;
             width: 50px;
@@ -455,30 +403,6 @@ pre[class*=language-] {
             top: 0;
             width: 100%;
         }
-
-        &--1 {
-            background-image: url(../static/bg-01.jpg);
-        }
-
-        &--2 {
-            background-image: url(../static/bg-02.jpg);
-        }
-
-        &--3 {
-            background-image: url(../static/bg-03.jpg);
-        }
-
-        &--4 {
-            background-image: url(../static/bg-04.jpg);
-        }
-
-        &--5 {
-            background-image: url(../static/bg-05.jpg);
-        }
-
-        &--6 {
-            background-image: url(../static/bg-06.jpg);
-        }
     }
 }
 
@@ -523,18 +447,6 @@ pre[class*=language-] {
 
         @include md {
             height: 500px;
-        }
-
-        &--1 {
-            background-image: url(../static/bg-07.jpg);
-        }
-
-        &--2 {
-            background-image: url(../static/bg-08.jpg);
-        }
-
-        &--3 {
-            background-image: url(../static/bg-09.jpg);
         }
     }
 }
