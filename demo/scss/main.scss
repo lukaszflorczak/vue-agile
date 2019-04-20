@@ -403,30 +403,6 @@ pre[class*=language-] {
             top: 0;
             width: 100%;
         }
-
-        &--1 {
-            background-image: url(../demo/assets/bg-01.jpg);
-        }
-
-        &--2 {
-            background-image: url(../demo/assets/bg-02.jpg);
-        }
-
-        &--3 {
-            background-image: url(../demo/assets/bg-03.jpg);
-        }
-
-        &--4 {
-            background-image: url(../demo/assets/bg-04.jpg);
-        }
-
-        &--5 {
-            background-image: url(../demo/assets/bg-05.jpg);
-        }
-
-        &--6 {
-            background-image: url(../demo/assets/bg-06.jpg);
-        }
     }
 }
 
@@ -471,18 +447,6 @@ pre[class*=language-] {
 
         @include md {
             height: 500px;
-        }
-
-        &--1 {
-            background-image: url(../demo/assets/bg-07.jpg);
-        }
-
-        &--2 {
-            background-image: url(../demo/assets/bg-08.jpg);
-        }
-
-        &--3 {
-            background-image: url(../demo/assets/bg-09.jpg);
         }
     }
 }

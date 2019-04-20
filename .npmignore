@@ -1,0 +1,6 @@
+demo/
+docs/
+node_modules/
+.idea/
+tests/
+public/
