@@ -1,17 +1,15 @@
-# vue-agile
-
-[![](https://img.shields.io/npm/v/vue-agile.svg?style=flat-square&logo=npm)](https://www.npmjs.com/package/vue-agile) [![](https://img.shields.io/npm/l/vue-agile.svg?style=flat-square&logo=github)](https://github.com/lukaszflorczak/vue-agile/blob/master/LICENSE.md) [![](https://img.shields.io/codacy/grade/509a536ebcf64a71a119e988bd888af2.svg?style=flat-square&logo=codacy)](https://app.codacy.com/project/lukaszflorczak/vue-agile/dashboard) [![](https://img.shields.io/npm/dm/vue-agile.svg?style=flat-square&logo=npm)](https://www.npmjs.com/package/vue-agile) [![](https://img.shields.io/badge/buy%20me%20a%20coffee-+3€-red.svg?style=flat-square&logo=ko-fi)](http://ko-fi.com/lukaszflorczak)
+# vue-agile [![](https://img.shields.io/npm/v/vue-agile.svg?style=flat-square&logo=npm)](https://www.npmjs.com/package/vue-agile) [![](https://img.shields.io/npm/l/vue-agile.svg?style=flat-square&logo=github)](https://github.com/lukaszflorczak/vue-agile/blob/master/LICENSE.md) [![](https://img.shields.io/codacy/grade/509a536ebcf64a71a119e988bd888af2.svg?style=flat-square&logo=codacy)](https://app.codacy.com/project/lukaszflorczak/vue-agile/dashboard) [![](https://img.shields.io/npm/dm/vue-agile.svg?style=flat-square&logo=npm)](https://www.npmjs.com/package/vue-agile) [![](https://img.shields.io/badge/buy%20me%20a%20coffee-+3€-red.svg?style=flat-square&logo=ko-fi)](http://ko-fi.com/lukaszflorczak)
 
 > A carousel component for Vue.js inspired by [Slick](https://github.com/kenwheeler/slick/).<br>
 > Powerful, touch-friendly, and written in Vue and Vanilla JS (without a jQuery dependency).
 
 **[Demo & examples](https://lukaszflorczak.github.io/vue-agile/)**
 
-**For more useful live code examples visit [vue-agile CodePens collection](https://codepen.io/collection/AdRzJW/).**
+More demos and examples coming soon in [vue-agile CodePens collection](https://codepen.io/collection/AdRzJW/).
 
 ---
 
-🤝 Thanks to [Maciej Wach](https://github.com/wachu91) for inventing the name, testing and motivation.
+🤝 Thanks to [Maciej Wach](https://github.com/wachu91) for inventing the name and to all [Contributors](https://github.com/lukaszflorczak/vue-agile/graphs/contributors) for your development.
 
 ---
 
@@ -52,7 +50,7 @@ npm install vue-agile
 
 ## Styles
 
-**The component doesn't have styles for the appearance of the navigation elements** (like dots color and shape, arrows position, etc.). I think most people use their own styles and default styles are completely redundant. If you want, feel free to use styles from [CodePen demos](https://codepen.io/collection/AdRzJW/).
+**The component is delivered without styles for the appearance of the navigation elements** (like dots color and shape, arrows position, etc.). I think most people use their own styles and default styles are completely redundant. If you want, feel free to use styles from [CodePen demos](https://codepen.io/collection/AdRzJW/).
 
 ## Usage
 ```js
