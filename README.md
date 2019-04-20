@@ -3,6 +3,8 @@
 > A carousel component for Vue.js inspired by [Slick](https://github.com/kenwheeler/slick/).<br>
 > Powerful, touch-friendly, and written in Vue and Vanilla JS (without a jQuery dependency).
 
+### Informations
+
 **[Demo & examples](https://lukaszflorczak.github.io/vue-agile/)**
 
 **For more useful live code examples visit [vue-agile CodePens collection](https://codepen.io/collection/AdRzJW/).**
@@ -52,7 +54,6 @@ npm install vue-agile
 
 **The component doesn't have styles for the appearance of the navigation elements** (like dots color and shape, arrows position, etc.). I think most people use their own styles and default styles are completely redundant. If you want, feel free to use styles from [CodePen demos](https://codepen.io/collection/AdRzJW/).
 
-
 ## Usage
 ```js
 import Vue from 'vue'
@@ -78,10 +79,9 @@ Vue.use(VueAgile)
 
 Every first-level child of `<agile>` is a new slide. You also can group them inside `<slot name="default">...</slot>` tags.
 
-
 ## Options
 | Parameter | Type | Default | Description |
-| --- | --- | --- | --- |
+| --- | :---: | :---: | --- |
 | [asNavFor](#asNavFor) | array | `[]` | Set the carousel to be the navigation of other carousels | 
 | autoplay | boolean | `false` | Enable autoplay |
 | autoplaySpeed | integer (ms) | `3000` | Autoplay interval in milliseconds | 
@@ -123,7 +123,6 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 | `goToPrev()` | Navigate to previous slide | 
 | `reload()` | Reload carousel & slides settings, classes and inline styles |
 
-
 ### Example
 
 ```vue
@@ -131,7 +130,6 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 
 <button @click="$refs.carousel.goToNext()">My custom button</button>
 ```
-
 
 ## Events
 
