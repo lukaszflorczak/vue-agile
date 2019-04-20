@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<div class="agile" :class="{'agile--auto-play': settings.autoplay, 'agile--disabled': settings.unAgile, 'agile--fade': settings.fade && !settings.unAgile, 'agile--rtl': settings.rtl}">
+		<div class="agile" :class="{'agile--auto-play': settings.autoplay, 'agile--disabled': settings.unagile, 'agile--fade': settings.fade && !settings.unagile, 'agile--rtl': settings.rtl}">
 			<div ref="list" class="agile__list">
 				<div ref="track" class="agile__track" :style="{transform: `translate(${translateX + marginX}px)`, transition: `transform ${settings.timing} ${transitionDelay}ms`}" @mouseover="handleMouseOver('track')" @mouseout="handleMouseOut('track')">
 					<div class="agile__slides agile__slides--cloned" ref="slidesClonedBefore" v-if="clonedSlides">
@@ -17,18 +17,18 @@
 				</div>
 			</div>
 
-			<div class="agile__actions">
-				<button v-if="settings.navButtons && !settings.unagile" class="agile__nav-button agile__nav-button--prev" :disabled="!canGoToPrev" @click="goToPrev(), restartAutoPlay()" ref="prevButton">
+			<div class="agile__actions" v-if="!settings.unagile && (settings.navButtons || settings.dots)">
+				<button v-if="settings.navButtons && !settings.unagile" class="agile__nav-button agile__nav-button--prev" :disabled="!canGoToPrev" @click="goToPrev(), restartAutoPlay()" type="button" ref="prevButton">
 					<slot name="prevButton">←</slot>
 				</button>
 
 				<ul ref="dots" v-if="settings.dots && !settings.unagile" class="agile__dots">
 					<li v-for="n in slidesCount" :key="n" class="agile__dot" :class="{'agile__dot--current': n - 1 === currentSlide}" @mouseover="handleMouseOver('dot')" @mouseout="handleMouseOut('dot')">
-						<button @click="goTo(n - 1), restartAutoPlay()">{{n}}</button>
+						<button @click="goTo(n - 1), restartAutoPlay()" type="button">{{n}}</button>
 					</li>
 				</ul>
 
-				<button v-if="settings.navButtons && !settings.unagile" class="agile__nav-button agile__nav-button--next" :disabled="!canGoToNext" @click="goToNext(), restartAutoPlay()" ref="nextButton">
+				<button v-if="settings.navButtons && !settings.unagile" class="agile__nav-button agile__nav-button--next" :disabled="!canGoToNext" @click="goToNext(), restartAutoPlay()" type="button" ref="nextButton">
 					<slot name="nextButton">→</slot>
 				</button>
 			</div>
@@ -161,7 +161,7 @@
 				default: 'ease' // linear, ease-in, ease-out, ease-in-out
 			},
 
-			unAgile: {
+			unagile: {
 				type: Boolean,
 				default: false
 			}
@@ -210,7 +210,7 @@
 					slidesToShow: this.slidesToShow,
 					speed: this.speed,
 					timing: this.timing,
-					unAgile: this.unAgile
+					unagile: this.unagile
 				},
 				settings: {}
 			}
