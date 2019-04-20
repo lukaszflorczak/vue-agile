@@ -9,10 +9,6 @@ More demos and examples coming soon in [vue-agile CodePens collection](https://c
 
 ---
 
-🤝 Thanks to [Maciej Wach](https://github.com/wachu91) for inventing the name and to all [Contributors](https://github.com/lukaszflorczak/vue-agile/graphs/contributors) for your development.
-
----
-
 🎉 **After about a year from the last version, I'm happy and excited to inform, that new `v1.0` version is available now!** Some features I planed in version `0.4` were for me impossible to realise and I got stuck in it completely. Version [`2.6 of Vue.js`](https://github.com/vuejs/vue/releases/tag/v2.6.0) opened new slots opportunities and I've returned to developing the plugin now. I've learned a lot for that time so I also decided to refactor all code – it should be now cleaner and better optimised.
 
 ---
@@ -266,6 +262,9 @@ module.exports = {
 ```
 
 ## Contributing
+
+🤝 Thanks to [Maciej Wach](https://github.com/wachu91) for inventing the name and to all [Contributors](https://github.com/lukaszflorczak/vue-agile/graphs/contributors) for your development.
+
 ```bash
 # project setup
 yarn install
