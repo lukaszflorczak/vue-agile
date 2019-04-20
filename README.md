@@ -1,9 +1,11 @@
 # vue-agile
 
+![](https://img.shields.io/npm/v/vue-agile.svg?style=flat-square&logo=npm) ![](https://img.shields.io/npm/l/vue-agile.svg?style=flat-square&logo=github) ![](https://img.shields.io/codacy/grade/509a536ebcf64a71a119e988bd888af2/master.svg?style=flat-square&logo=codacy) ![](https://img.shields.io/npm/dm/vue-agile.svg?style=flat-square&logo=npm) ![](https://img.shields.io/badge/buy%20me%20a%20coffee-+3€-red.svg?style=flat-square&logo=ko-fi)
+
 > A carousel component for Vue.js inspired by [Slick](https://github.com/kenwheeler/slick/).<br>
 > Powerful, touch-friendly, and written in Vue and Vanilla JS (without a jQuery dependency).
 
-### Informations
+## Informations
 
 **[Demo & examples](https://lukaszflorczak.github.io/vue-agile/)**
 
