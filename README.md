@@ -77,7 +77,7 @@ Vue.use(VueAgile)
 </template>
 ```
 
-Every first-level child of `<agile>` is a new slide. You also can group them inside `<slot name="default">...</slot>` tags.
+Every first-level child of `<agile>` is a new slide. You also can group them inside `<template v-slot:default>...</template>` tags.
 
 ## Options
 | Parameter | Type | Default | Description |
@@ -202,8 +202,8 @@ From version `1.0` the component use slots for custom navigation buttons. It mea
 <agile>
     ... <!-- slides -->
     
-    <slot name="prevButton"><i class="arrow-left"></i> prev</slot>
-    <slot name="nextButton">next <i class="arrow-right"></i></slot>
+    <template v-slot:prevButton>prev</template>
+    <template v-slot:nextButton>next</template>
 </agile>
 ```
 
