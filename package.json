@@ -1,6 +1,6 @@
 {
   "name": "vue-agile",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A carousel component for Vue.js",
   "author": "Łukasz Florczak <lukaszflorczak@icloud.com>",
   "license": "MIT",
@@ -13,12 +13,13 @@
   ],
   "scripts": {
     "serve": "vue-cli-service serve --open ./demo/main.js",
-    "build-bundle": "vue-cli-service build --target lib --name VueAgile ./src/Agile.vue && rm dist/demo.html",
+    "build-bundle": "vue-cli-service build --target lib --name VueAgile ./src/index.js && rm dist/demo.html",
     "build-docs": "vue-cli-service build ./demo/main.js --dest ./docs",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
   },
-  "main": "dist/VueAgile.umd.min.js",
+  "main": "src/index.js",
+  "unpkg": "dist/VueAgile.umd.min.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lukaszflorczak/vue-agile.git"
