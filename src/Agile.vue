@@ -684,6 +684,9 @@
 			position: relative
 			width: 100%
 
+		&__track
+			display: flex
+
 		&__slides
 			align-items: center
 			display: flex
