@@ -333,19 +333,6 @@
 		},
 
 		created () {
-			// Depreciated options
-			if (process.env.NODE_ENV !== 'production') {
-				// arrows
-				if (this.arrows || (this.options && (this.options.arrows || (this.options.responsive && this.options.responsive.find(item => item.arrows))))) {
-					console.warn('Prop arrows is depreciated and will be removed in version 1.1. Use navButtons instead.')
-				}
-
-				// prevArrow & nextArrow
-				if (this.prevArrow || this.nextArrow || (this.options && (this.options.prevArrow || this.options.nextArrow || (this.options.responsive && this.options.responsive.find(item => item.prevArrow || item.nextArrow))))) {
-					console.warn('Props prevArrow and nextArrow are depreciated and will be removed in version 1.1. Use prevButton and nextButton slots instead.')
-				}
-			}
-
 			// Read settings from options object
 			if (this.options) {
 				for (let key in this.options) {
@@ -553,7 +540,6 @@
 				let enabled = (!this.settings.unagile && this.settings.fade)
 
 				for (let i = 0; i < this.slidesCount; i++) {
-					console.log(this.widthSlide)
 					this.slides[i].style.transition = (enabled) ? 'opacity ' + this.settings.timing + ' ' + this.settings.speed + 'ms' : 'none'
 					this.slides[i].style.transform = (enabled) ? `translate(-${i * this.widthSlide}px)` : 'none'
 				}
