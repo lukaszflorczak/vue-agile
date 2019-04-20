@@ -100,7 +100,7 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 | slidesToShow | integer | `1` | Number of slides to show |
 | speed | integer (ms) | `300` | Slide animation speed in milliseconds | 
 | timing | string | `ease` | Transition timing function <br> (`linear`/`ease`/`ease-in`/`ease-out`/`ease-in-out`) |
-| unAgile | boolean | `false` | Disable Agile carousel | 
+| unagile | boolean | `false` | Disable Agile carousel | 
 
 ### Example
 
@@ -202,8 +202,8 @@ From version `1.0` the component use slots for custom navigation buttons. It mea
 <agile>
     ... <!-- slides -->
     
-    <template v-slot:prevButton>prev</template>
-    <template v-slot:nextButton>next</template>
+    <template slot="prevButton">prev</template>
+    <template slot="nextButton">next</template>
 </agile>
 ```
 
