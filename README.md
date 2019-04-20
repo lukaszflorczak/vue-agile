@@ -19,13 +19,13 @@ If you like the component remember to **star it** ⭐️. If you appreciate my w
 
 ## Important – update from version < `1.0`
 
-**Depreciated => new props:**
+**Depreciated props => new props/option:**
 * `arrows` => `navButtons`
 * `prevArrow` => `prevButton` slot
 * `nextArrow` => `nextButton` slot
 * `show` => `reload()` method
 
-**Depreciated => new classes:**
+**Depreciated classes => new classes:**
 * `.agile__arrow` => `.agile__nav-button`
 * `.agile__arrow--prev` => `.agile__nav-button--prev`
 * `.agile__arrow--next` => `.agile__nav-button--next`
