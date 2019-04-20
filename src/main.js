@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import VueAgile from '@/VueAgile'
+import VueAgile from '@/Agile'
 
 Vue.component('agile', VueAgile)
 
