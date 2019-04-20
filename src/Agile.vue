@@ -19,11 +19,7 @@
 
 			<div class="agile__actions">
 				<button v-if="settings.navButtons && !settings.unagile" class="agile__nav-button agile__nav-button--prev" :disabled="!canGoToPrev" @click="goToPrev(), restartAutoPlay()" ref="prevButton">
-					<slot name="prevButton">
-						<svg x="0px" y="0px" viewBox="0 0 24 24">
-							<path d="M16.2,21c0.3,0,0.5-0.1,0.7-0.3c0.4-0.4,0.4-1,0-1.4L9.6,12L17,4.7c0.4-0.4,0.4-1,0-1.4c-0.4-0.4-1-0.4-1.4,0L6.8,12l8.8,8.7C15.7,20.9,16,21,16.2,21z"/>
-						</svg>
-					</slot>
+					<slot name="prevButton">←</slot>
 				</button>
 
 				<ul ref="dots" v-if="settings.dots && !settings.unagile" class="agile__dots">
@@ -33,11 +29,7 @@
 				</ul>
 
 				<button v-if="settings.navButtons && !settings.unagile" class="agile__nav-button agile__nav-button--next" :disabled="!canGoToNext" @click="goToNext(), restartAutoPlay()" ref="nextButton">
-					<slot name="nextButton">
-						<svg x="0px" y="0px" viewBox="0 0 24 24">
-							<path d="M7.8,21c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l7.4-7.3L7,4.7c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l8.8,8.7l-8.8,8.7C8.3,20.9,8,21,7.8,21z"/>
-						</svg>
-					</slot>
+					<slot name="nextButton">→</slot>
 				</button>
 			</div>
 		</div>
@@ -686,6 +678,10 @@
 
 		&__track
 			display: flex
+
+		&__actions
+			display: flex
+			justify-content: space-between
 
 		&__slides
 			align-items: center
