@@ -34,8 +34,6 @@ If you like the component remember to **star it** ⭐️. If you appreciate my w
 **Structure:**
 * Nav buttons and dots are grouped in `.agile__actions` container now
 
-Read a full changelog here.
-
 ## Installation
 
 ```bash
