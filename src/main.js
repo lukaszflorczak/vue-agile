@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import Agile from '@/Agile'
+import VueAgile from '@/VueAgile'
 
-Vue.component('agile', Agile)
+Vue.component('agile', VueAgile)
 
-export default { Agile }
+export default { VueAgile }

@@ -46,7 +46,7 @@
 
 <script>
 	export default {
-		name: 'agile',
+		name: 'VueAgile',
 
 		props: {
 			// Depreciated
