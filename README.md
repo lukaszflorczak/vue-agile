@@ -1,6 +1,6 @@
 # vue-agile
 
-![](https://img.shields.io/npm/v/vue-agile.svg?style=flat-square&logo=npm) ![](https://img.shields.io/npm/l/vue-agile.svg?style=flat-square&logo=github) ![](https://img.shields.io/codacy/grade/509a536ebcf64a71a119e988bd888af2/master.svg?style=flat-square&logo=codacy) ![](https://img.shields.io/npm/dm/vue-agile.svg?style=flat-square&logo=npm) ![](https://img.shields.io/badge/buy%20me%20a%20coffee-+3€-red.svg?style=flat-square&logo=ko-fi)
+![](https://img.shields.io/npm/v/vue-agile.svg?style=flat-square&logo=npm) ![](https://img.shields.io/npm/l/vue-agile.svg?style=flat-square&logo=github) ![](https://img.shields.io/codacy/grade/509a536ebcf64a71a119e988bd888af2.svg?style=flat-square&logo=codacy) ![](https://img.shields.io/npm/dm/vue-agile.svg?style=flat-square&logo=npm) ![](https://img.shields.io/badge/buy%20me%20a%20coffee-+3€-red.svg?style=flat-square&logo=ko-fi)
 
 > A carousel component for Vue.js inspired by [Slick](https://github.com/kenwheeler/slick/).<br>
 > Powerful, touch-friendly, and written in Vue and Vanilla JS (without a jQuery dependency).
@@ -137,7 +137,7 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 | --- | --- | --- |
 | afterChange | `{ currentSlide }` | Fires after slide change |
 | beforeChange | `{ currentSlide, nextSlide }` | Fires before slide change |
-| breakpoint | `{ breakpoint } `| Fires after breakpoint change |
+| breakpoint | `{ breakpoint } ` | Fires after breakpoint change |
 
 ### Example
 
@@ -220,7 +220,6 @@ This option is useful for example for creating a photo gallery with two related 
 ```
 
 **Important!** If you want to use the autoplay mode is it only in one of the related carousels.
-
 
 ## `v-if` & `v-show`
 
