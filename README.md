@@ -9,19 +9,23 @@ More demos and examples coming soon in [vue-agile CodePens collection](https://c
 
 ---
 
-🎉 **After about a year from the last version, I'm happy and excited to inform, that new `v1.0` version is available now!** Some features I planed in version `0.4` were for me impossible to realise and I got stuck in it completely. Version [`2.6 of Vue.js`](https://github.com/vuejs/vue/releases/tag/v2.6.0) opened new slots opportunities and I've returned to developing the plugin now. I've learned a lot for that time so I also decided to refactor all code – it should be now cleaner and better optimised.
+🎉 **After about a year from the last version, I'm happy and excited to inform, that new `v1.0` version is available now!** More information and a changelog you can find [here](https://github.com/lukaszflorczak/vue-agile/releases/tag/v1.0.0).
 
 ---
 
+If you like the component remember to **star it** ⭐️. If you appreciate my work you can also **[buy me a coffee](https://ko-fi.com/lukaszflorczak)** ☕️ 😉
+
+--- 
+
 ## Important – update from version < `1.0`
 
-**Depreciated => new props:**
+**Depreciated props => new props/option:**
 * `arrows` => `navButtons`
 * `prevArrow` => `prevButton` slot
 * `nextArrow` => `nextButton` slot
 * `show` => `reload()` method
 
-**Depreciated => new classes:**
+**Depreciated classes => new classes:**
 * `.agile__arrow` => `.agile__nav-button`
 * `.agile__arrow--prev` => `.agile__nav-button--prev`
 * `.agile__arrow--next` => `.agile__nav-button--next`
@@ -29,8 +33,6 @@ More demos and examples coming soon in [vue-agile CodePens collection](https://c
 
 **Structure:**
 * Nav buttons and dots are grouped in `.agile__actions` container now
-
-Read a full changelog here.
 
 ## Installation
 
