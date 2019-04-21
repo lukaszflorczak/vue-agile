@@ -19,19 +19,19 @@ If you like the component remember to **star it** ⭐️. If you appreciate my w
 
 ## Important – update from version < `1.0`
 
-**Depreciated props => new props/option:**
+#### Depreciated props => new props/option
 * `arrows` => `navButtons`
 * `prevArrow` => `prevButton` slot
 * `nextArrow` => `nextButton` slot
 * `show` => `reload()` method
 
-**Depreciated classes => new classes:**
+#### Depreciated classes => new classes
 * `.agile__arrow` => `.agile__nav-button`
 * `.agile__arrow--prev` => `.agile__nav-button--prev`
 * `.agile__arrow--next` => `.agile__nav-button--next`
 * `.agile__slide--cloned` => cloned slides are grouped in `.agile__slides--cloned` container now
 
-**Structure:**
+#### Structure
 * Nav buttons and dots are grouped in `.agile__actions` container now
 
 ## Installation
@@ -52,7 +52,7 @@ npm install vue-agile
 
 ## Importing
 
-**Global:**
+#### Global
 
 ```js
 // main.js
@@ -62,7 +62,7 @@ import VueAgile from 'vue-agile'
 Vue.use(VueAgile)
 ```
 
-**In component:**
+#### In component
 ```js
 // YourComponent.vue
 import { VueAgile } from 'vue-agile'
@@ -74,7 +74,7 @@ export default {
 }
 ```
 
-**Via `<script>`**:
+#### Via `<script>`
 
 ```html
 <script src="https://unpkg.com/vue-agile"></script>
@@ -101,7 +101,7 @@ export default {
 
 Every first-level child of `<agile>` is a new slide. You also can group them inside `<template v-slot:default>...</template>` tags.
 
-## Options
+## Options / Props
 | Parameter | Type | Default | Description |
 | --- | :---: | :---: | --- |
 | [asNavFor](#asNavFor) | array | `[]` | Set the carousel to be the navigation of other carousels | 
@@ -124,7 +124,7 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 | timing | string | `ease` | Transition timing function <br> (`linear`/`ease`/`ease-in`/`ease-out`/`ease-in-out`) |
 | unagile | boolean | `false` | Disable Agile carousel | 
 
-### Example
+#### Example
 
 ```vue
 <agile :dots="false" :infinite="false" :autoplay-speed="5000">...</agile>
@@ -145,7 +145,7 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 | `goToPrev()` | Navigate to previous slide | 
 | `reload()` | Reload carousel & slides settings, classes and inline styles |
 
-### Example
+#### Example
 
 ```vue
 <agile ref="carousel">...</agile>
@@ -161,7 +161,7 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 | beforeChange | `{ currentSlide, nextSlide }` | Fires before slide change |
 | breakpoint | `{ breakpoint } ` | Fires after breakpoint change |
 
-### Example
+#### Example
 
 ```vue
 <agile @afterChange="showCurrentSlide($event)">...</agile>
@@ -178,7 +178,7 @@ showCurrentSlide (event) {
 
 To customize responsiveness, I recommend defining your desired breakpoints and passing a settings object with your modification options inside **options**.
 
-### Example
+#### Example
 
 ```vue
 <agile :options="myOptions">...</agile>
@@ -218,7 +218,7 @@ How does it work? Mobile first mode is used by default. It means, that `navButto
 
 From version `1.0` the component use slots for custom navigation buttons. It means you can put inside whatever you want – any HTML with text, image, icon etc.
 
-### Example
+#### Example
 
 ```vue
 <agile>
@@ -233,7 +233,7 @@ From version `1.0` the component use slots for custom navigation buttons. It mea
 
 This option is useful for example for creating a photo gallery with two related slider – one big with only one slide in view and second for navigation with thumbnails.
 
-### Example
+#### Example
 
 ```vue
 <agile ref="main" :fade="true">...</agile>
@@ -249,7 +249,7 @@ If you have slides being dynamically loaded, use `v-if` to show the carousel aft
 
 It is also possible to use `v-show`, but you have to use the `reload()` method.
 
-### Example
+#### Example
 ```vue
 <button @click="isActive = !isActive">Toggle carousel</button>
 
@@ -262,7 +262,7 @@ The component uses browser specific attributes (like `window` and `document`). U
 
 Full support for Nuxt.js is a known issue that will be addressed in a next version.
  
-### Example
+#### Example
 
 ```js
 // plugins/vue-agile.js
