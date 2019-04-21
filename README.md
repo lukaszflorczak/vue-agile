@@ -15,7 +15,7 @@ More demos and examples coming soon in [vue-agile CodePens collection](https://c
 
 If you like the component remember to **star it** ⭐️. If you appreciate my work you can also **[buy me a coffee](https://ko-fi.com/lukaszflorczak)** ☕️ 😉
 
---- 
+---
 
 ## Important – update from version < `1.0`
 
@@ -50,13 +50,39 @@ npm install vue-agile
 
 **The component is delivered without styles for the appearance of the navigation elements** (like dots color and shape, arrows position, etc.). I think most people use their own styles and default styles are completely redundant. If you want, feel free to use styles from [CodePen demos](https://codepen.io/collection/AdRzJW/).
 
-## Usage
+## Importing
+
+**Global:**
+
 ```js
+// main.js
 import Vue from 'vue'
 import VueAgile from 'vue-agile'
 
 Vue.use(VueAgile)
 ```
+
+**In component:**
+```js
+// YourComponent.vue
+import { VueAgile } from 'vue-agile'
+
+export default {
+	components: {
+		agile: VueAgile
+	}
+}
+```
+
+**Via `<script>`**:
+
+```html
+<script src="https://unpkg.com/vue-agile"></script>
+<link rel="stylesheet" href="https://unpkg.com/vue-agile/dist/VueAgile.css">
+```
+
+## Usage
+
 ```vue
 <template>
 	<agile>
