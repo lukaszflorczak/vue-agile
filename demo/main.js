@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import Agile from '../src/main'
+import Agile from '../src'
 
 Vue.config.productionTip = false
 
