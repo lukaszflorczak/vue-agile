@@ -5,7 +5,7 @@
 				div.col-xs-12
 					h2.section__title #[strong #3] demo
 						code-pen(id="xezgmO")
-					p.section__description vue-agile with autoplay and fade effect
+					p.section__description vue-agile with autoplay, fade effect and pause on hover
 
 			div.row
 				div.col-xs-12
@@ -59,7 +59,6 @@
 		// Slides styles
 		.slide
 			display: block
-			height: 500px
 			object-fit: cover
 			width: 100%
 </style>

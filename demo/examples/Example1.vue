@@ -72,7 +72,6 @@
 			align-items: center
 			color: #fff
 			display: flex
-			height: 300px
 			justify-content: center
 
 			h3

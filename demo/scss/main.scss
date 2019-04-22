@@ -242,6 +242,17 @@ pre[class*=language-] {
     }
 }
 
+.slide {
+    height: 200px;
+
+    @include sm {
+        height: 300px
+    }
+
+    @include md {
+        height: 500px
+    }
+}
 
 
 /*=====  End of GENERAL  ======*/
