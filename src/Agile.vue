@@ -662,9 +662,9 @@
 
 		&--rtl
 			.agile__track,
-		.agile__slides,
-		.agile__dots
-			flex-direction: row-reverse
+			.agile__slides,
+			.agile__dots
+				flex-direction: row-reverse
 
 		&, *
 			&:focus,
