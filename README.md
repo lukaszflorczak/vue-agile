@@ -241,7 +241,7 @@ This option is useful for example for creating a photo gallery with two related 
 <agile ref="thumbnails" :as-nav-for="[$refs.main]" :slides-to-show="4" autoplay>...</agile>
 ```
 
-**Important!** If you want to use the autoplay mode is it only in one of the related carousels.
+**Important!** If you want to use the autoplay mode use it only in one of the related carousels.
 
 ## `v-if` & `v-show`
 
