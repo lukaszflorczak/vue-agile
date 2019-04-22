@@ -444,8 +444,8 @@
 			reload () {
 				this.getWidth()
 				this.prepareSettings()
-				this.prepareCarousel()
 				this.prepareSlides()
+				this.prepareCarousel()
 				this.toggleFade()
 			},
 
