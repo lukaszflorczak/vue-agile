@@ -30,12 +30,6 @@
 			Example1,
 			Example2,
 			Example3
-		},
-
-		created () {
-			let script = document.createElement('script')
-			script.setAttribute('src','https://static.codepen.io/assets/embed/ei.js')
-			document.head.appendChild(script)
 		}
 	}
 </script>
