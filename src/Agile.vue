@@ -656,74 +656,84 @@
 	}
 </script>
 
-<style lang="sass">
-	.agile
-		position: relative
+<style>
+	.agile {
+		position: relative;
+	}
 
-		&--rtl
-			.agile__track,
-			.agile__slides,
-			.agile__dots
-				flex-direction: row-reverse
+	.agile--rtl .agile__track,
+	.agile--rtl .agile__slides,
+	.agile--rtl .agile__dots {
+		flex-direction: row-reverse;
+	}
 
-		&, *
-			&:focus,
-			&:active
-				outline: none
+	.agile:focus, .agile:active, .agile *:focus, .agile *:active {
+		outline: none;
+	}
 
-		&__list
-			display: block
-			overflow: hidden
-			position: relative
-			width: 100%
+	.agile__list {
+		display: block;
+		overflow: hidden;
+		position: relative;
+		width: 100%;
+	}
 
-		&__track
-			display: flex
+	.agile__track {
+		display: flex;
+	}
 
-		&__actions
-			display: flex
-			justify-content: space-between
+	.agile__actions {
+		display: flex;
+		justify-content: space-between;
+	}
 
-		&__slides
-			align-items: center
-			display: flex
-			justify-content: flex-start
+	.agile__slides {
+		align-items: center;
+		display: flex;
+		justify-content: flex-start;
+	}
 
-			.agile--disabled &
-				display: block
+	.agile--disabled .agile__slides {
+		display: block;
+	}
 
-		&__slide
-			display: block
+	.agile__slide {
+		display: block;
+	}
 
-			.agile--fade &
-				opacity: 0
-				position: relative
-				z-index: 0
+	.agile--fade .agile__slide {
+		opacity: 0;
+		position: relative;
+		z-index: 0;
+	}
 
-				&--active
-					opacity: 1
-					z-index: 2
+	.agile--fade .agile__slide--active {
+		opacity: 1;
+		z-index: 2;
+	}
 
-				&--expiring
-					opacity: 1
-					transition-duration: 0s
-					z-index: 1
+	.agile--fade .agile__slide--expiring {
+		opacity: 1;
+		transition-duration: 0s;
+		z-index: 1;
+	}
 
-		&__nav-button
-			&[disabled]
-				cursor: default
+	.agile__nav-button[disabled] {
+		cursor: default;
+	}
 
-		&__dots
-			align-items: center
-			display: flex
-			list-style: none
-			padding: 0
-			white-space: nowrap
+	.agile__dots {
+		align-items: center;
+		display: flex;
+		list-style: none;
+		padding: 0;
+		white-space: nowrap;
+	}
 
-		&__dot
-			button
-				cursor: pointer
-				display: block
-				font-size: 0
-				line-height: 0
+	.agile__dot button {
+		cursor: pointer;
+		display: block;
+		font-size: 0;
+		line-height: 0;
+	}
 </style>
