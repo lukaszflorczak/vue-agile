@@ -576,7 +576,7 @@
 			},
 
 			enableScroll () {
-				document.ontouchmove = () => false
+				document.ontouchmove = () => true
 			},
 
 			// Return current slide index
