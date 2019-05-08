@@ -504,7 +504,7 @@
 				}
 
 				// To account for the combination of infinite = false and centerMode = true, ensure we don't overrun the bounds of the slide count.
-				for (let i = Math.max(start, 0); i < Math.min(start + this.settings.slidesToShow, this.slidesCount) ; i++) {
+				for (let i = Math.max(start, 0); i < Math.min(start + this.settings.slidesToShow, this.slidesCount); i++) {
 					this.allSlides[i].classList.add('agile__slide--current')
 				}
 			},
