@@ -44,7 +44,7 @@
 	export default {
 		name: 'agile',
 
-		mixins: [handlers, helpers, props, watchers],
+		mixins: [handlers, helpers, preparations, props, watchers],
 
 		data () {
 			return {
