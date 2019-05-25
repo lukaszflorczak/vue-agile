@@ -412,6 +412,8 @@
 
 	.agile__track {
 		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
 	}
 
 	.agile__actions {
@@ -422,6 +424,10 @@
 	.agile__slides {
 		align-items: center;
 		display: flex;
+		flex-direction: row;
+		flex-grow: 1;
+		flex-shrink: 0;
+		flex-wrap: nowrap;
 		justify-content: flex-start;
 	}
 
@@ -431,6 +437,8 @@
 
 	.agile__slide {
 		display: block;
+		flex-grow: 1;
+		flex-shrink: 0;
 	}
 
 	.agile--fade .agile__slide {
