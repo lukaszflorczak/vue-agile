@@ -35,135 +35,15 @@
 </template>
 
 <script>
+	import handlers from '@/mixins/handlers'
+	import helpers from '@/mixins/helpers'
+	import props from '@/mixins/props'
+	import watchers from '@/mixins/watchers'
+
 	export default {
 		name: 'agile',
 
-		props: {
-			// Depreciated
-			arrows: {
-				type: Boolean,
-				default: true
-			},
-
-			asNavFor: {
-				type: Array,
-				default: function () {
-					return []
-				}
-			},
-
-			autoplay: {
-				type: Boolean,
-				default: false
-			},
-
-			autoplaySpeed: {
-				type: Number,
-				default: 3000
-			},
-
-			centerMode: {
-				type: Boolean,
-				default: false
-			},
-
-			centerPadding: {
-				type: String,
-				default: '15%'
-			},
-
-			dots: {
-				type: Boolean,
-				default: true
-			},
-
-			fade: {
-				type: Boolean,
-				default: false
-			},
-
-			infinite: {
-				type: Boolean,
-				default: true
-			},
-
-			initialSlide: {
-				type: Number,
-				default: 0
-			},
-
-			mobileFirst: {
-				type: Boolean,
-				default: true
-			},
-
-			navButtons: {
-				type: Boolean,
-				default: true
-			},
-
-			// Depreciated
-			nextArrow: {
-				type: String,
-				default: null
-			},
-
-			options: {
-				type: Object,
-				default: () => null
-			},
-
-			pauseOnDotsHover: {
-				type: Boolean,
-				default: false
-			},
-
-			pauseOnHover: {
-				type: Boolean,
-				default: true
-			},
-
-			// Depreciated
-			prevArrow: {
-				type: String,
-				default: null
-			},
-
-			responsive: {
-				type: Array,
-				default: () => null
-			},
-
-			rtl: {
-				type: Boolean,
-				default: false
-			},
-
-			slidesToScroll: {
-				type: Number,
-				default: 1
-			},
-
-			slidesToShow: {
-				type: Number,
-				default: 1
-			},
-
-			speed: {
-				type: Number,
-				default: 300
-			},
-
-			timing: {
-				type: String,
-				default: 'ease' // linear, ease-in, ease-out, ease-in-out
-			},
-
-			unagile: {
-				type: Boolean,
-				default: false
-			}
-		},
+		mixins: [handlers, helpers, props, watchers],
 
 		data () {
 			return {
@@ -188,28 +68,6 @@
 				widthWindow: 0,
 				widthContainer: 0,
 				widthSlide: 0,
-				initialSettings: {
-					asNavFor: this.asNavFor,
-					autoplay: this.autoplay,
-					autoplaySpeed: this.autoplaySpeed,
-					centerMode: this.centerMode,
-					centerPadding: this.centerPadding,
-					dots: this.dots,
-					fade: this.fade,
-					infinite: this.infinite,
-					initialSlide: this.initialSlide,
-					mobileFirst: this.mobileFirst,
-					navButtons: this.navButtons,
-					pauseOnDotsHover: this.pauseOnDotsHover,
-					pauseOnHover: this.pauseOnHover,
-					responsive: this.responsive,
-					rtl: this.rtl,
-					slidesToScroll: this.slidesToScroll,
-					slidesToShow: this.slidesToShow,
-					speed: this.speed,
-					timing: this.timing,
-					unagile: this.unagile
-				},
 				settings: {}
 			}
 		},
@@ -257,71 +115,6 @@
 				}
 
 				return (this.settings.rtl) ? marginX : -1 * marginX
-			}
-		},
-
-		watch: {
-			// Watch window width change
-			widthWindow (newValue, oldValue) {
-				if (oldValue) {
-					this.prepareCarousel()
-					this.toggleFade()
-				}
-			},
-
-			// Watch current slide change
-			currentSlide () {
-				this.prepareSlidesClasses()
-
-				// Set start time of slide
-				this.autoplayStart = (this.settings.autoplay) ? +new Date() : null
-
-				this.$emit('afterChange', { currentSlide: this.currentSlide })
-			},
-
-			// Recalculate settings
-			currentBreakpoint () {
-				this.prepareSettings()
-				this.$emit('breakpoint', { breakpoint: this.currentBreakpoint })
-			},
-
-			// Watch drag distance change
-			dragDistance () {
-				if (this.mouseDown) {
-					if (this.dragDistance > this.swipeDistance && this.canGoToPrev) {
-						this.goToPrev()
-						this.handleMouseUp()
-					}
-
-					if (this.dragDistance < -1 * this.swipeDistance && this.canGoToNext) {
-						this.goToNext()
-						this.handleMouseUp()
-					}
-				}
-			},
-
-			'settings.fade' () {
-				this.toggleFade()
-			},
-
-			'settings.autoplay' () {
-				this.toggleAutoPlay()
-			},
-
-			pauseAutoPlay (nevValue) {
-				if (nevValue) {
-					// Store current slide remaining time and disable auto play mode
-					this.remaining = this.settings.autoplaySpeed - (+new Date() - this.autoplayStart)
-					this.disableAutoPlay()
-					this.clearAutoPlayPause()
-				} else {
-					// Go to next after remaining time and rerun auto play mode
-					this.autoplayTimeout = setTimeout(() => {
-						this.clearAutoPlayPause()
-						this.goToNext()
-						this.toggleAutoPlay()
-					}, this.remaining)
-				}
 			}
 		},
 
@@ -378,68 +171,6 @@
 		},
 
 		methods: {
-			// Convert HTML Collection to JS Array
-			htmlCollectionToArray (collection) {
-				return Array.prototype.slice.call(collection, 0)
-			},
-
-			// Compare elements for breakpoints sorting
-			compare (a, b) {
-				if (a.breakpoint < b.breakpoint) {
-					return (this.initialSettings.mobileFirst) ? -1 : 1
-				} else if (a.breakpoint > b.breakpoint) {
-					return (this.initialSettings.mobileFirst) ? 1 : -1
-				} else {
-					return 0
-				}
-			},
-
-			getWidth () {
-				this.widthWindow = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
-				this.widthContainer = this.$refs.list.clientWidth
-			},
-
-			handleMouseDown (e) {
-				if (!e.touches) {
-					e.preventDefault()
-				}
-				this.mouseDown = true
-				this.dragStartX = ('ontouchstart' in window) ? e.touches[0].clientX : e.clientX
-				this.dragStartY = ('ontouchstart' in window) ? e.touches[0].clientY : e.clientY
-			},
-
-			handleMouseMove (e) {
-				let positionX = ('ontouchstart' in window) ? e.touches[0].clientX : e.clientX
-				let positionY = ('ontouchstart' in window) ? e.touches[0].clientY : e.clientY
-				let dragDistanceX = Math.abs(positionX - this.dragStartX)
-				let dragDistanceY = Math.abs(positionY - this.dragStartY)
-				if (dragDistanceX > 3 * dragDistanceY) {
-					this.disableScroll()
-					this.dragDistance = positionX - this.dragStartX
-				}
-			},
-
-			handleMouseUp () {
-				this.mouseDown = false
-				this.enableScroll()
-			},
-
-			handleMouseOver (element) {
-				if (this.settings.autoplay) {
-					if ((element === 'dot' && this.settings.pauseOnDotsHover) || (element === 'track' && this.settings.pauseOnHover)) {
-						this.pauseAutoPlay = true
-					}
-				}
-			},
-
-			handleMouseOut (element) {
-				if (this.settings.autoplay) {
-					if ((element === 'dot' && this.settings.pauseOnDotsHover) || (element === 'track' && this.settings.pauseOnHover)) {
-						this.pauseAutoPlay = false
-					}
-				}
-			},
-
 			// Reload carousel
 			reload () {
 				this.getWidth()
