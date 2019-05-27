@@ -158,15 +158,9 @@
 		beforeDestroy () {
 			window.removeEventListener('resize', this.getWidth)
 
-			if ('ontouchstart' in window) {
-				this.$refs.track.removeEventListener('touchstart', this.handleMouseDown)
-				this.$refs.track.removeEventListener('touchend', this.handleMouseUp)
-				this.$refs.track.removeEventListener('touchmove', this.handleMouseMove)
-			} else {
-				this.$refs.track.removeEventListener('mousedown', this.handleMouseDown)
-				this.$refs.track.removeEventListener('mouseup', this.handleMouseUp)
-				this.$refs.track.removeEventListener('mousemove', this.handleMouseMove)
-			}
+			this.$refs.track.removeEventListener(('ontouchstart' in window) ? 'touchstart' : 'mousedown', this.handleMouseDown)
+			this.$refs.track.removeEventListener(('ontouchstart' in window) ? 'touchend' : 'mouseup', this.handleMouseUp)
+			this.$refs.track.removeEventListener(('ontouchstart' in window) ? 'touchmove' : 'mousemove', this.handleMouseMove)
 
 			this.disableAutoPlay()
 		},
