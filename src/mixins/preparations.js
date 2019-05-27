@@ -48,6 +48,10 @@ const mixin = {
 		 *  Prepare slides active/current classes
 		 */
 		prepareSlidesClasses () {
+			if (this.currentSlide === null) {
+				return false
+			}
+
 			// Remove active & current classes
 			for (let i = 0; i < this.slidesCount; i++) {
 				this.slides[i].classList.remove('agile__slide--active')
@@ -84,7 +88,7 @@ const mixin = {
 			if (this.settings.unagile) {
 				this.translateX = 0
 			} else {
-				if (this.currentSlide === null) {
+				if (this.currentSlide === null && this.slidesCount) {
 					this.currentSlide = this.settings.initialSlide
 				}
 
