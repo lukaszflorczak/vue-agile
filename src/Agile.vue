@@ -35,11 +35,11 @@
 </template>
 
 <script>
-	import handlers from '@/mixins/handlers'
-	import helpers from '@/mixins/helpers'
-	import preparations from '@/mixins/preparations'
-	import props from '@/mixins/props'
-	import watchers from '@/mixins/watchers'
+	import handlers from './mixins/handlers'
+	import helpers from './mixins/helpers'
+	import preparations from './mixins/preparations'
+	import props from './mixins/props'
+	import watchers from './mixins/watchers'
 
 	export default {
 		name: 'agile',
