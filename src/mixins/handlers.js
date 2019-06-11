@@ -4,9 +4,7 @@
 const mixin = {
 	methods: {
 		handleMouseDown (e) {
-			if (!e.touches) {
-				e.preventDefault()
-			}
+
 			this.mouseDown = true
 			this.dragStartX = ('ontouchstart' in window) ? e.touches[0].clientX : e.clientX
 			this.dragStartY = ('ontouchstart' in window) ? e.touches[0].clientY : e.clientY
