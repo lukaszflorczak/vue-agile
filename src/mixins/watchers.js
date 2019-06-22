@@ -24,6 +24,7 @@ const mixin = {
 		// Recalculate settings
 		currentBreakpoint () {
 			this.prepareSettings()
+			this.prepareCarousel()
 			this.$emit('breakpoint', { breakpoint: this.currentBreakpoint })
 		},
 
