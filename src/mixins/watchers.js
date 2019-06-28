@@ -30,12 +30,15 @@ const mixin = {
 		// Watch drag distance change
 		dragDistance () {
 			if (this.mouseDown) {
-				if (this.dragDistance > this.swipeDistance && this.canGoToPrev) {
+				const { rtl } = this.settings
+				const dragDistance = this.dragDistance * (rtl ? -1 : 1)
+
+				if (dragDistance > this.swipeDistance && this.canGoToPrev) {
 					this.goToPrev()
 					this.handleMouseUp()
 				}
 
-				if (this.dragDistance < -1 * this.swipeDistance && this.canGoToNext) {
+				if (dragDistance < -1 * this.swipeDistance && this.canGoToNext) {
 					this.goToNext()
 					this.handleMouseUp()
 				}
