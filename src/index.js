@@ -1,4 +1,4 @@
-import VueAgile from './Agile'
+import VueAgile from './Agile.vue'
 
 const install = (Vue) => {
 	Vue.component('agile', VueAgile)
