@@ -141,15 +141,12 @@
 			window.addEventListener('resize', this.getWidth)
 
 			// Mouse and touch events
-			if ('ontouchstart' in window) {
-				this.$refs.track.addEventListener('touchstart', this.handleMouseDown)
-				this.$refs.track.addEventListener('touchend', this.handleMouseUp)
-				this.$refs.track.addEventListener('touchmove', this.handleMouseMove)
-			} else {
-				this.$refs.track.addEventListener('mousedown', this.handleMouseDown)
-				this.$refs.track.addEventListener('mouseup', this.handleMouseUp)
-				this.$refs.track.addEventListener('mousemove', this.handleMouseMove)
-			}
+			this.$refs.track.addEventListener('touchstart', this.handleMouseDown)
+			this.$refs.track.addEventListener('touchend', this.handleMouseUp)
+			this.$refs.track.addEventListener('touchmove', this.handleMouseMove)
+			this.$refs.track.addEventListener('mousedown', this.handleMouseDown)
+			this.$refs.track.addEventListener('mouseup', this.handleMouseUp)
+			this.$refs.track.addEventListener('mousemove', this.handleMouseMove)
 
 			// Init
 			this.reload()
@@ -158,9 +155,12 @@
 		beforeDestroy () {
 			window.removeEventListener('resize', this.getWidth)
 
-			this.$refs.track.removeEventListener(('ontouchstart' in window) ? 'touchstart' : 'mousedown', this.handleMouseDown)
-			this.$refs.track.removeEventListener(('ontouchstart' in window) ? 'touchend' : 'mouseup', this.handleMouseUp)
-			this.$refs.track.removeEventListener(('ontouchstart' in window) ? 'touchmove' : 'mousemove', this.handleMouseMove)
+			this.$refs.track.removeEventListener('touchstart', this.handleMouseDown)
+			this.$refs.track.removeEventListener('touchend', this.handleMouseUp)
+			this.$refs.track.removeEventListener('touchmove', this.handleMouseMove)
+			this.$refs.track.removeEventListener('mousedown', this.handleMouseDown)
+			this.$refs.track.removeEventListener('mouseup', this.handleMouseUp)
+			this.$refs.track.removeEventListener('mousemove', this.handleMouseMove)
 
 			this.disableAutoPlay()
 		},
