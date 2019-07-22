@@ -81,7 +81,7 @@ const mixin = {
 
 			// Actions on document resize
 			for (let i = 0; i < this.allSlidesCount; i++) {
-				this.allSlides[i].style.width = this.widthSlide + 'px'
+				this.allSlides[i].style.width = (this.settings.unagile) ? '' : this.widthSlide + 'px'
 			}
 
 			// Prepare track
