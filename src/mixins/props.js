@@ -51,7 +51,15 @@ const mixin = {
 			default: '15%'
 		},
 
-		/**
+    /**
+     * Slide change delay in milliseconds
+     */
+    changeDelay: {
+      type: Number,
+      default: 0
+    },
+
+    /**
 		 * Enable dot indicators/pagination
 		 */
 		dots: {
@@ -67,7 +75,7 @@ const mixin = {
 			default: false
 		},
 
-		/**
+    /**
 		 * Infinite loop sliding
 		 */
 		infinite: {

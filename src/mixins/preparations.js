@@ -59,7 +59,7 @@ const mixin = {
 			}
 
 			// Add active & current class for current slide
-			this.slides[this.currentSlide].classList.add('agile__slide--active')
+			setTimeout(() => this.slides[this.currentSlide].classList.add('agile__slide--active'), this.changeDelay)
 
 			let start = (this.clonedSlides) ? this.slidesCount + this.currentSlide : this.currentSlide
 
