@@ -190,8 +190,16 @@ const mixin = {
 		unagile: {
 			type: Boolean,
 			default: false
-		}
-	},
+		},
+
+        /**
+         * Swipe Distance to slide
+         */
+        swipeDistance: {
+            type: Number,
+            default: 100
+        }
+    },
 
 	data () {
 		return {
@@ -216,8 +224,9 @@ const mixin = {
 				slidesToShow: this.slidesToShow,
 				speed: this.speed,
 				timing: this.timing,
-				unagile: this.unagile
-			}
+				unagile: this.unagile,
+                swipeDistance: this.swipeDistance,
+            }
 		}
 	}
 }

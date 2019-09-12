@@ -17,7 +17,7 @@
 		</div>
 
 		<div class="agile__actions" v-if="!settings.unagile && (settings.navButtons || settings.dots)">
-			<button v-if="settings.navButtons && !settings.unagile" class="agile__nav-button agile__nav-button--prev" :disabled="!canGoToPrev" @click="goToPrev(), restartAutoPlay()" type="button" ref="prevButton">
+			<button v-if="settings.navButtons && !settings.unagile" class="agile__nav-button agile__nav-button--prev" :disabled="!canGoToPrev" v-long-press:[400]="goToPrev" @click="goToPrev(), restartAutoPlay()" type="button" ref="prevButton">
 				<slot name="prevButton">←</slot>
 			</button>
 
@@ -27,7 +27,7 @@
 				</li>
 			</ul>
 
-			<button v-if="settings.navButtons && !settings.unagile" class="agile__nav-button agile__nav-button--next" :disabled="!canGoToNext" @click="goToNext(), restartAutoPlay()" type="button" ref="nextButton">
+			<button v-if="settings.navButtons && !settings.unagile" class="agile__nav-button agile__nav-button--next" :disabled="!canGoToNext" v-long-press:[400]="goToNext" @click="goToNext(), restartAutoPlay()" type="button" ref="nextButton">
 				<slot name="nextButton">→</slot>
 			</button>
 		</div>
@@ -40,11 +40,16 @@
 	import preparations from './mixins/preparations'
 	import props from './mixins/props'
 	import watchers from './mixins/watchers'
+    import {longPress} from './directives/longPress'
 
 	export default {
 		name: 'agile',
 
 		mixins: [handlers, helpers, preparations, props, watchers],
+
+        directives: {
+            longPress
+        },
 
 		data () {
 			return {
@@ -63,7 +68,11 @@
 				dragStartX: 0,
 				dragStartY: 0,
 				dragDistance: 0,
-				swipeDistance: 50,
+                //swipeDistance: 50,
+                currentSwipeDistance: 0,
+                dragDirection: 0,
+                dragPositionX: null,
+                dragPositionY: null,
 				translateX: 0,
 				transitionDelay: 0,
 				widthWindow: 0,
@@ -138,17 +147,20 @@
 
 		mounted () {
 			// Windows resize listener
-			window.addEventListener('resize', this.getWidth)
+            window.addEventListener('resize', this.getWidth)
+            window.addEventListener('resize', this.handleWindowResize)
 
 			// Mouse and touch events
 			if ('ontouchstart' in window) {
 				this.$refs.track.addEventListener('touchstart', this.handleMouseDown)
 				this.$refs.track.addEventListener('touchend', this.handleMouseUp)
-				this.$refs.track.addEventListener('touchmove', this.handleMouseMove)
+                window.addEventListener('touchend', this.handleMouseUp)
+                this.$refs.track.addEventListener('touchmove', this.handleMouseMove)
 			} else {
 				this.$refs.track.addEventListener('mousedown', this.handleMouseDown)
 				this.$refs.track.addEventListener('mouseup', this.handleMouseUp)
-				this.$refs.track.addEventListener('mousemove', this.handleMouseMove)
+                window.addEventListener('mouseup', this.handleMouseUp)
+                this.$refs.track.addEventListener('mousemove', this.handleMouseMove)
 			}
 
 			// Init
@@ -156,7 +168,8 @@
 		},
 
 		beforeDestroy () {
-			window.removeEventListener('resize', this.getWidth)
+            window.removeEventListener('resize', this.getWidth)
+            window.removeEventListener('resize', this.handleWindowResize)
 
 			this.$refs.track.removeEventListener(('ontouchstart' in window) ? 'touchstart' : 'mousedown', this.handleMouseDown)
 			this.$refs.track.removeEventListener(('ontouchstart' in window) ? 'touchend' : 'mouseup', this.handleMouseUp)

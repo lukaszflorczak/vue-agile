@@ -33,14 +33,14 @@ const mixin = {
 				const { rtl } = this.settings
 				const dragDistance = this.dragDistance * (rtl ? -1 : 1)
 
-				if (dragDistance > this.swipeDistance && this.canGoToPrev) {
+				if (dragDistance > this.currentSwipeDistance && this.canGoToPrev) {
 					this.goToPrev()
-					this.handleMouseUp()
+                    this.currentSwipeDistance = this.currentSwipeDistance + this.settings.swipeDistance;
 				}
 
-				if (dragDistance < -1 * this.swipeDistance && this.canGoToNext) {
+				if (dragDistance < -1 * this.currentSwipeDistance && this.canGoToNext) {
 					this.goToNext()
-					this.handleMouseUp()
+                    this.currentSwipeDistance = this.currentSwipeDistance + this.settings.swipeDistance;
 				}
 			}
 		},
