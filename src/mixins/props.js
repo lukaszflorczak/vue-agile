@@ -191,14 +191,6 @@ const mixin = {
 			type: Boolean,
 			default: false
 		},
-
-        /**
-         * Swipe Distance to slide
-         */
-        swipeDistance: {
-            type: Number,
-            default: 100
-        }
     },
 
 	data () {

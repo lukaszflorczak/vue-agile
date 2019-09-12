@@ -68,7 +68,7 @@
 				dragStartX: 0,
 				dragStartY: 0,
 				dragDistance: 0,
-                //swipeDistance: 50,
+                swipeDistance: 50,
                 currentSwipeDistance: 0,
                 dragDirection: 0,
                 dragPositionX: null,
