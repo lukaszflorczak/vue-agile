@@ -20,12 +20,12 @@ const mixin = {
                 this.dragDirection = 0
                 this.dragStartX = positionX
                 this.dragStartY = positionY
-                this.currentSwipeDistance = this.settings.swipeDistance;
+                this.dragSwipeDistance = this.settings.swipeDistance;
             } else if(this.dragDirection === 0 && positionX > this.dragPositionX) {
                 this.dragDirection = 1
                 this.dragStartX = positionX
                 this.dragStartY = positionY
-                this.currentSwipeDistance = this.settings.swipeDistance;
+                this.dragSwipeDistance = this.settings.swipeDistance;
             }
 
             this.dragPositionX = positionX
@@ -40,7 +40,7 @@ const mixin = {
 		},
 
 		handleMouseUp () {
-            this.currentSwipeDistance = this.settings.swipeDistance;
+            this.dragSwipeDistance = this.settings.swipeDistance;
             this.mouseDown = false
 			this.enableScroll()
 		},
