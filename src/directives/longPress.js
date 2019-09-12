@@ -19,17 +19,16 @@ export const longPress = {
         // Define funtion handlers
         // Create timeout ( run function after 1s )
         let start = (e) => {
-
             if (e.type === 'click' && e.button !== 0) {
-                return;
+                return
             }
 
             if (pressTimer === null) {
                 pressTimer = setInterval(() => {
-                    if(el.disabled) {
+                    if (el.disabled) {
                         clearTimeout(pressTimer)
                         pressTimer = null
-                        return;
+                        return
                     }
                     // Run function
                     handler()
@@ -51,12 +50,12 @@ export const longPress = {
         }
 
         // Add Event listeners
-        el.addEventListener("mousedown", start);
-        el.addEventListener("touchstart", start);
+        el.addEventListener('mousedown', start)
+        el.addEventListener('touchstart', start)
         // Cancel timeouts if this events happen
-        el.addEventListener("click", cancel);
-        el.addEventListener("mouseout", cancel);
-        el.addEventListener("touchend", cancel);
-        el.addEventListener("touchcancel", cancel);
+        el.addEventListener('click', cancel)
+        el.addEventListener('mouseout', cancel)
+        el.addEventListener('touchend', cancel)
+        el.addEventListener('touchcancel', cancel)
     }
 }

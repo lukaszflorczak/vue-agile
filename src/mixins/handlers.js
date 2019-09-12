@@ -16,16 +16,22 @@ const mixin = {
 			let positionX = ('ontouchstart' in window) ? e.touches[0].clientX : e.clientX
 			let positionY = ('ontouchstart' in window) ? e.touches[0].clientY : e.clientY
 
-            if(this.dragDirection === 1 && positionX < this.dragPositionX) {
-                this.dragDirection = 0
+            // identify the drag direction while dragging
+            let newDragDirection = this.dragDirection
+            if (this.dragDirection === 'right' && positionX < this.dragPositionX) {
+                newDragDirection = 'left'
+            } else if (this.dragDirection === 'left' && positionX > this.dragPositionX) {
+                newDragDirection = 'right'
+            }
+
+            // when changing the drag direction while dragging
+            // reset the drag start X and Y
+            if (this.dragDirection !== newDragDirection) {
+                this.dragDirection = newDragDirection
+
                 this.dragStartX = positionX
                 this.dragStartY = positionY
-                this.dragSwipeDistance = this.settings.swipeDistance;
-            } else if(this.dragDirection === 0 && positionX > this.dragPositionX) {
-                this.dragDirection = 1
-                this.dragStartX = positionX
-                this.dragStartY = positionY
-                this.dragSwipeDistance = this.settings.swipeDistance;
+                this.dragSwipeDistance = this.settings.swipeDistance
             }
 
             this.dragPositionX = positionX
@@ -40,7 +46,7 @@ const mixin = {
 		},
 
 		handleMouseUp () {
-            this.dragSwipeDistance = this.settings.swipeDistance;
+            this.dragSwipeDistance = this.settings.swipeDistance
             this.mouseDown = false
 			this.enableScroll()
 		},

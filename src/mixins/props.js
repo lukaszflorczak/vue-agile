@@ -190,7 +190,7 @@ const mixin = {
         unagile: {
             type: Boolean,
             default: false
-        },
+        }
     },
 
     data () {
@@ -219,7 +219,7 @@ const mixin = {
                 unagile: this.unagile,
                 swipeDistance: this.swipeDistance,
                 dragSwipeDistance: this.dragSwipeDistance,
-                dragDirection: this.dragDirection,
+                dragDirection: this.dragDirection
             }
         }
     }
