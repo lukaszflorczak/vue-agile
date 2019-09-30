@@ -64,7 +64,8 @@
 				// autoplayStatus: false,
 				// autoplayTimeout: null,
 				currentSlide: null,
-				mouseDown: false,
+                enableMouseScroll: false,
+                mouseDown: false,
 				dragStartX: 0,
 				dragStartY: 0,
 				dragDistance: 0,
@@ -148,7 +149,6 @@
 		mounted () {
 			// Windows resize listener
 			window.addEventListener('resize', this.getWidth)
-			window.addEventListener('resize', this.handleWindowResize)
 
 			// Mouse and touch events
 			if ('ontouchstart' in window) {
@@ -161,21 +161,30 @@
 				this.$refs.track.addEventListener('mouseup', this.handleMouseUp)
 				window.addEventListener('mouseup', this.handleMouseUp)
 				this.$refs.track.addEventListener('mousemove', this.handleMouseMove)
-			}
 
-			// Init
+                if(this.settings.enableMouseScroll) {
+                    this.$refs.track.addEventListener('mousewheel', this.handleMouseScroll, false);
+                    this.$refs.track.addEventListener('DOMMouseScroll', this.handleMouseScroll, false);
+                }
+            }
+
+            // Init
 			this.reload()
 		},
 
 		beforeDestroy () {
 			window.removeEventListener('resize', this.getWidth)
-			window.removeEventListener('resize', this.handleWindowResize)
 
 			this.$refs.track.removeEventListener(('ontouchstart' in window) ? 'touchstart' : 'mousedown', this.handleMouseDown)
 			this.$refs.track.removeEventListener(('ontouchstart' in window) ? 'touchend' : 'mouseup', this.handleMouseUp)
 			this.$refs.track.removeEventListener(('ontouchstart' in window) ? 'touchmove' : 'mousemove', this.handleMouseMove)
 
-			this.disableAutoPlay()
+            if(this.settings.enableMouseScroll) {
+                this.$refs.track.removeEventListener('mousewheel', this.handleMouseScroll)
+                this.$refs.track.removeEventListener('DOMMouseScroll', this.handleMouseScroll);
+            }
+
+            this.disableAutoPlay()
 		},
 
 		methods: {

@@ -65,8 +65,18 @@ const mixin = {
 					this.pauseAutoPlay = false
 				}
 			}
-		}
-	}
+		},
+
+        handleMouseScroll (e) {
+            e = window.event || e;
+            e.preventDefault();
+            if(e.wheelDelta > 0) {
+                this.goToPrev()
+            } else {
+                this.goToNext()
+            }
+        },
+    }
 }
 
 export default mixin

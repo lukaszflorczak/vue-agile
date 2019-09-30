@@ -219,7 +219,8 @@ const mixin = {
                 unagile: this.unagile,
                 swipeDistance: this.swipeDistance,
                 dragSwipeDistance: this.dragSwipeDistance,
-                dragDirection: this.dragDirection
+                dragDirection: this.dragDirection,
+                enableMouseScroll: this.enableMouseScroll,
             }
         }
     }
