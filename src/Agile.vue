@@ -341,7 +341,7 @@
 		display: flex;
 		flex-direction: row;
 		flex-grow: 1;
-		flex-shrink: 0;
+		flex-shrink: unset !important;
 		flex-wrap: nowrap;
 		justify-content: flex-start;
 	}
