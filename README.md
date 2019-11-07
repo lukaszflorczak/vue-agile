@@ -286,9 +286,9 @@ module.exports = {
 ```
 
 ```vue
-<no-ssr placeholder="Loading...">
+<client-only placeholder="Loading...">
     <agile>...</agile>
-</no-ssr>
+</client-only>
 ```
 
 ## Contributing
