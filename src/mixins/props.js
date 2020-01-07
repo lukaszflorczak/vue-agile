@@ -223,9 +223,9 @@ const mixin = {
 				slidesToScroll: this.slidesToScroll,
 				slidesToShow: this.slidesToShow,
 				speed: this.speed,
+        swipeDistance: this.swipeDistance,
 				timing: this.timing,
-				unagile: this.unagile,
-        swipeDistance: this.swipeDistance
+				unagile: this.unagile
 			}
 		}
 	}
