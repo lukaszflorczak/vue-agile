@@ -63,7 +63,6 @@
 				dragStartX: 0,
 				dragStartY: 0,
 				dragDistance: 0,
-				swipeDistance: 50,
 				translateX: 0,
 				transitionDelay: 0,
 				widthWindow: 0,
