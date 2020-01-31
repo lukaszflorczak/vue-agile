@@ -120,6 +120,7 @@
 		},
 
 		mounted () {
+      if (!window) return
 			// Windows resize listener
 			window.addEventListener('resize', this.getWidth)
 
@@ -145,7 +146,7 @@
 			this.$refs.track.removeEventListener(('ontouchstart' in window) ? 'touchend' : 'mouseup', this.handleMouseUp)
 			this.$refs.track.removeEventListener(('ontouchstart' in window) ? 'touchmove' : 'mousemove', this.handleMouseMove)
 
-			this.disableAutoPlay()
+      if (this.autoplay) this.disableAutoPlay()
 		},
 
 		methods: {
@@ -285,7 +286,7 @@
 	}
 </script>
 
-<style scoped>
+<style>
 	.agile {
 		position: relative;
 	}

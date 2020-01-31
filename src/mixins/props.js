@@ -174,7 +174,7 @@ const mixin = {
 			type: Number,
 			default: 300
 		},
-    
+
     /**
 		 * Swipe distance
 		 */
