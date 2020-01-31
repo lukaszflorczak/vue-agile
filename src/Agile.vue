@@ -137,6 +137,7 @@
 		},
 
 		mounted () {
+      if (!window) return
 			// Windows resize listener
 			window.addEventListener('resize', this.getWidth)
 
