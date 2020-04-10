@@ -110,6 +110,7 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 | autoplay | boolean | `false` | Enable autoplay |
 | autoplaySpeed | integer (ms) | `3000` | Autoplay interval in milliseconds | 
 | centerMode | boolean | `false` | Enable centered view when `slidesToShow` > `1` |
+| changeDelay | integer | `0` | Insert a delay when switching slides. Useful for fade: `true` |
 | dots | boolean | `true` | Enable dot indicators/pagination |
 | fade | boolean | `false` | Enable fade effect |
 | infinite | boolean | `true` | Infinite loop sliding | 
