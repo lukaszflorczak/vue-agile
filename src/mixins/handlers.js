@@ -18,6 +18,7 @@ const mixin = {
 				this.dragStartY = e.clientY
 			}
 		},
+
 		handleMouseMove (e) {
 			let positionX
 			let positionY
@@ -36,6 +37,7 @@ const mixin = {
 				this.dragDistance = positionX - this.dragStartX
 			}
 		},
+
 		handleMouseUp () {
 			this.mouseDown = false
 			this.enableScroll()
