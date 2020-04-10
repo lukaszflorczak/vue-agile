@@ -69,10 +69,10 @@ Vue.use(VueAgile)
 // YourComponent.vue
 import { VueAgile } from 'vue-agile'
 
-export default {
-	components: {
-		agile: VueAgile
-	}
+export default { 
+    components: {
+        agile: VueAgile 
+    }
 }
 ```
 
@@ -87,17 +87,17 @@ export default {
 
 ```vue
 <template>
-	<agile>
-		<div class="slide">
-			<h3>slide 1</h3>
-		</div>
-		
-		...
-		
-		<div class="slide">
-			<h3>slide n</h3>
-		</div>
-	</agile>
+    <agile>
+        <div class="slide">
+            <h3>slide 1</h3>
+        </div>
+        
+        ...
+        
+        <div class="slide">
+            <h3>slide n</h3>
+        </div>
+    </agile>
 </template>
 ```
 
@@ -172,8 +172,8 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 
 ```js
 showCurrentSlide (event) {
-	console.log(event)
-	// Shows for example: { currentSlide: 1 }
+    console.log(event)
+    // Shows for example: { currentSlide: 1 }
 }
 ```
 
