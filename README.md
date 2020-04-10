@@ -300,7 +300,7 @@ module.exports = {
 # project setup
 yarn install
  
-# compiles and hot-reloads for developmen
+# compiles and hot-reloads for development
 yarn serve
  
 # compiles and minifies for production
