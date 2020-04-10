@@ -70,9 +70,9 @@ Vue.use(VueAgile)
 import { VueAgile } from 'vue-agile'
 
 export default { 
-    components: {
-        agile: VueAgile 
-    }
+  components: {
+    agile: VueAgile 
+  }
 }
 ```
 
@@ -87,17 +87,17 @@ export default {
 
 ```vue
 <template>
-    <agile>
-        <div class="slide">
-            <h3>slide 1</h3>
-        </div>
-        
-        ...
-        
-        <div class="slide">
-            <h3>slide n</h3>
-        </div>
-    </agile>
+  <agile>
+    <div class="slide">
+      <h3>slide 1</h3>
+    </div>
+    
+    ...
+    
+    <div class="slide">
+      <h3>slide n</h3>
+    </div>
+  </agile>
 </template>
 ```
 
@@ -172,8 +172,8 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 
 ```js
 showCurrentSlide (event) {
-    console.log(event)
-    // Shows for example: { currentSlide: 1 }
+  console.log(event)
+  // Shows for example: { currentSlide: 1 }
 }
 ```
 
@@ -189,29 +189,29 @@ To customize responsiveness, I recommend defining your desired breakpoints and p
 
 ```js
 data () {
-    return {
-        myOptions: {
-            navButtons: false,
-            
-            responsive: [
-                {
-                    breakpoint: 600,
-                    settings: {
-                        dots: false
-                    }
-                },
-                
-                {
-                    breakpoint: 900,
-                    settings: {
-                        navButtons: true,
-                        dots: true,
-                        infinite: false
-                    }
-                }
-            ]
+  return {
+    myOptions: {
+      navButtons: false,
+      
+      responsive: [
+        {
+          breakpoint: 600,
+          settings: {
+            dots: false
+          }
+        },
+        
+        {
+          breakpoint: 900,
+          settings: {
+            navButtons: true,
+            dots: true,
+            infinite: false
+          }
         }
+      ]
     }
+  }
 }
 ```
 
@@ -225,10 +225,10 @@ From version `1.0` the component use slots for custom navigation buttons. It mea
 
 ```vue
 <agile>
-    ... <!-- slides -->
-    
-    <template slot="prevButton">prev</template>
-    <template slot="nextButton">next</template>
+  ... <!-- slides -->
+  
+  <template slot="prevButton">prev</template>
+  <template slot="nextButton">next</template>
 </agile>
 ```
 
@@ -280,15 +280,15 @@ Vue.use(VueAgile)
 // nuxt.config.js
 
 module.exports = {
-    plugins: [
-        { src: '~/plugins/vue-agile', ssr: false }
-    ]
+  plugins: [
+    { src: '~/plugins/vue-agile', ssr: false }
+  ]
 }
 ```
 
 ```vue
 <client-only placeholder="Loading...">
-    <agile>...</agile>
+  <agile>...</agile>
 </client-only>
 ```
 
