@@ -210,6 +210,7 @@ const mixin = {
 				autoplaySpeed: this.autoplaySpeed,
 				centerMode: this.centerMode,
 				centerPadding: this.centerPadding,
+				changeDelay: this.changeDelay,
 				dots: this.dots,
 				fade: this.fade,
 				infinite: this.infinite,

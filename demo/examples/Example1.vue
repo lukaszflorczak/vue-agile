@@ -21,7 +21,6 @@
 
 </template>
 
-
 <script>
 	export default {
 		name: 'Example1'
