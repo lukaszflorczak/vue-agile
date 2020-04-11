@@ -201,32 +201,12 @@ const mixin = {
 		}
 	},
 
-	data () {
-		return {
-			// Initial settings based on props
-			initialSettings: {
-				asNavFor: this.asNavFor,
-				autoplay: this.autoplay,
-				autoplaySpeed: this.autoplaySpeed,
-				centerMode: this.centerMode,
-				centerPadding: this.centerPadding,
-				changeDelay: this.changeDelay,
-				dots: this.dots,
-				fade: this.fade,
-				infinite: this.infinite,
-				initialSlide: this.initialSlide,
-				mobileFirst: this.mobileFirst,
-				navButtons: this.navButtons,
-				pauseOnDotsHover: this.pauseOnDotsHover,
-				pauseOnHover: this.pauseOnHover,
-				responsive: this.responsive,
-				rtl: this.rtl,
-				slidesToScroll: this.slidesToScroll,
-				slidesToShow: this.slidesToShow,
-				speed: this.speed,
-				timing: this.timing,
-				unagile: this.unagile
-			}
+	computed: {
+		// Initial settings based on props
+		initialSettings: function () {
+			// options prop is excluded
+			const { options, ...initialSettings } = this.$props
+			return initialSettings
 		}
 	}
 }
