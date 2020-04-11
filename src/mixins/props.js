@@ -3,12 +3,6 @@
  */
 const mixin = {
 	props: {
-		// Depreciated
-		arrows: {
-			type: Boolean,
-			default: true
-		},
-
 		/**
 		 * Set the carousel to be the navigation of other carousels
 		 */
@@ -107,12 +101,6 @@ const mixin = {
 			default: true
 		},
 
-		// Depreciated
-		nextArrow: {
-			type: String,
-			default: null
-		},
-
 		/**
 		 * All settings as one object
 		 */
@@ -135,12 +123,6 @@ const mixin = {
 		pauseOnHover: {
 			type: Boolean,
 			default: true
-		},
-
-		// Depreciated
-		prevArrow: {
-			type: String,
-			default: null
 		},
 
 		/**
