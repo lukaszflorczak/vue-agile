@@ -18,7 +18,7 @@
 						div.slide.slide--thumbniail(v-for="(slide, index) in slides", :key="index", :class="`slide--${index}`" @click="$refs.thumbnails.goTo(index)")
 							img(:src="slide")
 
-						template($prevButton)
+						template(#prevButton)
 							i.fas.fa-chevron-left
 
 						template(#nextButton)
