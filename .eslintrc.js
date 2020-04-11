@@ -31,38 +31,7 @@ module.exports = {
 		'arrow-parens': 0,
 		// allow async-await
 		'generator-star-spacing': 0,
-
-		'vue/order-in-components': ['error', {
-			'order': [
-				'el',
-				'name',
-				'parent',
-				'functional',
-				['delimiters', 'comments'],
-				['components', 'directives', 'filters'],
-				'extends',
-				'mixins',
-				'inheritAttrs',
-				'model',
-				['props', 'propsData'],
-				'data',
-				'computed',
-				'watch',
-				'beforeCreate',
-				'created',
-				'beforeMount',
-				'mounted',
-				'beforeUpdate',
-				'updated',
-				'activated',
-				'deactivated',
-				'beforeDestroy',
-				'destroyed',
-				'methods',
-				['template', 'render'],
-				'renderError'
-			]
-		}]
+		'vue/order-in-components': ['error']
 	},
 	parserOptions: {
 		parser: 'babel-eslint'
