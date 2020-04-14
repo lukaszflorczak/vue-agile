@@ -48,7 +48,7 @@ const mixin = {
 		 *  Prepare slides active/current classes
 		 */
 		prepareSlidesClasses () {
-			if (this.slideCurrent === null) {
+			if (this.currentSlide === null) {
 				return false
 			}
 
@@ -59,9 +59,9 @@ const mixin = {
 			}
 
 			// Add active & current class for current slide
-			setTimeout(() => this.slides[this.slideCurrent].classList.add('agile__slide--active'), this.changeDelay)
+			setTimeout(() => this.slides[this.currentSlide].classList.add('agile__slide--active'), this.changeDelay)
 
-			let start = (this.slidesCloned) ? this.countSlides + this.slideCurrent : this.slideCurrent
+			let start = (this.slidesCloned) ? this.countSlides + this.currentSlide : this.currentSlide
 
 			if (this.centerMode) {
 				start -= (Math.floor(this.settings.slidesToShow / 2) - +(this.settings.slidesToShow % 2 === 0))
@@ -88,11 +88,11 @@ const mixin = {
 			if (this.settings.unagile) {
 				this.translateX = 0
 			} else {
-				if (this.slideCurrent === null && this.countSlides) {
-					this.slideCurrent = this.settings.initialSlide
+				if (this.currentSlide === null && this.countSlides) {
+					this.currentSlide = this.settings.initialSlide
 				}
 
-				this.goTo(this.slideCurrent, false, false)
+				this.goTo(this.currentSlide, false, false)
 			}
 		}
 	}

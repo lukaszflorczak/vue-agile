@@ -4,9 +4,9 @@
 const mixin = {
 	watch: {
 		// Recalculate settings
-		breakpointCurrent () {
+		currentBreakpoint () {
 			this.prepareSettings()
-			this.$emit('breakpoint', { breakpoint: this.breakpointCurrent })
+			this.$emit('breakpoint', { breakpoint: this.currentBreakpoint })
 		},
 
 		// Watch drag distance change
@@ -52,13 +52,13 @@ const mixin = {
 		},
 
 		// Watch current slide change
-		slideCurrent () {
+		currentSlide () {
 			this.prepareSlidesClasses()
 
 			// Set start time of slide
 			this.autoplayStartTimestamp = (this.settings.autoplay) ? +new Date() : null
 
-			this.$emit('after-change', { currentSlide: this.slideCurrent })
+			this.$emit('after-change', { currentSlide: this.currentSlide })
 		},
 
 		// Watch window width change

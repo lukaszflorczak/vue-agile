@@ -65,7 +65,7 @@
 					v-for="n in countSlides"
 					:key="n"
 					class="agile__dot"
-					:class="{'agile__dot--current': n - 1 === slideCurrent}"
+					:class="{'agile__dot--current': n - 1 === currentSlide}"
 					@mouseover="handleMouseOver('dot')"
 					@mouseout="handleMouseOut('dot')"
 				>
@@ -113,6 +113,7 @@
 				autoplayRemaining: null,
 				autoplayStartTimestamp: null,
 				autoplayTimeout: null,
+				currentSlide: null,
 				dragDistance: 0,
 				dragStartX: 0,
 				dragStartY: 0,
@@ -122,7 +123,6 @@
 				slides: [],
 				slidesClonedAfter: [],
 				slidesClonedBefore: [],
-				slideCurrent: null,
 				swipeDistance: 50,
 				transitionDelay: 0,
 				translateX: 0,
@@ -137,17 +137,12 @@
 				return (!this.initialSettings.responsive) ? [] : this.initialSettings.responsive.map(item => item.breakpoint)
 			},
 
-			breakpointCurrent: function () {
-				let breakpoints = this.breakpoints.map(item => item).reverse()
-				return (this.initialSettings.mobileFirst) ? breakpoints.find(item => item < this.widthWindow) || 0 : breakpoints.find(item => item > this.widthWindow) || null
-			},
-
 			canGoToPrev: function () {
-				return (this.settings.infinite || this.slideCurrent > 0)
+				return (this.settings.infinite || this.currentSlide > 0)
 			},
 
 			canGoToNext: function () {
-				return (this.settings.infinite || this.slideCurrent < this.countSlides - 1)
+				return (this.settings.infinite || this.currentSlide < this.countSlides - 1)
 			},
 
 			countSlides: function () {
@@ -156,6 +151,11 @@
 
 			countSlidesAll: function () {
 				return this.slidesAll.length
+			},
+
+			currentBreakpoint: function () {
+				let breakpoints = this.breakpoints.map(item => item).reverse()
+				return (this.initialSettings.mobileFirst) ? breakpoints.find(item => item < this.widthWindow) || 0 : breakpoints.find(item => item > this.widthWindow) || null
 			},
 
 			marginX: function () {
@@ -227,7 +227,7 @@
 		methods: {
 			// Return current breakpoint
 			getCurrentBreakpoint () {
-				return this.breakpointCurrent
+				return this.currentBreakpoint
 			},
 
 			// Return settings for current breakpoint
@@ -237,7 +237,7 @@
 
 			// Return current slide index
 			getCurrentSlide () {
-				return this.slideCurrent
+				return this.currentSlide
 			},
 
 			// Return initial settings
@@ -269,9 +269,9 @@
 						slideNextReal = 0
 					}
 
-					this.$emit('before-change', { currentSlide: this.slideCurrent, nextSlide: slideNextReal })
+					this.$emit('before-change', { currentSlide: this.currentSlide, nextSlide: slideNextReal })
 
-					this.slideCurrent = slideNextReal
+					this.currentSlide = slideNextReal
 
 					if (n !== slideNextReal) {
 						setTimeout(() => {
@@ -288,14 +288,14 @@
 			// Go to next slide
 			goToNext () {
 				if (this.canGoToNext) {
-					this.goTo(this.slideCurrent + 1)
+					this.goTo(this.currentSlide + 1)
 				}
 			},
 
 			// Go to previous slide
 			goToPrev () {
 				if (this.canGoToPrev) {
-					this.goTo(this.slideCurrent - 1)
+					this.goTo(this.currentSlide - 1)
 				}
 			},
 
