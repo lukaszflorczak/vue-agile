@@ -25,7 +25,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm ci
-    - run: npm lint
-    - run: npm test:test-unit
+    - run: npm run lint
+    - run: npm run test:unit
       env:
         CI: true
