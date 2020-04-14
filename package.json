@@ -3,30 +3,15 @@
   "version": "1.0.12",
   "description": "A carousel component for Vue.js",
   "author": "Łukasz Florczak <lukaszflorczak@icloud.com>",
-  "license": "MIT",
-  "keywords": [
-    "vue",
-    "component",
-    "slider",
-    "carousel",
-    "slide"
-  ],
   "scripts": {
     "serve": "vue-cli-service serve --open ./demo/main.js",
-    "build-bundle": "vue-cli-service build --target lib --name VueAgile ./src/Agile.vue && rm dist/demo.html",
-    "build-docs": "vue-cli-service build ./demo/main.js --dest ./docs",
+    "test:unit": "vue-cli-service test:unit",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit"
+    "build-bundle": "vue-cli-service build --target lib --name VueAgile ./src/Agile.vue && rm dist/demo.html",
+    "build-docs": "vue-cli-service build ./demo/main.js --dest ./docs"
   },
   "main": "src/index.js",
   "unpkg": "dist/VueAgile.umd.min.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lukaszflorczak/vue-agile.git"
-  },
-  "bugs": {
-    "url": "https://github.com/lukaszflorczak/vue-agile/issues"
-  },
   "files": [
     "dist/*",
     "src/*",
@@ -39,18 +24,33 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.6.0",
     "@vue/cli-plugin-eslint": "^3.6.0",
-    "@vue/cli-plugin-unit-mocha": "^4.3.1",
+    "@vue/cli-plugin-unit-jest": "^4.3.1",
     "@vue/cli-service": "^4.3.1",
     "@vue/eslint-config-standard": "^4.0.0",
-    "@vue/test-utils": "1.0.0-beta.29",
+    "@vue/test-utils": "1.0.0-beta.31",
     "babel-eslint": "^10.0.1",
-    "chai": "^4.1.2",
     "eslint": "^5.16.0",
+    "eslint-plugin-pug": "^1.2.2",
     "eslint-plugin-vue": "^5.0.0",
     "pug": "^2.0.3",
     "pug-plain-loader": "^1.0.0",
     "sass": "^1.18.0",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.5.21"
+  },
+  "bugs": {
+    "url": "https://github.com/lukaszflorczak/vue-agile/issues"
+  },
+  "keywords": [
+    "vue",
+    "component",
+    "slider",
+    "carousel",
+    "slide"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lukaszflorczak/vue-agile.git"
   }
 }
