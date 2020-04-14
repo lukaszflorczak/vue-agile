@@ -1,13 +1,17 @@
 module.exports = {
-	root: true,
-	env: {
+    root: true,
+
+    env: {
 		node: true
 	},
-	'extends': [
-		'plugin:vue/essential',
-		'@vue/standard'
+
+    plugins: ['pug'],
+
+    'extends': [
+		'plugin:vue/recommended'
 	],
-	rules: {
+
+    rules: {
 		'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 		'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
 		'no-multiple-empty-lines': [2, { 'max': 2, 'maxEOF': 1 }],
@@ -19,21 +23,22 @@ module.exports = {
 			'switchCase': 1
 		}],
 		'vue/html-indent': ['error', 'tab', {
-			'attribute': 0,
+			'attribute': 1,
 			'baseIndent': 1,
 			'closeBracket': 0,
-			'alignAttributesVertically': false,
+			'alignAttributesVertically': true,
 			'ignores': []
 		}],
+		'vue/component-name-in-template-casing': 'error',
 		// single quotes
 		'quotes': [2, 'single'],
 		// allow paren-less arrow functions
 		'arrow-parens': 0,
 		// allow async-await
-		'generator-star-spacing': 0,
-		'vue/order-in-components': ['error']
+		'generator-star-spacing': 0
 	},
-	parserOptions: {
+
+    parserOptions: {
 		parser: 'babel-eslint'
 	}
 }
