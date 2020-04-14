@@ -56,7 +56,7 @@ const mixin = {
 			this.prepareSlidesClasses()
 
 			// Set start time of slide
-			this.autoplayStartTimestampTimestamp = (this.settings.autoplay) ? +new Date() : null
+			this.autoplayStartTimestamp = (this.settings.autoplay) ? +new Date() : null
 
 			this.$emit('after-change', { slideCurrent: this.slideCurrent })
 		},
