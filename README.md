@@ -19,22 +19,12 @@ If you like the component remember to **star it** ⭐️. If you appreciate my w
 
 ---
 
-## Important – update from version < `1.0`
+## Important – update from version `1.0.x`
 
-#### Depreciated props => new props/option
-* `arrows` => `navButtons`
-* `prevArrow` => `prevButton` slot
-* `nextArrow` => `nextButton` slot
-* `show` => `reload()` method
-
-#### Depreciated classes => new classes
-* `.agile__arrow` => `.agile__nav-button`
-* `.agile__arrow--prev` => `.agile__nav-button--prev`
-* `.agile__arrow--next` => `.agile__nav-button--next`
-* `.agile__slide--cloned` => cloned slides are grouped in `.agile__slides--cloned` container now
-
-#### Structure
-* Nav buttons and dots are grouped in `.agile__actions` container now
+#### Events
+* `afterChange` => `after-change`
+* `beforeChange` => `before-change`
+* Events above return an object with keys: `slideCurrent`, `slideNext` (instead old `currentSlide`, `nextSlide`)
 
 ## Installation
 
@@ -160,8 +150,8 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 
 | Name | Value | Description |
 | --- | --- | --- |
-| afterChange | `{ currentSlide }` | Fires after slide change |
-| beforeChange | `{ currentSlide, nextSlide }` | Fires before slide change |
+| after-change | `{ slideCurrent }` | Fires after slide change |
+| before-change | `{ slideCurrent, slideNext }` | Fires before slide change |
 | breakpoint | `{ breakpoint } ` | Fires after breakpoint change |
 
 #### Example

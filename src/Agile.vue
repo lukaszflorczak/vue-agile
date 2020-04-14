@@ -260,22 +260,22 @@
 					})
 				}
 
-				let realNextSlide = n
+				let slideNextReal = n
 
 				if (transition) {
 					if (this.settings.infinite && n < 0) {
-						realNextSlide = this.countSlides - 1
+						slideNextReal = this.countSlides - 1
 					} else if (n >= this.countSlides) {
-						realNextSlide = 0
+						slideNextReal = 0
 					}
 
-					this.$emit('beforeChange', { slideCurrent: this.slideCurrent, nextSlide: realNextSlide })
+					this.$emit('before-change', { slideCurrent: this.slideCurrent, slideNext: slideNextReal })
 
-					this.slideCurrent = realNextSlide
+					this.slideCurrent = slideNextReal
 
-					if (n !== realNextSlide) {
+					if (n !== slideNextReal) {
 						setTimeout(() => {
-							this.goTo(realNextSlide, false)
+							this.goTo(slideNextReal, false)
 						}, this.settings.speed)
 					}
 				}
