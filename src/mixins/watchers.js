@@ -58,7 +58,7 @@ const mixin = {
 			// Set start time of slide
 			this.autoplayStartTimestamp = (this.settings.autoplay) ? +new Date() : null
 
-			this.$emit('after-change', { slideCurrent: this.slideCurrent })
+			this.$emit('after-change', { currentSlide: this.slideCurrent })
 		},
 
 		// Watch window width change

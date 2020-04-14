@@ -269,7 +269,7 @@
 						slideNextReal = 0
 					}
 
-					this.$emit('before-change', { slideCurrent: this.slideCurrent, slideNext: slideNextReal })
+					this.$emit('before-change', { currentSlide: this.slideCurrent, nextSlide: slideNextReal })
 
 					this.slideCurrent = slideNextReal
 

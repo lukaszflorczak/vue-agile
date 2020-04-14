@@ -24,7 +24,6 @@ If you like the component remember to **star it** ⭐️. If you appreciate my w
 #### Events
 * `afterChange` => `after-change`
 * `beforeChange` => `before-change`
-* Events above return an object with keys: `slideCurrent`, `slideNext` (instead old `currentSlide`, `nextSlide`)
 
 ## Installation
 
