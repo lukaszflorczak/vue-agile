@@ -1,34 +1,94 @@
 <template>
-	<div class="agile" :class="{'agile--auto-play': settings.autoplay, 'agile--disabled': settings.unagile, 'agile--fade': settings.fade && !settings.unagile, 'agile--rtl': settings.rtl}">
-		<div ref="list" class="agile__list">
-			<div ref="track" class="agile__track" :style="{transform: `translate(${translateX + marginX}px)`, transition: `transform ${settings.timing} ${transitionDelay}ms`}" @mouseover="handleMouseOver('track')" @mouseout="handleMouseOut('track')">
-				<div class="agile__slides agile__slides--cloned" ref="slidesClonedBefore" v-if="clonedSlides">
-					<slot></slot>
+	<div
+		class="agile"
+		:class="{'agile--auto-play': settings.autoplay, 'agile--disabled': settings.unagile, 'agile--fade': settings.fade && !settings.unagile, 'agile--rtl': settings.rtl}"
+	>
+		<div
+			ref="list"
+			class="agile__list"
+		>
+			<div
+				ref="track"
+				class="agile__track"
+				:style="{transform: `translate(${translateX + marginX}px)`, transition: `transform ${settings.timing} ${transitionDelay}ms`}"
+				@mouseover="handleMouseOver('track')"
+				@mouseout="handleMouseOut('track')"
+			>
+				<div
+					v-if="clonedSlides"
+					ref="slidesClonedBefore"
+					class="agile__slides agile__slides--cloned"
+				>
+					<slot />
 				</div>
 
-				<div class="agile__slides agile__slides--regular" ref="slides">
-					<slot></slot>
+				<div
+					ref="slides"
+					class="agile__slides agile__slides--regular"
+				>
+					<slot />
 				</div>
 
-				<div class="agile__slides agile__slides--cloned" ref="slidesClonedAfter" v-if="clonedSlides">
-					<slot></slot>
+				<div
+					v-if="clonedSlides"
+					ref="slidesClonedAfter"
+					class="agile__slides agile__slides--cloned"
+				>
+					<slot />
 				</div>
 			</div>
 		</div>
 
-		<div class="agile__actions" v-if="!settings.unagile && (settings.navButtons || settings.dots)">
-			<button v-if="settings.navButtons && !settings.unagile" class="agile__nav-button agile__nav-button--prev" :disabled="!canGoToPrev" @click="goToPrev(), restartAutoPlay()" type="button" ref="prevButton">
-				<slot name="prevButton">←</slot>
+		<div
+			v-if="!settings.unagile && (settings.navButtons || settings.dots)"
+			class="agile__actions"
+		>
+			<button
+				v-if="settings.navButtons && !settings.unagile"
+				ref="prevButton"
+				class="agile__nav-button agile__nav-button--prev"
+				:disabled="!canGoToPrev"
+				type="button"
+				@click="goToPrev(), restartAutoPlay()"
+			>
+				<slot name="prevButton">
+					←
+				</slot>
 			</button>
 
-			<ul ref="dots" v-if="settings.dots && !settings.unagile" class="agile__dots">
-				<li v-for="n in slidesCount" :key="n" class="agile__dot" :class="{'agile__dot--current': n - 1 === currentSlide}" @mouseover="handleMouseOver('dot')" @mouseout="handleMouseOut('dot')">
-					<button @click="goTo(n - 1), restartAutoPlay()" type="button">{{n}}</button>
+			<ul
+				v-if="settings.dots && !settings.unagile"
+				ref="dots"
+				class="agile__dots"
+			>
+				<li
+					v-for="n in slidesCount"
+					:key="n"
+					class="agile__dot"
+					:class="{'agile__dot--current': n - 1 === currentSlide}"
+					@mouseover="handleMouseOver('dot')"
+					@mouseout="handleMouseOut('dot')"
+				>
+					<button
+						type="button"
+						@click="goTo(n - 1), restartAutoPlay()"
+					>
+						{{ n }}
+					</button>
 				</li>
 			</ul>
 
-			<button v-if="settings.navButtons && !settings.unagile" class="agile__nav-button agile__nav-button--next" :disabled="!canGoToNext" @click="goToNext(), restartAutoPlay()" type="button" ref="nextButton">
-				<slot name="nextButton">→</slot>
+			<button
+				v-if="settings.navButtons && !settings.unagile"
+				ref="nextButton"
+				class="agile__nav-button agile__nav-button--next"
+				:disabled="!canGoToNext"
+				type="button"
+				@click="goToNext(), restartAutoPlay()"
+			>
+				<slot name="nextButton">
+					→
+				</slot>
 			</button>
 		</div>
 	</div>
@@ -42,7 +102,7 @@
 	import watchers from './mixins/watchers'
 
 	export default {
-		name: 'agile',
+		name: 'Agile',
 
 		mixins: [handlers, helpers, preparations, props, watchers],
 
