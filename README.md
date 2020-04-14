@@ -139,9 +139,9 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 
 | Name | Description |
 | --- | --- |
-| `getCurrentSlide()` | Returns index of current slide | 
 | `getCurrentBreakpoint()` | Returns current breakpoint (can returns `0` in mobile first for the smallest breakpoint and `null` for desktop first for the largest) | 
 | `getCurrentSettings()` | Returns settings object for current breakpoint – useful for debugging | 
+| `getCurrentSlide()` | Returns index of current slide | 
 | `getInitialSettings()` | Returns full settings object with all options – useful for debugging | 
 | `goTo()` | Navigates to a slide by index |
 | `goToNext()` | Navigates to next slide |
@@ -179,7 +179,7 @@ showCurrentSlide (event) {
 
 ## Responsive
 
-To customize responsiveness, I recommend defining your desired breakpoints and passing a settings object with your modification options inside **options**.
+To customize responsiveness, I recommend defining your desired breakpoints and passing settings object with your modification options inside **options**.
 
 #### Example
 

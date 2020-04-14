@@ -7,7 +7,7 @@ const mixin = {
 			if (!e.touches) {
 				e.preventDefault()
 			}
-			this.mouseDown = true
+			this.isMouseDown = true
 
 			if (e.type.indexOf('touch') !== -1) {
 				this.dragStartX = e.touches[0].clientX
@@ -39,14 +39,14 @@ const mixin = {
 		},
 
 		handleMouseUp () {
-			this.mouseDown = false
+			this.isMouseDown = false
 			this.enableScroll()
 		},
 
 		handleMouseOver (element) {
 			if (this.settings.autoplay) {
 				if ((element === 'dot' && this.settings.pauseOnDotsHover) || (element === 'track' && this.settings.pauseOnHover)) {
-					this.pauseAutoPlay = true
+					this.isAutoplayPaused = true
 				}
 			}
 		},
@@ -54,7 +54,7 @@ const mixin = {
 		handleMouseOut (element) {
 			if (this.settings.autoplay) {
 				if ((element === 'dot' && this.settings.pauseOnDotsHover) || (element === 'track' && this.settings.pauseOnHover)) {
-					this.pauseAutoPlay = false
+					this.isAutoplayPaused = false
 				}
 			}
 		}

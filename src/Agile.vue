@@ -15,7 +15,7 @@
 				@mouseout="handleMouseOut('track')"
 			>
 				<div
-					v-if="clonedSlides"
+					v-if="slidesCloned"
 					ref="slidesClonedBefore"
 					class="agile__slides agile__slides--cloned"
 				>
@@ -30,7 +30,7 @@
 				</div>
 
 				<div
-					v-if="clonedSlides"
+					v-if="slidesCloned"
 					ref="slidesClonedAfter"
 					class="agile__slides agile__slides--cloned"
 				>
@@ -62,10 +62,10 @@
 				class="agile__dots"
 			>
 				<li
-					v-for="n in slidesCount"
+					v-for="n in countSlides"
 					:key="n"
 					class="agile__dot"
-					:class="{'agile__dot--current': n - 1 === currentSlide}"
+					:class="{'agile__dot--current': n - 1 === slideCurrent}"
 					@mouseover="handleMouseOver('dot')"
 					@mouseout="handleMouseOut('dot')"
 				>
@@ -97,6 +97,7 @@
 <script>
 	import handlers from './mixins/handlers'
 	import helpers from './mixins/helpers'
+	import methods from './mixins/methods'
 	import preparations from './mixins/preparations'
 	import props from './mixins/props'
 	import watchers from './mixins/watchers'
@@ -104,71 +105,61 @@
 	export default {
 		name: 'Agile',
 
-		mixins: [handlers, helpers, preparations, props, watchers],
+		mixins: [handlers, helpers, methods, preparations, props, watchers],
 
 		data () {
 			return {
-				slides: [],
-				slidesClonedBefore: [],
-				slidesClonedAfter: [],
 				autoplayInterval: null,
-				autoplayTimeout: null,
-				pauseAutoPlay: false,
-				autoplayStart: null,
 				autoplayRemaining: null,
-				// autoplayStatus: false,
-				// autoplayTimeout: null,
-				currentSlide: null,
-				mouseDown: false,
+				autoplayStartTimestamp: null,
+				autoplayTimeout: null,
+				dragDistance: 0,
 				dragStartX: 0,
 				dragStartY: 0,
-				dragDistance: 0,
+				isAutoplayPaused: false,
+				isMouseDown: false,
+				settings: {},
+				slides: [],
+				slidesClonedAfter: [],
+				slidesClonedBefore: [],
+				slideCurrent: null,
 				swipeDistance: 50,
-				translateX: 0,
 				transitionDelay: 0,
+				translateX: 0,
 				widthWindow: 0,
 				widthContainer: 0,
-				widthSlide: 0,
-				settings: {}
+				widthSlide: 0
 			}
 		},
 
 		computed: {
-			canGoToPrev: function () {
-				return (this.settings.infinite || this.currentSlide > 0)
-			},
-
-			canGoToNext: function () {
-				return (this.settings.infinite || this.currentSlide < this.slidesCount - 1)
-			},
-
-			clonedSlides: function () {
-				return (!this.settings.unagile && !this.settings.fade && this.settings.infinite)
-			},
-
 			breakpoints: function () {
 				return (!this.initialSettings.responsive) ? [] : this.initialSettings.responsive.map(item => item.breakpoint)
 			},
 
-			currentBreakpoint: function () {
+			breakpointCurrent: function () {
 				let breakpoints = this.breakpoints.map(item => item).reverse()
 				return (this.initialSettings.mobileFirst) ? breakpoints.find(item => item < this.widthWindow) || 0 : breakpoints.find(item => item > this.widthWindow) || null
 			},
 
-			allSlides: function () {
-				return (this.clonedSlides) ? [...this.slidesClonedBefore, ...this.slides, ...this.slidesClonedAfter] : this.slides
+			canGoToPrev: function () {
+				return (this.settings.infinite || this.slideCurrent > 0)
 			},
 
-			slidesCount: function () {
+			canGoToNext: function () {
+				return (this.settings.infinite || this.slideCurrent < this.countSlides - 1)
+			},
+
+			countSlides: function () {
 				return this.slides.length
 			},
 
-			allSlidesCount: function () {
-				return this.allSlides.length
+			countSlidesAll: function () {
+				return this.slidesAll.length
 			},
 
 			marginX: function () {
-				let marginX = (this.clonedSlides) ? this.slidesCount * this.widthSlide : 0
+				let marginX = (this.slidesCloned) ? this.countSlides * this.widthSlide : 0
 
 				// Center mode margin
 				if (this.settings.centerMode) {
@@ -176,6 +167,14 @@
 				}
 
 				return (this.settings.rtl) ? marginX : -1 * marginX
+			},
+
+			slidesCloned: function () {
+				return (!this.settings.unagile && !this.settings.fade && this.settings.infinite)
+			},
+
+			slidesAll: function () {
+				return (this.slidesCloned) ? [...this.slidesClonedBefore, ...this.slides, ...this.slidesClonedAfter] : this.slides
 			}
 		},
 
@@ -226,73 +225,9 @@
 		},
 
 		methods: {
-			// Reload carousel
-			reload () {
-				this.getWidth()
-				this.prepareSettings()
-				this.prepareSlides()
-				this.prepareCarousel()
-				this.toggleFade()
-			},
-
-			toggleFade () {
-				let enabled = (!this.settings.unagile && this.settings.fade)
-
-				for (let i = 0; i < this.slidesCount; i++) {
-					this.slides[i].style.transition = (enabled) ? 'opacity ' + this.settings.timing + ' ' + this.settings.speed + 'ms' : 'none'
-					this.slides[i].style.transform = (enabled) ? `translate(-${i * this.widthSlide}px)` : 'none'
-				}
-			},
-
-			toggleAutoPlay () {
-				let enabled = (!this.settings.unagile && this.settings.autoplay)
-
-				if (!this.autoplayInterval && enabled) {
-					this.autoplayInterval = setInterval(() => {
-						if (!document.hidden) {
-							if (!this.canGoToNext) {
-								this.disableAutoPlay()
-							} else {
-								this.goToNext()
-							}
-						}
-					}, this.settings.autoplaySpeed)
-				} else {
-					this.disableAutoPlay()
-				}
-			},
-
-			restartAutoPlay () {
-				this.disableAutoPlay()
-				this.toggleAutoPlay()
-			},
-
-			disableAutoPlay () {
-				clearInterval(this.autoplayInterval)
-				this.autoplayInterval = null
-			},
-
-			clearAutoPlayPause () {
-				clearTimeout(this.autoplayTimeout)
-				this.autoplayRemaining = null
-			},
-
-			disableScroll () {
-				document.ontouchmove = (e) => e.preventDefault()
-			},
-
-			enableScroll () {
-				document.ontouchmove = () => true
-			},
-
-			// Return current slide index
-			getCurrentSlide () {
-				return this.currentSlide
-			},
-
 			// Return current breakpoint
 			getCurrentBreakpoint () {
-				return this.currentBreakpoint
+				return this.breakpointCurrent
 			},
 
 			// Return settings for current breakpoint
@@ -300,23 +235,14 @@
 				return this.settings
 			},
 
+			// Return current slide index
+			getCurrentSlide () {
+				return this.slideCurrent
+			},
+
 			// Return initial settings
 			getInitialSettings () {
 				return this.initialSettings
-			},
-
-			// Go to next slide
-			goToNext () {
-				if (this.canGoToNext) {
-					this.goTo(this.currentSlide + 1)
-				}
-			},
-
-			// Go to previous slide
-			goToPrev () {
-				if (this.canGoToPrev) {
-					this.goTo(this.currentSlide - 1)
-				}
 			},
 
 			// Go to slide
@@ -338,14 +264,14 @@
 
 				if (transition) {
 					if (this.settings.infinite && n < 0) {
-						realNextSlide = this.slidesCount - 1
-					} else if (n >= this.slidesCount) {
+						realNextSlide = this.countSlides - 1
+					} else if (n >= this.countSlides) {
 						realNextSlide = 0
 					}
 
-					this.$emit('beforeChange', { currentSlide: this.currentSlide, nextSlide: realNextSlide })
+					this.$emit('beforeChange', { slideCurrent: this.slideCurrent, nextSlide: realNextSlide })
 
-					this.currentSlide = realNextSlide
+					this.slideCurrent = realNextSlide
 
 					if (n !== realNextSlide) {
 						setTimeout(() => {
@@ -357,6 +283,29 @@
 				let translateX = (!this.settings.fade) ? n * this.widthSlide * this.settings.slidesToScroll : 0
 				this.transitionDelay = (transition) ? this.speed : 0
 				this.translateX = (this.settings.rtl) ? translateX : -1 * translateX
+			},
+
+			// Go to next slide
+			goToNext () {
+				if (this.canGoToNext) {
+					this.goTo(this.slideCurrent + 1)
+				}
+			},
+
+			// Go to previous slide
+			goToPrev () {
+				if (this.canGoToPrev) {
+					this.goTo(this.slideCurrent - 1)
+				}
+			},
+
+			// Reload carousel
+			reload () {
+				this.getWidth()
+				this.prepareSettings()
+				this.prepareSlides()
+				this.prepareCarousel()
+				this.toggleFade()
 			}
 		}
 	}

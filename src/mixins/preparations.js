@@ -34,12 +34,12 @@ const mixin = {
 			this.slides = this.htmlCollectionToArray(this.$refs.slides.children)
 
 			// Probably timeout needed
-			if (this.clonedSlides) {
+			if (this.slidesCloned) {
 				this.slidesClonedBefore = this.htmlCollectionToArray(this.$refs.slidesClonedBefore.children)
 				this.slidesClonedAfter = this.htmlCollectionToArray(this.$refs.slidesClonedAfter.children)
 			}
 
-			for (let slide of this.allSlides) {
+			for (let slide of this.slidesAll) {
 				slide.classList.add('agile__slide')
 			}
 		},
@@ -48,28 +48,28 @@ const mixin = {
 		 *  Prepare slides active/current classes
 		 */
 		prepareSlidesClasses () {
-			if (this.currentSlide === null) {
+			if (this.slideCurrent === null) {
 				return false
 			}
 
 			// Remove active & current classes
-			for (let i = 0; i < this.slidesCount; i++) {
+			for (let i = 0; i < this.countSlides; i++) {
 				this.slides[i].classList.remove('agile__slide--active')
 				this.slides[i].classList.remove('agile__slide--current')
 			}
 
 			// Add active & current class for current slide
-			setTimeout(() => this.slides[this.currentSlide].classList.add('agile__slide--active'), this.changeDelay)
+			setTimeout(() => this.slides[this.slideCurrent].classList.add('agile__slide--active'), this.changeDelay)
 
-			let start = (this.clonedSlides) ? this.slidesCount + this.currentSlide : this.currentSlide
+			let start = (this.slidesCloned) ? this.countSlides + this.slideCurrent : this.slideCurrent
 
 			if (this.centerMode) {
 				start -= (Math.floor(this.settings.slidesToShow / 2) - +(this.settings.slidesToShow % 2 === 0))
 			}
 
 			// To account for the combination of infinite = false and centerMode = true, ensure we don't overrun the bounds of the slide count.
-			for (let i = Math.max(start, 0); i < Math.min(start + this.settings.slidesToShow, this.slidesCount); i++) {
-				this.allSlides[i].classList.add('agile__slide--current')
+			for (let i = Math.max(start, 0); i < Math.min(start + this.settings.slidesToShow, this.countSlides); i++) {
+				this.slidesAll[i].classList.add('agile__slide--current')
 			}
 		},
 
@@ -80,19 +80,19 @@ const mixin = {
 			this.widthSlide = !this.settings.unagile ? this.widthContainer / this.settings.slidesToShow : 'auto'
 
 			// Actions on document resize
-			for (let i = 0; i < this.allSlidesCount; i++) {
-				this.allSlides[i].style.width = (this.settings.unagile) ? '' : this.widthSlide + 'px'
+			for (let i = 0; i < this.countSlidesAll; i++) {
+				this.slidesAll[i].style.width = (this.settings.unagile) ? '' : this.widthSlide + 'px'
 			}
 
 			// Prepare track
 			if (this.settings.unagile) {
 				this.translateX = 0
 			} else {
-				if (this.currentSlide === null && this.slidesCount) {
-					this.currentSlide = this.settings.initialSlide
+				if (this.slideCurrent === null && this.countSlides) {
+					this.slideCurrent = this.settings.initialSlide
 				}
 
-				this.goTo(this.currentSlide, false, false)
+				this.goTo(this.slideCurrent, false, false)
 			}
 		}
 	}

@@ -3,33 +3,15 @@
  */
 const mixin = {
 	watch: {
-		// Watch window width change
-		widthWindow (newValue, oldValue) {
-			if (oldValue) {
-				this.prepareCarousel()
-				this.toggleFade()
-			}
-		},
-
-		// Watch current slide change
-		currentSlide () {
-			this.prepareSlidesClasses()
-
-			// Set start time of slide
-			this.autoplayStart = (this.settings.autoplay) ? +new Date() : null
-
-			this.$emit('afterChange', { currentSlide: this.currentSlide })
-		},
-
 		// Recalculate settings
-		currentBreakpoint () {
+		breakpointCurrent () {
 			this.prepareSettings()
-			this.$emit('breakpoint', { breakpoint: this.currentBreakpoint })
+			this.$emit('breakpoint', { breakpoint: this.breakpointCurrent })
 		},
 
 		// Watch drag distance change
 		dragDistance () {
-			if (this.mouseDown) {
+			if (this.isMouseDown) {
 				const { rtl } = this.settings
 				const dragDistance = this.dragDistance * (rtl ? -1 : 1)
 
@@ -45,18 +27,10 @@ const mixin = {
 			}
 		},
 
-		'settings.fade' () {
-			this.toggleFade()
-		},
-
-		'settings.autoplay' () {
-			this.toggleAutoPlay()
-		},
-
-		pauseAutoPlay (nevValue) {
+		isAutoplayPaused (nevValue) {
 			if (nevValue) {
 				// Store current slide remaining time and disable auto play mode
-				this.remaining = this.settings.autoplaySpeed - (+new Date() - this.autoplayStart)
+				this.remaining = this.settings.autoplaySpeed - (+new Date() - this.autoplayStartTimestamp)
 				this.disableAutoPlay()
 				this.clearAutoPlayPause()
 			} else {
@@ -66,6 +40,32 @@ const mixin = {
 					this.goToNext()
 					this.toggleAutoPlay()
 				}, this.remaining)
+			}
+		},
+
+		'settings.fade' () {
+			this.toggleFade()
+		},
+
+		'settings.autoplay' () {
+			this.toggleAutoPlay()
+		},
+
+		// Watch current slide change
+		slideCurrent () {
+			this.prepareSlidesClasses()
+
+			// Set start time of slide
+			this.autoplayStartTimestampTimestamp = (this.settings.autoplay) ? +new Date() : null
+
+			this.$emit('afterChange', { slideCurrent: this.slideCurrent })
+		},
+
+		// Watch window width change
+		widthWindow (newValue, oldValue) {
+			if (oldValue) {
+				this.prepareCarousel()
+				this.toggleFade()
 			}
 		}
 	}
