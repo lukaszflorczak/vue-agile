@@ -294,7 +294,7 @@ To use component without SSR use the `client-only` component:
 </client-only>
 ```
 
-You can also check [nuxt-agile](https://github.com/lukaszflorczak/nuxt-agile) repository and check demo usage of vue-agile with Nuxt.
+You can also check [nuxt-agile](https://github.com/lukaszflorczak/nuxt-agile) repository and check working demo of vue-agile with Nuxt and SSR.
 
 ## Contributing
 
