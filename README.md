@@ -261,9 +261,7 @@ It is also possible to use `v-show`, but you have to use the `reload()` method.
 
 ## SSR Support
 
-The component uses browser specific attributes (like `window` and `document`). Unfortunately, it is necessary -- so as of now, the only option is to run vue-agile solely on the client-side. 
-
-Full support for Nuxt.js is a known issue that will be addressed in a next version.
+The component uses browser specific attributes (like `window` and `document`). However, you can try to render the first view on server side.
  
 #### Example
 
@@ -279,18 +277,24 @@ Vue.use(VueAgile)
 ```js
 // nuxt.config.js
 
-module.exports = {
-    plugins: [
-        { src: '~/plugins/vue-agile', ssr: false }
-    ]
+export default {
+    plugins: ['~/plugins/vue-agile'],
+
+    build: {
+        transpile: ['vue-agile']
+    }
 }
 ```
+
+To use component without SSR use the `client-only` component:
 
 ```vue
 <client-only placeholder="Loading...">
     <agile>...</agile>
 </client-only>
 ```
+
+You can also check [nuxt-agile](https://github.com/lukaszflorczak/nuxt-agile) repository and check demo usage of vue-agile with Nuxt.
 
 ## Contributing
 
