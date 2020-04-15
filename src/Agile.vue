@@ -1,5 +1,5 @@
 <template>
-	<div class="agile" :class="{'agile--auto-play': settings.autoplay, 'agile--disabled': settings.unagile, 'agile--fade': settings.fade && !settings.unagile, 'agile--rtl': settings.rtl}">
+	<div class="agile" :class="{'agile--ssr': ssr, 'agile--auto-play': settings.autoplay, 'agile--disabled': settings.unagile, 'agile--fade': settings.fade && !settings.unagile, 'agile--rtl': settings.rtl}">
 		<div ref="list" class="agile__list">
 			<div ref="track" class="agile__track" :style="{transform: `translate(${translateX + marginX}px)`, transition: `transform ${settings.timing} ${transitionDelay}ms`}" @mouseover="handleMouseOver('track')" @mouseout="handleMouseOut('track')">
 				<div class="agile__slides agile__slides--cloned" ref="slidesClonedBefore" v-if="clonedSlides">
@@ -69,7 +69,8 @@
 				widthWindow: 0,
 				widthContainer: 0,
 				widthSlide: 0,
-				settings: {}
+				settings: {},
+				ssr: (typeof window === 'undefined')
 			}
 		},
 
@@ -134,6 +135,11 @@
 
 			// Set first load settings
 			Object.assign(this.settings, this.initialSettings)
+
+			// Load carousel on server side
+			if (this.ssr) {
+				this.reload()
+			}
 		},
 
 		mounted () {
@@ -149,6 +155,7 @@
 			this.$refs.track.addEventListener('mousemove', this.handleMouseMove)
 
 			// Init
+			this.ssr = false
 			this.reload()
 		},
 
@@ -305,6 +312,23 @@
 <style>
 	.agile {
 		position: relative;
+	}
+
+	.agile--ssr .agile__slides--cloned {
+		display: none
+	}
+
+	.agile--ssr .agile__slides > * {
+		overflow: hidden;
+		width: 0
+	}
+
+	.agile--ssr .agile__slides > *:first-child {
+		width: 100%
+	}
+
+	.agile--ssr .agile__slide {
+		width: 100%
 	}
 
 	.agile--rtl .agile__track,

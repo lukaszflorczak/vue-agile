@@ -31,6 +31,10 @@ const mixin = {
 		 * Prepare slides classes and styles
 		 */
 		prepareSlides () {
+			if (this.ssr) {
+				return false
+			}
+
 			this.slides = this.htmlCollectionToArray(this.$refs.slides.children)
 
 			// Probably timeout needed
