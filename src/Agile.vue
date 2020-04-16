@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="agile"
-		:class="{'agile--auto-play': settings.autoplay, 'agile--disabled': settings.unagile, 'agile--fade': settings.fade && !settings.unagile, 'agile--rtl': settings.rtl}"
+		:class="{'agile--ssr': ssr, 'agile--auto-play': settings.autoplay, 'agile--disabled': settings.unagile, 'agile--fade': settings.fade && !settings.unagile, 'agile--rtl': settings.rtl}"
 	>
 		<div
 			ref="list"
@@ -123,6 +123,7 @@
 				slides: [],
 				slidesClonedAfter: [],
 				slidesClonedBefore: [],
+				ssr: (typeof window === 'undefined'),
 				swipeDistance: 50,
 				transitionDelay: 0,
 				translateX: 0,
@@ -146,7 +147,7 @@
 			},
 
 			countSlides: function () {
-				return this.slides.length
+				return (this.ssr) ? this.htmlCollectionToArray(this.$slots.default).length : this.slides.length
 			},
 
 			countSlidesAll: function () {
@@ -193,6 +194,11 @@
 
 			// Set first load settings
 			Object.assign(this.settings, this.initialSettings)
+
+			// Load carousel on server side
+			if (this.ssr) {
+				this.ssrLoad()
+			}
 		},
 
 		mounted () {
@@ -208,6 +214,7 @@
 			this.$refs.track.addEventListener('mousemove', this.handleMouseMove)
 
 			// Init
+			this.ssr = false
 			this.reload()
 		},
 
@@ -306,6 +313,11 @@
 				this.prepareSlides()
 				this.prepareCarousel()
 				this.toggleFade()
+			},
+
+			// Prepare basic carousel on server side
+			ssrLoad () {
+				this.prepareSettings()
 			}
 		}
 	}
@@ -314,6 +326,19 @@
 <style>
 	.agile {
 		position: relative;
+	}
+
+	.agile--ssr .agile__slides--cloned {
+		display: none
+	}
+
+	.agile--ssr .agile__slides > * {
+		overflow: hidden;
+		width: 0
+	}
+
+	.agile--ssr .agile__slides > *:first-child {
+		width: 100%
 	}
 
 	.agile--rtl .agile__track,
