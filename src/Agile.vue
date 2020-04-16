@@ -16,6 +16,10 @@
 			</div>
 		</div>
 
+		<div v-if="$slots.caption" class="agile__caption">
+			<slot name="caption"></slot>
+		</div>
+
 		<div class="agile__actions" v-if="!settings.unagile && (settings.navButtons || settings.dots)">
 			<button v-if="settings.navButtons && !settings.unagile" class="agile__nav-button agile__nav-button--prev" :disabled="!canGoToPrev" @click="goToPrev(), restartAutoPlay()" type="button" ref="prevButton">
 				<slot name="prevButton">←</slot>
