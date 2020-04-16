@@ -11,7 +11,7 @@ More demos and examples coming soon in [vue-agile CodePens collection](https://c
 
 ---
 
-🎉 **After about a year from the last version, I'm happy and excited to inform, that new `v1.0` version is available now!** More information and a changelog you can find [here](https://github.com/lukaszflorczak/vue-agile/releases/tag/v1.0.0).
+🎉 **I'm happy and excited to inform, that new `v1.1` version is available now!** More information and a changelog you can find [here](https://github.com/lukaszflorczak/vue-agile/releases/tag/v1.1.0).
 
 ---
 
@@ -99,7 +99,7 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 | autoplay | boolean | `false` | Enable autoplay |
 | autoplaySpeed | integer (ms) | `3000` | Autoplay interval in milliseconds | 
 | centerMode | boolean | `false` | Enable centered view when `slidesToShow` > `1` |
-| changeDelay | integer | `0` | Insert a delay when switching slides. Useful for fade: `true` |
+| changeDelay | integer | `0` | Insert a delay when switching slides. Useful for `fade`: `true` |
 | dots | boolean | `true` | Enable dot indicators/pagination |
 | fade | boolean | `false` | Enable fade effect |
 | infinite | boolean | `true` | Infinite loop sliding | 
@@ -113,6 +113,7 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 | rtl | boolean | `false` | Enable right-to-left mode |
 | slidesToShow | integer | `1` | Number of slides to show |
 | speed | integer (ms) | `300` | Slide animation speed in milliseconds | 
+| throttleDelay | integer (ms) | `500` | Throttle delay for actions |
 | timing | string | `ease` | Transition timing function <br> (`linear`/`ease`/`ease-in`/`ease-out`/`ease-in-out`) |
 | unagile | boolean | `false` | Disable Agile carousel | 
 

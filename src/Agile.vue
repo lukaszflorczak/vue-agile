@@ -100,12 +100,13 @@
 	import methods from './mixins/methods'
 	import preparations from './mixins/preparations'
 	import props from './mixins/props'
+	import throttle from './mixins/throttle'
 	import watchers from './mixins/watchers'
 
 	export default {
 		name: 'Agile',
 
-		mixins: [handlers, helpers, methods, preparations, props, watchers],
+		mixins: [handlers, helpers, methods, preparations, props, throttle, watchers],
 
 		data () {
 			return {

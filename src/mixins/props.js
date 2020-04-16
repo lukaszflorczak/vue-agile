@@ -166,6 +166,14 @@ const mixin = {
 		},
 
 		/**
+		 * Throttle delay in milliseconds
+		 */
+		throttleDelay: {
+			type: Number,
+			default: 500
+		},
+
+		/**
 		 * Transition timing function
 		 * Available: ease, linear, ease-in, ease-out, ease-in-out
 		 */

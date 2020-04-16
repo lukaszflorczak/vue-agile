@@ -1,8 +1,8 @@
 {
   "name": "vue-agile",
-  "version": "1.0.12",
+  "version": "1.1.0",
   "description": "A carousel component for Vue.js",
-  "author": "Łukasz Florczak <lukaszflorczak@icloud.com>",
+  "author": "Łukasz Florczak <lukasz@florczak.dev>",
   "scripts": {
     "serve": "vue-cli-service serve --open ./demo/main.js",
     "test:unit": "vue-cli-service test:unit",
@@ -19,7 +19,7 @@
     "*.js"
   ],
   "dependencies": {
-    "vue": "^2.6.10"
+    "lodash.throttle": "^4.1.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.6.0",
@@ -36,6 +36,7 @@
     "pug-plain-loader": "^1.0.0",
     "sass": "^1.18.0",
     "sass-loader": "^8.0.2",
+    "vue": "^2.6.10",
     "vue-template-compiler": "^2.5.21"
   },
   "bugs": {
