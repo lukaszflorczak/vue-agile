@@ -101,7 +101,7 @@
 			},
 
 			slidesCount: function () {
-				return this.slides.length
+				return (this.ssr) ? this.htmlCollectionToArray(this.$slots.default).length : this.slides.length
 			},
 
 			allSlidesCount: function () {
@@ -155,6 +155,7 @@
 			this.$refs.track.addEventListener('mousemove', this.handleMouseMove)
 
 			// Init
+			this.ssr = false
 			this.reload()
 		},
 
@@ -175,9 +176,6 @@
 			// Prepare basic carousel on server side
 			ssrLoad () {
 				this.prepareSettings()
-				this.prepareSlides()
-				this.prepareCarousel()
-				this.ssr = false
 			},
 
 			// Reload carousel
