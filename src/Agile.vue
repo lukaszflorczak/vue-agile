@@ -138,7 +138,7 @@
 
 			// Load carousel on server side
 			if (this.ssr) {
-				this.reload()
+				this.ssrLoad()
 			}
 		},
 
@@ -155,7 +155,6 @@
 			this.$refs.track.addEventListener('mousemove', this.handleMouseMove)
 
 			// Init
-			this.ssr = false
 			this.reload()
 		},
 
@@ -173,6 +172,14 @@
 		},
 
 		methods: {
+			// Prepare basic carousel on server side
+			ssrLoad () {
+				this.prepareSettings()
+				this.prepareSlides()
+				this.prepareCarousel()
+				this.ssr = false
+			},
+
 			// Reload carousel
 			reload () {
 				this.getWidth()
