@@ -156,7 +156,7 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 #### Example
 
 ```vue
-<agile @afterChange="showCurrentSlide($event)">...</agile>
+<agile @after-change="showCurrentSlide($event)">...</agile>
 ```
 
 ```js
