@@ -20,7 +20,7 @@ const mixin = {
 		 * Set window & container width
 		 */
 		getWidth () {
-			if (this.ssr) {
+			if (this.isSSR) {
 				return false
 			}
 

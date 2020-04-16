@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="agile"
-		:class="{'agile--ssr': ssr, 'agile--auto-play': settings.autoplay, 'agile--disabled': settings.unagile, 'agile--fade': settings.fade && !settings.unagile, 'agile--rtl': settings.rtl}"
+		:class="{'agile--ssr': isSSR, 'agile--auto-play': settings.autoplay, 'agile--disabled': settings.unagile, 'agile--fade': settings.fade && !settings.unagile, 'agile--rtl': settings.rtl}"
 	>
 		<div
 			ref="list"
@@ -123,7 +123,7 @@
 				slides: [],
 				slidesClonedAfter: [],
 				slidesClonedBefore: [],
-				ssr: (typeof window === 'undefined'),
+				isSSR: (typeof window === 'undefined'),
 				swipeDistance: 50,
 				transitionDelay: 0,
 				translateX: 0,
@@ -147,7 +147,7 @@
 			},
 
 			countSlides: function () {
-				return (this.ssr) ? this.htmlCollectionToArray(this.$slots.default).length : this.slides.length
+				return (this.isSSR) ? this.htmlCollectionToArray(this.$slots.default).length : this.slides.length
 			},
 
 			countSlidesAll: function () {
@@ -196,7 +196,7 @@
 			Object.assign(this.settings, this.initialSettings)
 
 			// Load carousel on server side
-			if (this.ssr) {
+			if (this.isSSR) {
 				this.ssrLoad()
 			}
 		},
@@ -214,7 +214,7 @@
 			this.$refs.track.addEventListener('mousemove', this.handleMouseMove)
 
 			// Init
-			this.ssr = false
+			this.isSSR = false
 			this.reload()
 		},
 
