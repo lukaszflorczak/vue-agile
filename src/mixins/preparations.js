@@ -33,8 +33,12 @@ const mixin = {
 		prepareSlides () {
 			this.slides = this.htmlCollectionToArray(this.$slots.default)
 
+			if (this.ssr) {
+				return false
+			}
+
 			// Probably timeout needed
-			if (!this.ssr && this.clonedSlides) {
+			if (this.clonedSlides) {
 				this.slidesClonedBefore = this.htmlCollectionToArray(this.$refs.slidesClonedBefore.children)
 				this.slidesClonedAfter = this.htmlCollectionToArray(this.$refs.slidesClonedAfter.children)
 			}
