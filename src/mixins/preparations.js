@@ -31,11 +31,11 @@ const mixin = {
 		 * Prepare slides classes and styles
 		 */
 		prepareSlides () {
-			this.slides = this.htmlCollectionToArray(this.$slots.default)
-
 			if (this.ssr) {
 				return false
 			}
+
+			this.slides = this.htmlCollectionToArray(this.$refs.slides.children)
 
 			// Probably timeout needed
 			if (this.clonedSlides) {
