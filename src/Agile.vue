@@ -340,10 +340,6 @@
 		width: 100%
 	}
 
-	.agile--ssr .agile__slide {
-		width: 100%
-	}
-
 	.agile--rtl .agile__track,
 	.agile--rtl .agile__slides,
 	.agile--rtl .agile__actions,

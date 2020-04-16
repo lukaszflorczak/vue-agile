@@ -248,7 +248,7 @@ This option is useful for example for creating a photo gallery with two related 
 
 ## `v-if` & `v-show`
 
-If you have slides being dynamically loaded, use `v-if` to show the carousel after the slides are ready. Using `v-if` is also recommended in other situations if you want to hide/show the slideshow.
+If you have slides being dynamically loaded, use `v-if` to show the carousel after the slides are ready. Using `v-if` is also recommended in other situations if you want to hide/show the slideshow. 
 
 It is also possible to use `v-show`, but you have to use the `reload()` method.
 
@@ -294,7 +294,44 @@ To use component without SSR use the `client-only` component:
 </client-only>
 ```
 
-Component rendered on server side has additional CSS class: `agile--ssr`, so you can use it to add some additional styles or manipulations.
+**Important!** Component rendered on server side has additional CSS class: `agile--ssr`, so you can use it to add some additional styles or manipulations. For example, I have limited options for setting the first appearance of the slides. By default, the server renders the view and styles, where only the first slide is visible.
+
+```css
+.agile--ssr .agile__slides > * {
+    overflow: hidden;
+    width: 0
+}
+
+.agile--ssr .agile__slides > *:first-child {
+    width: 100%
+}
+```
+
+At this stage slides don't have `agile__slide` class yet, so I use `> *` instead of this. 
+
+If you would like to connect this with params `slidesToShow` or `initialSlide` you have to add some custom styles with `nth-child` param. 
+
+#### Example for `:slidesToShow="2"`
+
+```sass
+    .agile--ssr 
+        .agile__slides 
+            > *:nth-child(1),
+            > *:nth-child(2)
+                width: 50%
+```
+
+#### Example for `:initialSlide="2"`
+
+```sass
+    .agile--ssr 
+        .agile__slides 
+            > *:nth-child(1)
+                width: 0
+
+            > *:nth-child(2)
+                width: 100%
+```
 
 You can also check [nuxt-agile](https://github.com/lukaszflorczak/nuxt-agile) repository and check working demo of vue-agile with Nuxt and SSR.
 
