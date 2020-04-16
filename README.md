@@ -322,6 +322,7 @@ If you would like to connect this with params `slidesToShow` or `initialSlide` y
 ```
 
 #### Example for `:initialSlide="1"`
+
 (Slides index starts at `0`)
 
 ```sass
