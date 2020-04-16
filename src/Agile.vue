@@ -188,6 +188,10 @@
 			},
 
 			toggleFade () {
+				if (this.ssr) {
+					return false
+				}
+
 				let enabled = (!this.settings.unagile && this.settings.fade)
 
 				for (let i = 0; i < this.slidesCount; i++) {
