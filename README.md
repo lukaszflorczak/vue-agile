@@ -314,23 +314,24 @@ If you would like to connect this with params `slidesToShow` or `initialSlide` y
 #### Example for `:slidesToShow="2"`
 
 ```sass
-    .agile--ssr 
-        .agile__slides 
-            > *:nth-child(1),
-            > *:nth-child(2)
-                width: 50%
+.agile--ssr 
+   .agile__slides 
+       > *:nth-child(1),
+       > *:nth-child(2)
+           width: 50%
 ```
 
-#### Example for `:initialSlide="2"`
+#### Example for `:initialSlide="1"`
+(Slides index starts at `0`)
 
 ```sass
-    .agile--ssr 
-        .agile__slides 
-            > *:nth-child(1)
-                width: 0
+.agile--ssr 
+    .agile__slides 
+        > *:nth-child(1)
+            width: 0
 
-            > *:nth-child(2)
-                width: 100%
+        > *:nth-child(2)
+            width: 100%
 ```
 
 You can also check [nuxt-agile](https://github.com/lukaszflorczak/nuxt-agile) repository and check working demo of vue-agile with Nuxt and SSR.
