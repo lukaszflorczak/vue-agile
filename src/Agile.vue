@@ -201,6 +201,10 @@
 			},
 
 			toggleAutoPlay () {
+				if (this.ssr) {
+					return false
+				}
+
 				let enabled = (!this.settings.unagile && this.settings.autoplay)
 
 				if (!this.autoplayInterval && enabled) {
