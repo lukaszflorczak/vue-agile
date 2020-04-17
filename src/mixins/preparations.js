@@ -92,6 +92,10 @@ const mixin = {
 					this.currentSlide = this.settings.initialSlide
 				}
 
+				if (this.currentSlide > this.countSlides) {
+					this.currentSlide = this.countSlides - 1
+				}
+
 				this.goTo(this.currentSlide, false, false)
 			}
 		}
