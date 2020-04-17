@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="agile"
-		:class="{'agile--ssr': isSSR, 'agile--auto-play': settings.autoplay, 'agile--disabled': settings.unagile, 'agile--fade': settings.fade && !settings.unagile, 'agile--rtl': settings.rtl}"
+		:class="{'agile--ssr': isSSR, 'agile--auto-play': settings.autoplay, 'agile--disabled': settings.unagile, 'agile--fade': settings.fade && !settings.unagile, 'agile--rtl': settings.rtl, 'agile--no-nav-buttons': !settings.navButtons}"
 	>
 		<div
 			ref="list"
@@ -67,11 +67,10 @@
 			<ul
 				v-if="settings.dots && !settings.unagile"
 				ref="dots"
-				:class="{ 'agile__dots__center': settings.navButtons===false }"
 				class="agile__dots"
 			>
 				<li
-					v-for="n in slidesCount"
+					v-for="n in countSlides"
 					:key="n"
 					class="agile__dot"
 					:class="{'agile__dot--current': n - 1 === currentSlide}"
@@ -358,6 +357,10 @@
 		justify-content: space-between;
 	}
 
+	.agile--no-nav-buttons .agile__actions {
+		justify-content: center;
+	}
+
 	.agile__slides {
 		align-items: center;
 		display: flex;
@@ -411,12 +414,6 @@
 		list-style: none;
 		padding: 0;
 		white-space: nowrap;
-	}
-  
-  .agile__dots__center{
-		margin-left: auto;
-		margin-right: auto;
-		margin-top:.25rem!important;
 	}
 
 	.agile__dot button {
