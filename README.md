@@ -113,6 +113,7 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 | rtl | boolean | `false` | Enable right-to-left mode |
 | slidesToShow | integer | `1` | Number of slides to show |
 | speed | integer (ms) | `300` | Slide animation speed in milliseconds | 
+| swipeDistance | integer | `50` | Distance to swipe the next slide | 
 | throttleDelay | integer (ms) | `500` | Throttle delay for actions |
 | timing | string | `ease` | Transition timing function <br> (`linear`/`ease`/`ease-in`/`ease-out`/`ease-in-out`) |
 | unagile | boolean | `false` | Disable Agile carousel | 
