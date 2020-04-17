@@ -1,38 +1,99 @@
 <template>
-	<div class="agile" :class="{'agile--auto-play': settings.autoplay, 'agile--disabled': settings.unagile, 'agile--fade': settings.fade && !settings.unagile, 'agile--rtl': settings.rtl}">
-		<div ref="list" class="agile__list">
-			<div ref="track" class="agile__track" :style="{transform: `translate(${translateX + marginX}px)`, transition: `transform ${settings.timing} ${transitionDelay}ms`}" @mouseover="handleMouseOver('track')" @mouseout="handleMouseOut('track')">
-				<div class="agile__slides agile__slides--cloned" ref="slidesClonedBefore" v-if="clonedSlides">
-					<slot></slot>
+	<div
+		class="agile"
+		:class="{'agile--ssr': isSSR, 'agile--auto-play': settings.autoplay, 'agile--disabled': settings.unagile, 'agile--fade': settings.fade && !settings.unagile, 'agile--rtl': settings.rtl}"
+	>
+		<div
+			ref="list"
+			class="agile__list"
+		>
+			<div
+				ref="track"
+				class="agile__track"
+				:style="{transform: `translate(${translateX + marginX}px)`, transition: `transform ${settings.timing} ${transitionDelay}ms`}"
+				@mouseover="handleMouseOver('track')"
+				@mouseout="handleMouseOut('track')"
+			>
+				<div
+					v-if="slidesCloned"
+					ref="slidesClonedBefore"
+					class="agile__slides agile__slides--cloned"
+				>
+					<slot />
 				</div>
 
-				<div class="agile__slides agile__slides--regular" ref="slides">
-					<slot></slot>
+				<div
+					ref="slides"
+					class="agile__slides agile__slides--regular"
+				>
+					<slot />
 				</div>
 
-				<div class="agile__slides agile__slides--cloned" ref="slidesClonedAfter" v-if="clonedSlides">
-					<slot></slot>
+				<div
+					v-if="slidesCloned"
+					ref="slidesClonedAfter"
+					class="agile__slides agile__slides--cloned"
+				>
+					<slot />
 				</div>
 			</div>
 		</div>
+
 
 		<div v-if="$slots.caption" class="agile__caption">
 			<slot name="caption"></slot>
 		</div>
 
-		<div class="agile__actions" v-if="!settings.unagile && (settings.navButtons || settings.dots)">
-			<button v-if="settings.navButtons && !settings.unagile" class="agile__nav-button agile__nav-button--prev" :disabled="!canGoToPrev" @click="goToPrev(), restartAutoPlay()" type="button" ref="prevButton">
-				<slot name="prevButton">←</slot>
+		<div
+			v-if="!settings.unagile && (settings.navButtons || settings.dots)"
+			class="agile__actions"
+		>
+			<button
+				v-if="settings.navButtons && !settings.unagile"
+				ref="prevButton"
+				class="agile__nav-button agile__nav-button--prev"
+				:disabled="!canGoToPrev"
+				type="button"
+				@click="goToPrev(), restartAutoPlay()"
+			>
+				<slot name="prevButton">
+					←
+				</slot>
 			</button>
 
-			<ul ref="dots" v-if="settings.dots && !settings.unagile" class="agile__dots">
-				<li v-for="n in slidesCount" :key="n" class="agile__dot" :class="{'agile__dot--current': n - 1 === currentSlide}" @mouseover="handleMouseOver('dot')" @mouseout="handleMouseOut('dot')">
-					<button @click="goTo(n - 1), restartAutoPlay()" type="button">{{n}}</button>
+			<ul
+				v-if="settings.dots && !settings.unagile"
+				ref="dots"
+				class="agile__dots"
+			>
+				<li
+					v-for="n in countSlides"
+					:key="n"
+					class="agile__dot"
+					:class="{'agile__dot--current': n - 1 === currentSlide}"
+					@mouseover="handleMouseOver('dot')"
+					@mouseout="handleMouseOut('dot')"
+				>
+					<button
+						type="button"
+						@click="goTo(n - 1), restartAutoPlay()"
+					>
+						{{ n }}
+					</button>
 				</li>
 			</ul>
 
-			<button v-if="settings.navButtons && !settings.unagile" class="agile__nav-button agile__nav-button--next" :disabled="!canGoToNext" @click="goToNext(), restartAutoPlay()" type="button" ref="nextButton">
-				<slot name="nextButton">→</slot>
+			<button
+				v-if="settings.navButtons && !settings.unagile"
+				ref="nextButton"
+				class="agile__nav-button agile__nav-button--next"
+				:disabled="!canGoToNext"
+				type="button"
+				@click="goToNext(), restartAutoPlay()"
+			>
+				<slot name="nextButton">
+					→
+				</slot>
 			</button>
 		</div>
 	</div>
@@ -41,57 +102,62 @@
 <script>
 	import handlers from './mixins/handlers'
 	import helpers from './mixins/helpers'
+	import methods from './mixins/methods'
 	import preparations from './mixins/preparations'
 	import props from './mixins/props'
+	import throttle from './mixins/throttle'
 	import watchers from './mixins/watchers'
 
 	export default {
-		name: 'agile',
+		name: 'Agile',
 
-		mixins: [handlers, helpers, preparations, props, watchers],
+		mixins: [handlers, helpers, methods, preparations, props, throttle, watchers],
 
 		data () {
 			return {
-				slides: [],
-				slidesClonedBefore: [],
-				slidesClonedAfter: [],
 				autoplayInterval: null,
-				autoplayTimeout: null,
-				pauseAutoPlay: false,
-				autoplayStart: null,
 				autoplayRemaining: null,
-				// autoplayStatus: false,
-				// autoplayTimeout: null,
+				autoplayStartTimestamp: null,
+				autoplayTimeout: null,
 				currentSlide: null,
-				mouseDown: false,
+				dragDistance: 0,
 				dragStartX: 0,
 				dragStartY: 0,
-				dragDistance: 0,
+				isAutoplayPaused: false,
+				isMouseDown: false,
+				settings: {},
+				slides: [],
+				slidesClonedAfter: [],
+				slidesClonedBefore: [],
+				isSSR: (typeof window === 'undefined'),
 				swipeDistance: 50,
-				translateX: 0,
 				transitionDelay: 0,
+				translateX: 0,
 				widthWindow: 0,
 				widthContainer: 0,
-				widthSlide: 0,
-				settings: {}
+				widthSlide: 0
 			}
 		},
 
 		computed: {
+			breakpoints: function () {
+				return (!this.initialSettings.responsive) ? [] : this.initialSettings.responsive.map(item => item.breakpoint)
+			},
+
 			canGoToPrev: function () {
 				return (this.settings.infinite || this.currentSlide > 0)
 			},
 
 			canGoToNext: function () {
-				return (this.settings.infinite || this.currentSlide < this.slidesCount - 1)
+				return (this.settings.infinite || this.currentSlide < this.countSlides - 1)
 			},
 
-			clonedSlides: function () {
-				return (!this.settings.unagile && !this.settings.fade && this.settings.infinite)
+			countSlides: function () {
+				return (this.isSSR) ? this.htmlCollectionToArray(this.$slots.default).length : this.slides.length
 			},
 
-			breakpoints: function () {
-				return (!this.initialSettings.responsive) ? [] : this.initialSettings.responsive.map(item => item.breakpoint)
+			countSlidesAll: function () {
+				return this.slidesAll.length
 			},
 
 			currentBreakpoint: function () {
@@ -99,20 +165,8 @@
 				return (this.initialSettings.mobileFirst) ? breakpoints.find(item => item < this.widthWindow) || 0 : breakpoints.find(item => item > this.widthWindow) || null
 			},
 
-			allSlides: function () {
-				return (this.clonedSlides) ? [...this.slidesClonedBefore, ...this.slides, ...this.slidesClonedAfter] : this.slides
-			},
-
-			slidesCount: function () {
-				return this.slides.length
-			},
-
-			allSlidesCount: function () {
-				return this.allSlides.length
-			},
-
 			marginX: function () {
-				let marginX = (this.clonedSlides) ? this.slidesCount * this.widthSlide : 0
+				let marginX = (this.slidesCloned) ? this.countSlides * this.widthSlide : 0
 
 				// Center mode margin
 				if (this.settings.centerMode) {
@@ -120,6 +174,14 @@
 				}
 
 				return (this.settings.rtl) ? marginX : -1 * marginX
+			},
+
+			slidesCloned: function () {
+				return (!this.settings.unagile && !this.settings.fade && this.settings.infinite)
+			},
+
+			slidesAll: function () {
+				return (this.slidesCloned) ? [...this.slidesClonedBefore, ...this.slides, ...this.slidesClonedAfter] : this.slides
 			}
 		},
 
@@ -138,6 +200,11 @@
 
 			// Set first load settings
 			Object.assign(this.settings, this.initialSettings)
+
+			// Load carousel on server side
+			if (this.isSSR) {
+				this.ssrLoad()
+			}
 		},
 
 		mounted () {
@@ -153,6 +220,7 @@
 			this.$refs.track.addEventListener('mousemove', this.handleMouseMove)
 
 			// Init
+			this.isSSR = false
 			this.reload()
 		},
 
@@ -170,70 +238,6 @@
 		},
 
 		methods: {
-			// Reload carousel
-			reload () {
-				this.getWidth()
-				this.prepareSettings()
-				this.prepareSlides()
-				this.prepareCarousel()
-				this.toggleFade()
-			},
-
-			toggleFade () {
-				let enabled = (!this.settings.unagile && this.settings.fade)
-
-				for (let i = 0; i < this.slidesCount; i++) {
-					this.slides[i].style.transition = (enabled) ? 'opacity ' + this.settings.timing + ' ' + this.settings.speed + 'ms' : 'none'
-					this.slides[i].style.transform = (enabled) ? `translate(-${i * this.widthSlide}px)` : 'none'
-				}
-			},
-
-			toggleAutoPlay () {
-				let enabled = (!this.settings.unagile && this.settings.autoplay)
-
-				if (!this.autoplayInterval && enabled) {
-					this.autoplayInterval = setInterval(() => {
-						if (!document.hidden) {
-							if (!this.canGoToNext) {
-								this.disableAutoPlay()
-							} else {
-								this.goToNext()
-							}
-						}
-					}, this.settings.autoplaySpeed)
-				} else {
-					this.disableAutoPlay()
-				}
-			},
-
-			restartAutoPlay () {
-				this.disableAutoPlay()
-				this.toggleAutoPlay()
-			},
-
-			disableAutoPlay () {
-				clearInterval(this.autoplayInterval)
-				this.autoplayInterval = null
-			},
-
-			clearAutoPlayPause () {
-				clearTimeout(this.autoplayTimeout)
-				this.autoplayRemaining = null
-			},
-
-			disableScroll () {
-				document.ontouchmove = (e) => e.preventDefault()
-			},
-
-			enableScroll () {
-				document.ontouchmove = () => true
-			},
-
-			// Return current slide index
-			getCurrentSlide () {
-				return this.currentSlide
-			},
-
 			// Return current breakpoint
 			getCurrentBreakpoint () {
 				return this.currentBreakpoint
@@ -244,23 +248,14 @@
 				return this.settings
 			},
 
+			// Return current slide index
+			getCurrentSlide () {
+				return this.currentSlide
+			},
+
 			// Return initial settings
 			getInitialSettings () {
 				return this.initialSettings
-			},
-
-			// Go to next slide
-			goToNext () {
-				if (this.canGoToNext) {
-					this.goTo(this.currentSlide + 1)
-				}
-			},
-
-			// Go to previous slide
-			goToPrev () {
-				if (this.canGoToPrev) {
-					this.goTo(this.currentSlide - 1)
-				}
 			},
 
 			// Go to slide
@@ -278,22 +273,22 @@
 					})
 				}
 
-				let realNextSlide = n
+				let slideNextReal = n
 
 				if (transition) {
 					if (this.settings.infinite && n < 0) {
-						realNextSlide = this.slidesCount - 1
-					} else if (n >= this.slidesCount) {
-						realNextSlide = 0
+						slideNextReal = this.countSlides - 1
+					} else if (n >= this.countSlides) {
+						slideNextReal = 0
 					}
 
-					this.$emit('beforeChange', { currentSlide: this.currentSlide, nextSlide: realNextSlide })
+					this.$emit('before-change', { currentSlide: this.currentSlide, nextSlide: slideNextReal })
 
-					this.currentSlide = realNextSlide
+					this.currentSlide = slideNextReal
 
-					if (n !== realNextSlide) {
+					if (n !== slideNextReal) {
 						setTimeout(() => {
-							this.goTo(realNextSlide, false)
+							this.goTo(slideNextReal, false)
 						}, this.settings.speed)
 					}
 				}
@@ -301,6 +296,34 @@
 				let translateX = (!this.settings.fade) ? n * this.widthSlide * this.settings.slidesToScroll : 0
 				this.transitionDelay = (transition) ? this.speed : 0
 				this.translateX = (this.settings.rtl) ? translateX : -1 * translateX
+			},
+
+			// Go to next slide
+			goToNext () {
+				if (this.canGoToNext) {
+					this.goTo(this.currentSlide + 1)
+				}
+			},
+
+			// Go to previous slide
+			goToPrev () {
+				if (this.canGoToPrev) {
+					this.goTo(this.currentSlide - 1)
+				}
+			},
+
+			// Reload carousel
+			reload () {
+				this.getWidth()
+				this.prepareSettings()
+				this.prepareSlides()
+				this.prepareCarousel()
+				this.toggleFade()
+			},
+
+			// Prepare basic carousel on server side
+			ssrLoad () {
+				this.prepareSettings()
 			}
 		}
 	}
@@ -309,6 +332,19 @@
 <style>
 	.agile {
 		position: relative;
+	}
+
+	.agile--ssr .agile__slides--cloned {
+		display: none
+	}
+
+	.agile--ssr .agile__slides > * {
+		overflow: hidden;
+		width: 0
+	}
+
+	.agile--ssr .agile__slides > *:first-child {
+		width: 100%
 	}
 
 	.agile--rtl .agile__track,

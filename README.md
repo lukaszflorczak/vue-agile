@@ -11,7 +11,7 @@ More demos and examples coming soon in [vue-agile CodePens collection](https://c
 
 ---
 
-🎉 **After about a year from the last version, I'm happy and excited to inform, that new `v1.0` version is available now!** More information and a changelog you can find [here](https://github.com/lukaszflorczak/vue-agile/releases/tag/v1.0.0).
+🎉 **I'm happy and excited to inform, that new `v1.1` version is available now!** More information and a changelog you can find [here](https://github.com/lukaszflorczak/vue-agile/releases/tag/v1.1.0).
 
 ---
 
@@ -19,22 +19,11 @@ If you like the component remember to **star it** ⭐️. If you appreciate my w
 
 ---
 
-## Important – update from version < `1.0`
+## Important – update from version `1.0.x`
 
-#### Depreciated props => new props/option
-* `arrows` => `navButtons`
-* `prevArrow` => `prevButton` slot
-* `nextArrow` => `nextButton` slot
-* `show` => `reload()` method
-
-#### Depreciated classes => new classes
-* `.agile__arrow` => `.agile__nav-button`
-* `.agile__arrow--prev` => `.agile__nav-button--prev`
-* `.agile__arrow--next` => `.agile__nav-button--next`
-* `.agile__slide--cloned` => cloned slides are grouped in `.agile__slides--cloned` container now
-
-#### Structure
-* Nav buttons and dots are grouped in `.agile__actions` container now
+#### Events
+* `afterChange` => `after-change`
+* `beforeChange` => `before-change`
 
 ## Installation
 
@@ -110,7 +99,7 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 | autoplay | boolean | `false` | Enable autoplay |
 | autoplaySpeed | integer (ms) | `3000` | Autoplay interval in milliseconds | 
 | centerMode | boolean | `false` | Enable centered view when `slidesToShow` > `1` |
-| changeDelay | integer | `0` | Insert a delay when switching slides. Useful for fade: `true` |
+| changeDelay | integer | `0` | Insert a delay when switching slides. Useful for `fade`: `true` |
 | dots | boolean | `true` | Enable dot indicators/pagination |
 | fade | boolean | `false` | Enable fade effect |
 | infinite | boolean | `true` | Infinite loop sliding | 
@@ -124,6 +113,7 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 | rtl | boolean | `false` | Enable right-to-left mode |
 | slidesToShow | integer | `1` | Number of slides to show |
 | speed | integer (ms) | `300` | Slide animation speed in milliseconds | 
+| throttleDelay | integer (ms) | `500` | Throttle delay for actions |
 | timing | string | `ease` | Transition timing function <br> (`linear`/`ease`/`ease-in`/`ease-out`/`ease-in-out`) |
 | unagile | boolean | `false` | Disable Agile carousel | 
 
@@ -139,9 +129,9 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 
 | Name | Description |
 | --- | --- |
-| `getCurrentSlide()` | Returns index of current slide | 
 | `getCurrentBreakpoint()` | Returns current breakpoint (can returns `0` in mobile first for the smallest breakpoint and `null` for desktop first for the largest) | 
 | `getCurrentSettings()` | Returns settings object for current breakpoint – useful for debugging | 
+| `getCurrentSlide()` | Returns index of current slide | 
 | `getInitialSettings()` | Returns full settings object with all options – useful for debugging | 
 | `goTo()` | Navigates to a slide by index |
 | `goToNext()` | Navigates to next slide |
@@ -160,14 +150,14 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 
 | Name | Value | Description |
 | --- | --- | --- |
-| afterChange | `{ currentSlide }` | Fires after slide change |
-| beforeChange | `{ currentSlide, nextSlide }` | Fires before slide change |
+| after-change | `{ slideCurrent }` | Fires after slide change |
+| before-change | `{ slideCurrent, slideNext }` | Fires before slide change |
 | breakpoint | `{ breakpoint } ` | Fires after breakpoint change |
 
 #### Example
 
 ```vue
-<agile @afterChange="showCurrentSlide($event)">...</agile>
+<agile @after-change="showCurrentSlide($event)">...</agile>
 ```
 
 ```js
@@ -179,7 +169,7 @@ showCurrentSlide (event) {
 
 ## Responsive
 
-To customize responsiveness, I recommend defining your desired breakpoints and passing a settings object with your modification options inside **options**.
+To customize responsiveness, I recommend defining your desired breakpoints and passing settings object with your modification options inside **options**.
 
 #### Example
 
@@ -277,7 +267,7 @@ This option is useful for example for creating a photo gallery with two related 
 
 ## `v-if` & `v-show`
 
-If you have slides being dynamically loaded, use `v-if` to show the carousel after the slides are ready. Using `v-if` is also recommended in other situations if you want to hide/show the slideshow.
+If you have slides being dynamically loaded, use `v-if` to show the carousel after the slides are ready. Using `v-if` is also recommended in other situations if you want to hide/show the slideshow. 
 
 It is also possible to use `v-show`, but you have to use the `reload()` method.
 
@@ -290,9 +280,7 @@ It is also possible to use `v-show`, but you have to use the `reload()` method.
 
 ## SSR Support
 
-The component uses browser specific attributes (like `window` and `document`). Unfortunately, it is necessary -- so as of now, the only option is to run vue-agile solely on the client-side. 
-
-Full support for Nuxt.js is a known issue that will be addressed in a next version.
+The component uses browser specific attributes (like `window` and `document`). However, you can try to render the first view on server side.
  
 #### Example
 
@@ -308,18 +296,65 @@ Vue.use(VueAgile)
 ```js
 // nuxt.config.js
 
-module.exports = {
-    plugins: [
-        { src: '~/plugins/vue-agile', ssr: false }
-    ]
+export default {
+    plugins: ['~/plugins/vue-agile'],
+
+    build: {
+        transpile: ['vue-agile']
+    }
 }
 ```
+
+To use component without SSR use the `client-only` component:
 
 ```vue
 <client-only placeholder="Loading...">
     <agile>...</agile>
 </client-only>
 ```
+
+**Important!** Component rendered on server side has additional CSS class: `agile--ssr`, so you can use it to add some additional styles or manipulations. For example, I have limited options for setting the first appearance of the slides. By default, the server renders the view and styles, where only the first slide is visible.
+
+```css
+.agile--ssr .agile__slides > * {
+    overflow: hidden;
+    width: 0
+}
+
+.agile--ssr .agile__slides > *:first-child {
+    width: 100%
+}
+```
+
+At this stage slides don't have `agile__slide` class yet, so I use `> *` instead of this. 
+
+If you would like to connect this with params `slidesToShow` or `initialSlide` you have to add some custom styles with `nth-child` param. 
+
+#### Example for `:slidesToShow="2"`
+
+```sass
+.agile--ssr 
+   .agile__slides 
+       > *:nth-child(1),
+       > *:nth-child(2)
+           width: 50%
+```
+
+#### Example for `:initialSlide="1"`
+
+(Slides index starts at `0`)
+
+```sass
+.agile--ssr 
+    .agile__slides 
+        > *:nth-child(1)
+            width: 0
+
+        > *:nth-child(2)
+            width: 100%
+```
+
+You can also check [nuxt-agile](https://github.com/lukaszflorczak/nuxt-agile) repository and check working demo of vue-agile with Nuxt and SSR.
 
 ## Contributing
 

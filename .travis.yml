@@ -5,4 +5,5 @@ cache:
   directories:
     - node_modules
 script:
-  - yarn test:unit
+  - yarn lint
+#  - yarn test:unit
