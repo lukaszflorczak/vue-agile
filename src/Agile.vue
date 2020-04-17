@@ -150,7 +150,7 @@
 			},
 
 			canGoToNext: function () {
-				return (this.settings.infinite || this.currentSlide < this.countSlides - 1)
+				return (this.settings.infinite || (this.currentSlide < this.countSlides - 1 && this.currentSlide + this.slidesToShow < this.countSlides))
 			},
 
 			countSlides: function () {
@@ -375,11 +375,6 @@
 		display: block;
 		width: 100%;
 	}
-
-	/*.agile--disabled .agile__track {*/
-	/*	transform: none;*/
-	/*	width: 100%;*/
-	/*}*/
 
 	.agile__slide {
 		display: block;
