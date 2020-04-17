@@ -1,14 +1,11 @@
 /**
- * Component props
+ * Component settings
  */
+
+import orderBy from 'lodash.orderby'
+
 const mixin = {
 	props: {
-		// Depreciated
-		arrows: {
-			type: Boolean,
-			default: true
-		},
-
 		/**
 		 * Set the carousel to be the navigation of other carousels
 		 */
@@ -49,6 +46,14 @@ const mixin = {
 		centerPadding: {
 			type: String,
 			default: '15%'
+		},
+
+		/**
+		 * Slide change delay in milliseconds
+		 */
+		changeDelay: {
+			type: Number,
+			default: 0
 		},
 
 		/**
@@ -99,12 +104,6 @@ const mixin = {
 			default: true
 		},
 
-		// Depreciated
-		nextArrow: {
-			type: String,
-			default: null
-		},
-
 		/**
 		 * All settings as one object
 		 */
@@ -127,12 +126,6 @@ const mixin = {
 		pauseOnHover: {
 			type: Boolean,
 			default: true
-		},
-
-		// Depreciated
-		prevArrow: {
-			type: String,
-			default: null
 		},
 
 		/**
@@ -176,6 +169,14 @@ const mixin = {
 		},
 
 		/**
+		 * Throttle delay in milliseconds
+		 */
+		throttleDelay: {
+			type: Number,
+			default: 500
+		},
+
+		/**
 		 * Transition timing function
 		 * Available: ease, linear, ease-in, ease-out, ease-in-out
 		 */
@@ -193,31 +194,40 @@ const mixin = {
 		}
 	},
 
-	data () {
-		return {
-			// Initial settings based on props
-			initialSettings: {
-				asNavFor: this.asNavFor,
-				autoplay: this.autoplay,
-				autoplaySpeed: this.autoplaySpeed,
-				centerMode: this.centerMode,
-				centerPadding: this.centerPadding,
-				dots: this.dots,
-				fade: this.fade,
-				infinite: this.infinite,
-				initialSlide: this.initialSlide,
-				mobileFirst: this.mobileFirst,
-				navButtons: this.navButtons,
-				pauseOnDotsHover: this.pauseOnDotsHover,
-				pauseOnHover: this.pauseOnHover,
-				responsive: this.responsive,
-				rtl: this.rtl,
-				slidesToScroll: this.slidesToScroll,
-				slidesToShow: this.slidesToShow,
-				speed: this.speed,
-				timing: this.timing,
-				unagile: this.unagile
+	computed: {
+		// Initial settings based on props and options object
+		initialSettings: function () {
+			// options prop is excluded
+			let { options, ...initialSettings } = this.$props
+
+			// Join settings from options
+			if (options) {
+				initialSettings = {...initialSettings, ...options}
 			}
+
+			// Sort breakpoints
+			if (initialSettings.responsive) {
+				initialSettings.responsive = orderBy(initialSettings.responsive, 'breakpoint')
+			}
+
+			return initialSettings
+		},
+
+		// Settings for current breakpoint
+		settings: function () {
+			const { responsive, ...settings } = this.initialSettings
+
+			if (responsive) {
+				responsive.forEach(option => {
+					if (settings.mobileFirst ? option.breakpoint < this.widthWindow : option.breakpoint > this.widthWindow) {
+						for (let key in option.settings) {
+							settings[key] = option.settings[key]
+						}
+					}
+				})
+			}
+
+			return settings
 		}
 	}
 }

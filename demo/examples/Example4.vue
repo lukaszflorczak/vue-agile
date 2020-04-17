@@ -18,10 +18,10 @@
 						div.slide.slide--thumbniail(v-for="(slide, index) in slides", :key="index", :class="`slide--${index}`" @click="$refs.thumbnails.goTo(index)")
 							img(:src="slide")
 
-						template(slot="prevButton")
+						template(#prevButton)
 							i.fas.fa-chevron-left
 
-						template(slot="nextButton")
+						template(#nextButton)
 							i.fas.fa-chevron-right
 
 </template>
@@ -55,7 +55,6 @@
 								slidesToShow: 5
 							}
 						},
-
 						{
 							breakpoint: 1000,
 							settings: {
@@ -63,7 +62,6 @@
 							}
 						}
 					]
-
 				},
 
 				slides: [

@@ -3,7 +3,7 @@
 		div.container
 			div.row
 				div.col-xs-12
-					h1.section__title Demo of #[strong vue-agile]#[span.badge 1.0]
+					h1.section__title Demo of #[strong vue-agile]#[span.badge 1.1]
 
 					p vue-agile is a carousel component for Vue.js inspired by Slick. Simple, touch-friendly, written in Vue and Vanilla JS
 

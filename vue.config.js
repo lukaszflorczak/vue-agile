@@ -1,3 +1,8 @@
 module.exports = {
-	publicPath: '/vue-agile/'
+	publicPath: '/vue-agile/',
+	configureWebpack: {
+		output: {
+			libraryExport: 'default'
+		}
+	}
 }
