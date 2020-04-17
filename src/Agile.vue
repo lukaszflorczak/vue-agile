@@ -39,6 +39,11 @@
 			</div>
 		</div>
 
+
+		<div v-if="$slots.caption" class="agile__caption">
+			<slot name="caption"></slot>
+		</div>
+
 		<div
 			v-if="!settings.unagile && (settings.navButtons || settings.dots)"
 			class="agile__actions"
