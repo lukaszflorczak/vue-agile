@@ -224,12 +224,12 @@ From version `1.0` the component use slots for custom navigation buttons. It mea
 
 ## Caption
 
-To display a static caption or such like within the gallery, you can use the "caption" slot.
+To display a static caption or such like within the gallery, you can use the `caption` slot.
 
 #### Example
 
 ```vue
-<agile @afterChange="e => currentSlide = e.currentSlide">
+<agile @after-change="e => currentSlide = e.currentSlide">
     ... <!-- slides -->
     
     <template slot="caption">{{ captions[currentSlide] }}</template>
@@ -237,16 +237,16 @@ To display a static caption or such like within the gallery, you can use the "ca
 
 <script>
 export default {
-  data () {
-    return {
-      currentSlide: 0,
-      captions: [
-        'This is slide 1',
-        'This is the second slide',
-        'This is a third and final slide',
-      ]
+    data () {
+        return {
+            currentSlide: 0,
+            captions: [
+                'This is slide 1',
+                'This is the second slide',
+                'This is a third and final slide',
+            ]
+        }
     }
-  }
 }
 </script>
 ```
