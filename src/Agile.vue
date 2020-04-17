@@ -15,7 +15,7 @@
 				@mouseout="handleMouseOut('track')"
 			>
 				<div
-					v-if="slidesCloned"
+					v-show="slidesCloned"
 					ref="slidesClonedBefore"
 					class="agile__slides agile__slides--cloned"
 				>
@@ -30,7 +30,7 @@
 				</div>
 
 				<div
-					v-if="slidesCloned"
+					v-show="slidesCloned"
 					ref="slidesClonedAfter"
 					class="agile__slides agile__slides--cloned"
 				>
@@ -99,14 +99,14 @@
 	import helpers from './mixins/helpers'
 	import methods from './mixins/methods'
 	import preparations from './mixins/preparations'
-	import props from './mixins/props'
+	import settings from './mixins/settings'
 	import throttle from './mixins/throttle'
 	import watchers from './mixins/watchers'
 
 	export default {
 		name: 'Agile',
 
-		mixins: [handlers, helpers, methods, preparations, props, throttle, watchers],
+		mixins: [handlers, helpers, methods, preparations, settings, throttle, watchers],
 
 		data () {
 			return {
@@ -120,7 +120,6 @@
 				dragStartY: 0,
 				isAutoplayPaused: false,
 				isMouseDown: false,
-				settings: {},
 				slides: [],
 				slidesClonedAfter: [],
 				slidesClonedBefore: [],
@@ -129,8 +128,7 @@
 				transitionDelay: 0,
 				translateX: 0,
 				widthWindow: 0,
-				widthContainer: 0,
-				widthSlide: 0
+				widthContainer: 0
 			}
 		},
 
@@ -161,6 +159,10 @@
 			},
 
 			marginX: function () {
+				if (this.settings.unagile) {
+					return 0
+				}
+
 				let marginX = (this.slidesCloned) ? this.countSlides * this.widthSlide : 0
 
 				// Center mode margin
@@ -177,28 +179,10 @@
 
 			slidesAll: function () {
 				return (this.slidesCloned) ? [...this.slidesClonedBefore, ...this.slides, ...this.slidesClonedAfter] : this.slides
-			}
-		},
+			},
 
-		created () {
-			// Read settings from options object
-			if (this.options) {
-				for (let key in this.options) {
-					this.initialSettings[key] = this.options[key]
-				}
-			}
-
-			// Sort breakpoints
-			if (this.initialSettings.responsive) {
-				this.initialSettings.responsive.sort(this.compare)
-			}
-
-			// Set first load settings
-			Object.assign(this.settings, this.initialSettings)
-
-			// Load carousel on server side
-			if (this.isSSR) {
-				this.ssrLoad()
+			widthSlide: function () {
+				return (!this.settings.unagile) ? this.widthContainer / this.settings.slidesToShow : 'auto'
 			}
 		},
 
@@ -310,15 +294,9 @@
 			// Reload carousel
 			reload () {
 				this.getWidth()
-				this.prepareSettings()
 				this.prepareSlides()
 				this.prepareCarousel()
 				this.toggleFade()
-			},
-
-			// Prepare basic carousel on server side
-			ssrLoad () {
-				this.prepareSettings()
 			}
 		}
 	}
@@ -383,7 +361,13 @@
 
 	.agile--disabled .agile__slides {
 		display: block;
+		width: 100%;
 	}
+
+	/*.agile--disabled .agile__track {*/
+	/*	transform: none;*/
+	/*	width: 100%;*/
+	/*}*/
 
 	.agile__slide {
 		display: block;

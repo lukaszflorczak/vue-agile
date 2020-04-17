@@ -55,7 +55,6 @@
 								slidesToShow: 5
 							}
 						},
-
 						{
 							breakpoint: 1000,
 							settings: {
@@ -63,7 +62,6 @@
 							}
 						}
 					]
-
 				},
 
 				slides: [

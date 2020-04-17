@@ -327,6 +327,12 @@ If you would like to connect this with params `slidesToShow` or `initialSlide` y
 
 You can also check [nuxt-agile](https://github.com/lukaszflorczak/nuxt-agile) repository and check working demo of vue-agile with Nuxt and SSR.
 
+## FAQ
+
+#### 1. How to use component for dynamic content?
+
+If content changes, you have to use `reload` or in some cases, you can use `key` property: `<agile :key="mySlides.length">...</agile>` (it'll rebuild the carousel after each change of `mySlides` length).
+
 ## Contributing
 
 🤝 Thanks to [Maciej Wach](https://github.com/wachu91) for inventing the name and to all [Contributors](https://github.com/lukaszflorczak/vue-agile/graphs/contributors) for your development.

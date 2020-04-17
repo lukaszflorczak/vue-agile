@@ -4,30 +4,6 @@
 const mixin = {
 	methods: {
 		/**
-		 * Prepare settings object
-		 */
-		prepareSettings () {
-			if (!this.initialSettings.responsive) {
-				this.toggleFade()
-				this.toggleAutoPlay()
-				return false
-			}
-
-			let newSettings = Object.assign({}, this.initialSettings)
-			delete newSettings.responsive
-
-			this.initialSettings.responsive.forEach(option => {
-				if (this.initialSettings.mobileFirst ? option.breakpoint < this.widthWindow : option.breakpoint > this.widthWindow) {
-					for (let key in option.settings) {
-						newSettings[key] = option.settings[key]
-					}
-				}
-			})
-
-			this.settings = Object.assign({}, newSettings)
-		},
-
-		/**
 		 * Prepare slides classes and styles
 		 */
 		prepareSlides () {
@@ -77,13 +53,6 @@ const mixin = {
 		 * Prepare carousel styles
 		 */
 		prepareCarousel () {
-			this.widthSlide = !this.settings.unagile ? this.widthContainer / this.settings.slidesToShow : 'auto'
-
-			// Actions on document resize
-			for (let i = 0; i < this.countSlidesAll; i++) {
-				this.slidesAll[i].style.width = (this.settings.unagile) ? '' : this.widthSlide + 'px'
-			}
-
 			// Prepare track
 			if (this.settings.unagile) {
 				this.translateX = 0

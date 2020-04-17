@@ -1,6 +1,9 @@
 /**
- * Component props
+ * Component settings
  */
+
+import orderBy from 'lodash.orderby'
+
 const mixin = {
 	props: {
 		/**
@@ -192,11 +195,39 @@ const mixin = {
 	},
 
 	computed: {
-		// Initial settings based on props
+		// Initial settings based on props and options object
 		initialSettings: function () {
 			// options prop is excluded
-			const { options, ...initialSettings } = this.$props
+			let { options, ...initialSettings } = this.$props
+
+			// Join settings from options
+			if (options) {
+				initialSettings = {...initialSettings, ...options}
+			}
+
+			// Sort breakpoints
+			if (initialSettings.responsive) {
+				initialSettings.responsive = orderBy(initialSettings.responsive, 'breakpoint')
+			}
+
 			return initialSettings
+		},
+
+		// Settings for current breakpoint
+		settings: function () {
+			const { responsive, ...settings } = this.initialSettings
+
+			if (responsive) {
+				responsive.forEach(option => {
+					if (settings.mobileFirst ? option.breakpoint < this.widthWindow : option.breakpoint > this.widthWindow) {
+						for (let key in option.settings) {
+							settings[key] = option.settings[key]
+						}
+					}
+				})
+			}
+
+			return settings
 		}
 	}
 }
