@@ -168,6 +168,14 @@ const mixin = {
 			default: 300
 		},
 
+    /**
+		 * Swipe distance
+		 */
+		swipeDistance: {
+			type: Number,
+			default: 50
+		},
+
 		/**
 		 * Throttle delay in milliseconds
 		 */

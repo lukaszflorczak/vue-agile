@@ -133,7 +133,6 @@
 				slidesClonedAfter: [],
 				slidesClonedBefore: [],
 				isSSR: (typeof window === 'undefined'),
-				swipeDistance: 50,
 				transitionDelay: 0,
 				translateX: 0,
 				widthWindow: 0,
