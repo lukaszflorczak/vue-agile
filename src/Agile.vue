@@ -366,7 +366,7 @@
 		display: flex;
 		flex-direction: row;
 		flex-grow: 1;
-		flex-shrink: unset !important;
+		flex-shrink: unset;
 		flex-wrap: nowrap;
 		justify-content: flex-start;
 	}
