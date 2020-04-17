@@ -335,7 +335,7 @@ If content changes, you have to use `reload` or in some cases, you can use `key`
 
 #### 2. Is IE11 supported?
 
-Yes, the UMD bundle is built with support for IE11. If you build your app with vue-agile as a dependency yourself be sure you configured babel properly ([read more](https://cli.vuejs.org/guide/browser-compatibility.html#browserslist)). 
+Yes, the UMD bundle is built with support for IE11. If you build your app with vue-agile as a dependency yourself be sure you configured babel properly (read more in [vue documentation](https://cli.vuejs.org/guide/browser-compatibility.html#browserslist) or just use my config for [babel](https://github.com/lukaszflorczak/vue-agile/blob/master/babel.config.js)). 
 
 ## Contributing
 
