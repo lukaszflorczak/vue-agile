@@ -25,6 +25,9 @@ If you like the component remember to **star it** ⭐️. If you appreciate my w
 * `afterChange` => `after-change`
 * `beforeChange` => `before-change`
 
+#### Depreciated
+Depreciated props (`arrows`, `prevArrow`, `nextArrow`, `show`) and classes (`.agile__arrow`, '.agile__arrow--prev', `.agile__arrow--next`, `.agile__slide--cloned`) from versions < `1.0` are no longer available
+
 ## Installation
 
 ```bash
