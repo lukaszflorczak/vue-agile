@@ -4,9 +4,6 @@
 const mixin = {
 	methods: {
 		handleMouseDown (e) {
-			if (!e.touches) {
-				e.preventDefault()
-			}
 			this.isMouseDown = true
 
 			if (e.type.indexOf('touch') !== -1) {
