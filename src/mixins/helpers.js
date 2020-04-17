@@ -4,19 +4,6 @@
 const mixin = {
 	methods: {
 		/**
-		 * Compare elements for breakpoints sorting
-		 */
-		compare (a, b) {
-			if (a.breakpoint < b.breakpoint) {
-				return (this.initialSettings.mobileFirst) ? -1 : 1
-			} else if (a.breakpoint > b.breakpoint) {
-				return (this.initialSettings.mobileFirst) ? 1 : -1
-			} else {
-				return 0
-			}
-		},
-
-		/**
 		 * Set window & container width
 		 */
 		getWidth () {

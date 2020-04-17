@@ -5,8 +5,18 @@ const mixin = {
 	watch: {
 		// Recalculate settings
 		currentBreakpoint () {
-			this.prepareSettings()
+			// this.prepareSettings()
 			this.$emit('breakpoint', { breakpoint: this.currentBreakpoint })
+		},
+
+		// Watch current slide change
+		currentSlide () {
+			this.prepareSlidesClasses()
+
+			// Set start time of slide
+			this.autoplayStartTimestamp = (this.settings.autoplay) ? +new Date() : null
+
+			this.$emit('after-change', { currentSlide: this.currentSlide })
 		},
 
 		// Watch drag distance change
@@ -43,22 +53,25 @@ const mixin = {
 			}
 		},
 
-		'settings.fade' () {
-			this.toggleFade()
-		},
-
 		'settings.autoplay' () {
 			this.toggleAutoPlay()
 		},
 
-		// Watch current slide change
-		currentSlide () {
-			this.prepareSlidesClasses()
+		'settings.fade' () {
+			this.toggleFade()
+		},
 
-			// Set start time of slide
-			this.autoplayStartTimestamp = (this.settings.autoplay) ? +new Date() : null
+		'settings.unagile' () {
+			// this.prepareSlides()
+			// this.prepareCarousel()
+		},
 
-			this.$emit('after-change', { currentSlide: this.currentSlide })
+		widthSlide () {
+			for (let i = 0; i < this.countSlidesAll; i++) {
+				// console.log(this.widthSlide)
+				// console.log(this.settings)
+				this.slidesAll[i].style.width = `${this.widthSlide}${(this.widthSlide !== 'auto') ? 'px' : ''}`
+			}
 		},
 
 		// Watch window width change
