@@ -2,8 +2,8 @@
 	<div
 		class="agile"
 		:class="{'agile--ssr': isSSR, 'agile--auto-play': settings.autoplay, 'agile--disabled': settings.unagile, 'agile--fade': settings.fade && !settings.unagile, 'agile--rtl': settings.rtl, 'agile--no-nav-buttons': !settings.navButtons}"
-	  @touchstart="() => {}"
-  >
+		@touchstart="() => {}"
+	>
 		<div
 			ref="list"
 			class="agile__list"
