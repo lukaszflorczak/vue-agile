@@ -40,8 +40,11 @@
 		</div>
 
 
-		<div v-if="$slots.caption" class="agile__caption">
-			<slot name="caption"></slot>
+		<div
+			v-if="$slots.caption"
+			class="agile__caption"
+		>
+			<slot name="caption" />
 		</div>
 
 		<div
