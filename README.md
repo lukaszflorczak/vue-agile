@@ -249,7 +249,7 @@ It is also possible to use `v-show`, but you have to use the `reload()` method.
 <agile v-if="isActive">...</agile>
 ```
 
-## SSR Support
+## Nuxt.js && SSR Support
 
 The component uses browser specific attributes (like `window` and `document`). However, you can try to render the first view on server side.
  
@@ -332,6 +332,10 @@ You can also check [nuxt-agile](https://github.com/lukaszflorczak/nuxt-agile) re
 #### 1. How to use component for dynamic content?
 
 If content changes, you have to use `reload` or in some cases, you can use `key` property: `<agile :key="mySlides.length">...</agile>` (it'll rebuild the carousel after each change of `mySlides` length).
+
+#### 2. Is IE11 supported?
+
+Yes, the UMD bundle is built with support for IE11. If you build your app with vue-agile as a dependency yourself be sure you configured babel properly ([read more](https://cli.vuejs.org/guide/browser-compatibility.html#browserslist)). 
 
 ## Contributing
 
