@@ -3,12 +3,10 @@
  */
 const mixin = {
 	watch: {
-		// Watch window width change
-		widthWindow (newValue, oldValue) {
-			if (oldValue) {
-				this.prepareCarousel()
-				this.toggleFade()
-			}
+		// Recalculate settings
+		currentBreakpoint () {
+			// this.prepareSettings()
+			this.$emit('breakpoint', { breakpoint: this.currentBreakpoint })
 		},
 
 		// Watch current slide change
@@ -16,20 +14,14 @@ const mixin = {
 			this.prepareSlidesClasses()
 
 			// Set start time of slide
-			this.autoplayStart = (this.settings.autoplay) ? +new Date() : null
+			this.autoplayStartTimestamp = (this.settings.autoplay) ? +new Date() : null
 
-			this.$emit('afterChange', { currentSlide: this.currentSlide })
-		},
-
-		// Recalculate settings
-		currentBreakpoint () {
-			this.prepareSettings()
-			this.$emit('breakpoint', { breakpoint: this.currentBreakpoint })
+			this.$emit('after-change', { currentSlide: this.currentSlide })
 		},
 
 		// Watch drag distance change
 		dragDistance () {
-			if (this.mouseDown) {
+			if (this.isMouseDown) {
 				const { rtl } = this.settings
 				const dragDistance = this.dragDistance * (rtl ? -1 : 1)
 
@@ -45,18 +37,10 @@ const mixin = {
 			}
 		},
 
-		'settings.fade' () {
-			this.toggleFade()
-		},
-
-		'settings.autoplay' () {
-			this.toggleAutoPlay()
-		},
-
-		pauseAutoPlay (nevValue) {
+		isAutoplayPaused (nevValue) {
 			if (nevValue) {
 				// Store current slide remaining time and disable auto play mode
-				this.remaining = this.settings.autoplaySpeed - (+new Date() - this.autoplayStart)
+				this.remaining = this.settings.autoplaySpeed - (+new Date() - this.autoplayStartTimestamp)
 				this.disableAutoPlay()
 				this.clearAutoPlayPause()
 			} else {
@@ -66,6 +50,35 @@ const mixin = {
 					this.goToNext()
 					this.toggleAutoPlay()
 				}, this.remaining)
+			}
+		},
+
+		'settings.autoplay' () {
+			this.toggleAutoPlay()
+		},
+
+		'settings.fade' () {
+			this.toggleFade()
+		},
+
+		'settings.unagile' () {
+			// this.prepareSlides()
+			// this.prepareCarousel()
+		},
+
+		widthSlide () {
+			for (let i = 0; i < this.countSlidesAll; i++) {
+				// console.log(this.widthSlide)
+				// console.log(this.settings)
+				this.slidesAll[i].style.width = `${this.widthSlide}${(this.widthSlide !== 'auto') ? 'px' : ''}`
+			}
+		},
+
+		// Watch window width change
+		widthWindow (newValue, oldValue) {
+			if (oldValue) {
+				this.prepareCarousel()
+				this.toggleFade()
 			}
 		}
 	}
