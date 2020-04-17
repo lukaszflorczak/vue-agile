@@ -182,6 +182,14 @@ const mixin = {
 			type: Number,
 			default: 300
 		},
+    
+    /**
+		 * Swipe distance
+		 */
+		swipeDistance: {
+			type: Number,
+			default: 50
+		},
 
 		/**
 		 * Transition timing function
@@ -224,6 +232,7 @@ const mixin = {
 				slidesToScroll: this.slidesToScroll,
 				slidesToShow: this.slidesToShow,
 				speed: this.speed,
+        swipeDistance: this.swipeDistance,
 				timing: this.timing,
 				unagile: this.unagile
 			}
