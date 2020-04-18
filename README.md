@@ -26,7 +26,7 @@ If you like the component remember to **star it** ⭐️. If you appreciate my w
 * `beforeChange` => `before-change`
 
 #### Depreciated
-Depreciated props (`arrows`, `prevArrow`, `nextArrow`, `show`) and classes (`.agile__arrow`, '.agile__arrow--prev', `.agile__arrow--next`, `.agile__slide--cloned`) from versions < `1.0` are no longer available
+Depreciated props (`arrows`, `prevArrow`, `nextArrow`, `show`) and classes (`.agile__arrow`, `.agile__arrow--prev`, `.agile__arrow--next`, `.agile__slide--cloned`) from versions < `1.0` are no longer available
 
 ## Installation
 
@@ -362,11 +362,12 @@ You can also check [nuxt-agile](https://github.com/lukaszflorczak/nuxt-agile) re
 
 ## FAQ
 
-#### 1. How to use component for dynamic content?
+**1. How to use component for dynamic content?**
 
 If content changes, you have to use `reload` or in some cases, you can use `key` property: `<agile :key="mySlides.length">...</agile>` (it'll rebuild the carousel after each change of `mySlides` length).
 
-#### 2. Is IE11 supported?
+
+**2. Is IE11 supported?**
 
 Yes, the UMD bundle is built with support for IE11. If you build your app with vue-agile as a dependency yourself be sure you configured babel properly (read more in [vue documentation](https://cli.vuejs.org/guide/browser-compatibility.html#browserslist) or just use my config for [babel](https://github.com/lukaszflorczak/vue-agile/blob/master/babel.config.js)). 
 
