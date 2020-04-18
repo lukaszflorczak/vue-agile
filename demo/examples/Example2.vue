@@ -17,10 +17,10 @@
 						img.slide(src='https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ')
 						img.slide(src='https://images.unsplash.com/photo-1426170042593-200f250dfdaf?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&w=1600&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ')
 
-						template(slot="prevButton")
+						template(#prevButton)
 							i.fas.fa-chevron-left
 
-						template(slot="nextButton")
+						template(#nextButton)
 							i.fas.fa-chevron-right
 
 

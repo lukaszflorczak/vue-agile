@@ -13,10 +13,10 @@
 						div.slide(v-for="n in 6", :key="n", :class="`slide--${n}`")
 							h3 {{ n }}
 
-						template(slot="prevButton")
+						template(#prevButton)
 							i.fas.fa-chevron-left
 
-						template(slot="nextButton")
+						template(#nextButton)
 							i.fas.fa-chevron-right
 
 </template>
@@ -68,10 +68,12 @@
 
 		// Slides styles
 		.slide
+			height: 400px
 			align-items: center
 			color: #fff
 			display: flex
 			justify-content: center
+			padding: 40px
 
 			h3
 				font-size: 32px
