@@ -6,14 +6,14 @@ daysUntilClose: 14
 
 # Issues with these labels will never be considered stale
 exemptLabels:
-  - bug
-  - critical
-  - pending
-  - enhancement
-  - feature request
-  - for later
-  - help needed
-  - in progress
+  - "bug"
+  - "critical"
+  - "pending"
+  - "enhancement"
+  - "feature request"
+  - "for later"
+  - "help needed"
+  - "in progress"
 
 # Set to true to ignore issues in a project (defaults to false)
 exemptProjects: true
@@ -25,7 +25,7 @@ exemptMilestones: true
 exemptAssignees: true
 
 # Label to use when marking an issue as stale
-staleLabel: no answer
+staleLabel: "no answer"
 
 # Comment to post when marking an issue as stale. Set to `false` to disable
 markComment: >
