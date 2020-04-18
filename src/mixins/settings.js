@@ -190,7 +190,10 @@ const mixin = {
 		 */
 		timing: {
 			type: String,
-			default: 'ease'
+			default: 'ease',
+			validator: (value) => {
+				return ['ease', 'linear', 'ease-in', 'ease-out', 'ease-in-out'].indexOf(value) !== -1
+			}
 		},
 
 		/**
