@@ -9,10 +9,9 @@
 
 			div.row
 				div.col-xs-12
-					agile
+					agile(:slides-to-show="5", :infinite="false")
 						div.slide(v-for="n in 6", :key="n", :class="`slide--${n}`")
-							p {{ text[n - 1] }}
-
+							h3 {{ n }}
 
 						template(#prevButton)
 							i.fas.fa-chevron-left
@@ -24,20 +23,7 @@
 
 <script>
 	export default {
-		name: 'Example1',
-
-		data () {
-			return {
-				text: [
-					'I\'m using the carousel to display text only testimonials and although it\'s working fine on Chrome, Firefox and Safari (mobiles are good too) it\'s not rendering correctly in Edge.It\'s currently live so that you can see the issue here, about halfway down: https://www.vibecast.comI\'ve tried forcing height and also height 100%, but I can\'t get it to play nicely in Edge.\n',
-					'I\'m using the carousel to display text only testimonials and although it\'s working fine on Chrome, Firefox and Safari (mobiles are good too) it\'s not rendering correctly in Edge.It\'s currently live so that you can see the issue here, about halfway down: https://www.vibecast.comI\'ve tried forcing height and also height 100%, but I can\'t get it to play nicely in Edge.\nI\'m using the carousel to display text only testimonials and although it\'s working fine on Chrome, Firefox and Safari (mobiles are good too) it\'s not rendering correctly in Edge.It\'s currently live so that you can see the issue here, about halfway down: https://www.vibecast.comI\'ve tried forcing height and also height 100%, but I can\'t get it to play nicely in Edge.\n',
-					'I\'m using the carousel to display text only testimonials and although it\'s working fine on Chrome, Firefox and Safari (mobiles are good too) it\'s not rendering correctly in Edge.It\'s currently live so that you can see the issue here, about halfway down: https://www.vibecast.comI\'ve tried forcing height and also height 100%, but I can\'t get it to play nicely in Edge.\n',
-					'I\'m using the carousel to display text only testimonials and although it\'s working fine on Chrome, Firefox and Safari (mobiles are good too) it\'s not rendering correctly in Edge.It\'s currently live so that you can see the issue here, about halfway down: https://www.vibecast.comI\'ve tried forcing height and also height 100%, but I can\'t get it to play nicely in Edge.\nI\'m using the carousel to display text only testimonials and although it\'s working fine on Chrome, Firefox and Safari (mobiles are good too) it\'s not rendering correctly in Edge.It\'s currently live so that you can see the issue here, about halfway down: https://www.vibecast.comI\'ve tried forcing height and also height 100%, but I can\'t get it to play nicely in Edge.\nI\'m using the carousel to display text only testimonials and although it\'s working fine on Chrome, Firefox and Safari (mobiles are good too) it\'s not rendering correctly in Edge.It\'s currently live so that you can see the issue here, about halfway down: https://www.vibecast.comI\'ve tried forcing height and also height 100%, but I can\'t get it to play nicely in Edge.\nI\'m using the carousel to display text only testimonials and although it\'s working fine on Chrome, Firefox and Safari (mobiles are good too) it\'s not rendering correctly in Edge.It\'s currently live so that you can see the issue here, about halfway down: https://www.vibecast.comI\'ve tried forcing height and also height 100%, but I can\'t get it to play nicely in Edge.\n',
-					'I\'m using the carousel to display text only testimonials and although it\'s working fine on Chrome, Firefox and Safari (mobiles are good too) it\'s not rendering correctly in Edge.It\'s currently live so that you can see the issue here, about halfway down: https://www.vibecast.comI\'ve tried forcing height and also height 100%, but I can\'t get it to play nicely in Edge.\n',
-					'I\'m using the carousel to display text only testimonials and although it\'s working fine on Chrome, Firefox and Safari (mobiles are good too) it\'s not rendering correctly in Edge.It\'s currently live so that you can see the issue here, about halfway down: https://www.vibecast.comI\'ve tried forcing height and also height 100%, but I can\'t get it to play nicely in Edge.\n'
-				]
-			}
-		}
+		name: 'Example1'
 	}
 </script>
 
@@ -82,11 +68,11 @@
 
 		// Slides styles
 		.slide
-			height: 100%
-			/*align-items: center*/
-			/*color: #fff*/
-			/*display: flex*/
-			/*justify-content: center*/
+			height: 400px
+			align-items: center
+			color: #fff
+			display: flex
+			justify-content: center
 			padding: 40px
 
 			h3

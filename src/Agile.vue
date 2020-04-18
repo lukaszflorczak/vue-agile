@@ -150,7 +150,7 @@
 			},
 
 			canGoToNext: function () {
-				return (this.settings.infinite || (this.currentSlide < this.countSlides - 1 && this.currentSlide + this.slidesToShow < this.countSlides))
+				return (this.settings.infinite || this.currentSlide < this.countSlides - 1)
 			},
 
 			countSlides: function () {
@@ -282,7 +282,10 @@
 
 				let translateX = (!this.settings.fade) ? n * this.widthSlide * this.settings.slidesToScroll : 0
 				this.transitionDelay = (transition) ? this.speed : 0
-				this.translateX = (this.settings.rtl) ? translateX : -1 * translateX
+
+				if (this.infinite || (this.currentSlide + this.slidesToShow <= this.countSlides)) {
+					this.translateX = (this.settings.rtl) ? translateX : -1 * translateX
+				}
 			},
 
 			// Go to next slide
