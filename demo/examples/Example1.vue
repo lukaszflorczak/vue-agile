@@ -9,7 +9,7 @@
 
 			div.row
 				div.col-xs-12
-					agile(:slides-to-show="5", :infinite="false")
+					agile
 						div.slide(v-for="n in 6", :key="n", :class="`slide--${n}`")
 							h3 {{ n }}
 
