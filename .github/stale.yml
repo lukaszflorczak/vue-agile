@@ -4,7 +4,7 @@ daysUntilStale: 7
 daysUntilClose: 14
 # Issues with these labels will never be considered stale
 exemptLabels:
-  - enhancemend
+  - enhancement
   - feature request
   - for later
   - help needed
