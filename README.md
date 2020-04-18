@@ -366,25 +366,7 @@ You can also check [nuxt-agile](https://github.com/lukaszflorczak/nuxt-agile) re
 
 If content changes, you have to use `reload` or in some cases, you can use `key` property: `<agile :key="mySlides.length">...</agile>` (it'll rebuild the carousel after each change of `mySlides` length).
 
-
 #### 2. Support for IE11
 
 Yes, the UMD bundle is built with support for IE11. If you build your app with vue-agile as a dependency yourself be sure you configured babel properly (read more in [vue documentation](https://cli.vuejs.org/guide/browser-compatibility.html#browserslist) or just use my config for [babel](https://github.com/lukaszflorczak/vue-agile/blob/master/babel.config.js)). 
 
-## Contributing
-
-🤝 Thanks to [Maciej Wach](https://github.com/wachu91) for inventing the name and to all [Contributors](https://github.com/lukaszflorczak/vue-agile/graphs/contributors) for your development.
-
-```bash
-# project setup
-yarn install
- 
-# compiles and hot-reloads for development
-yarn serve
- 
-# compiles and minifies for production
-yarn build-bundle
-
-# lint and fixes files
-yarn run lint
-```
