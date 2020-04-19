@@ -102,7 +102,7 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 | autoplay | boolean | `false` | Enable autoplay |
 | autoplaySpeed | integer (ms) | `3000` | Autoplay interval in milliseconds | 
 | centerMode | boolean | `false` | Enable centered view when `slidesToShow` > `1` |
-| changeDelay | integer | `0` | Insert a delay when switching slides. Useful for `fade`: `true` |
+| changeDelay | integer (ms) | `0` | Insert a delay when switching slides. Useful for `fade`: `true` |
 | dots | boolean | `true` | Enable dot indicators/pagination |
 | fade | boolean | `false` | Enable fade effect |
 | infinite | boolean | `true` | Infinite loop sliding | 
@@ -116,7 +116,7 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 | rtl | boolean | `false` | Enable right-to-left mode |
 | slidesToShow | integer | `1` | Number of slides to show |
 | speed | integer (ms) | `300` | Slide animation speed in milliseconds | 
-| swipeDistance | integer | `50` | Distance to swipe the next slide | 
+| swipeDistance | integer (px) | `50` | Distance to swipe the next slide | 
 | throttleDelay | integer (ms) | `500` | Throttle delay for actions |
 | timing | string | `ease` | Transition timing function <br> (`linear`/`ease`/`ease-in`/`ease-out`/`ease-in-out`) |
 | unagile | boolean | `false` | Disable Agile carousel | 
