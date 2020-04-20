@@ -4,7 +4,7 @@
 
 
 > A carousel component for Vue.js inspired by [Slick](https://github.com/kenwheeler/slick/).<br>
-> Powerful, responsive, touch-friendly, with Nuxt.js SSR support, and written in Vue and Vanilla JS (without a jQuery dependency).
+> Powerful, responsive, touch-friendly, with Nuxt.js SSR support, without a jQuery dependency.
 
 **[Demo & examples](https://lukaszflorczak.github.io/vue-agile/)**
 
