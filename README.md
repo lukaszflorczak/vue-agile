@@ -10,15 +10,15 @@
 
 More demos and examples coming soon in [vue-agile CodePens collection](https://codepen.io/collection/AdRzJW/).
 
+---
+
+If you like the component remember to **star it** ⭐️. If you appreciate my work you can also **[buy me a coffee](https://ko-fi.com/lukaszflorczak)** ☕️ 😉
+
 ![](https://muuteam.com/vue-agile.png)
 
 ---
 
 🎉 **I'm happy and excited to inform, that new `v1.1` version is available now!** More information and a changelog you can find [here](https://github.com/lukaszflorczak/vue-agile/releases/tag/v1.1.0).
-
----
-
-If you like the component remember to **star it** ⭐️. If you appreciate my work you can also **[buy me a coffee](https://ko-fi.com/lukaszflorczak)** ☕️ 😉
 
 ---
 
