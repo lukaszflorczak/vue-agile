@@ -68,7 +68,6 @@
 
 		// Slides styles
 		.slide
-			height: 400px
 			align-items: center
 			color: #fff
 			display: flex

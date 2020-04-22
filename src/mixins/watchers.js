@@ -37,8 +37,8 @@ const mixin = {
 			}
 		},
 
-		isAutoplayPaused (nevValue) {
-			if (nevValue) {
+		isAutoplayPaused (newValue) {
+			if (newValue) {
 				// Store current slide remaining time and disable auto play mode
 				this.remaining = this.settings.autoplaySpeed - (+new Date() - this.autoplayStartTimestamp)
 				this.disableAutoPlay()
@@ -61,15 +61,8 @@ const mixin = {
 			this.toggleFade()
 		},
 
-		'settings.unagile' () {
-			// this.prepareSlides()
-			// this.prepareCarousel()
-		},
-
 		widthSlide () {
 			for (let i = 0; i < this.countSlidesAll; i++) {
-				// console.log(this.widthSlide)
-				// console.log(this.settings)
 				this.slidesAll[i].style.width = `${this.widthSlide}${(this.widthSlide !== 'auto') ? 'px' : ''}`
 			}
 		},

@@ -128,7 +128,9 @@
 				dragStartX: 0,
 				dragStartY: 0,
 				isAutoplayPaused: false,
+				isDragging: false,
 				isMouseDown: false,
+				passiveSupport: false,
 				slides: [],
 				slidesClonedAfter: [],
 				slidesClonedBefore: [],
@@ -195,13 +197,16 @@
 		},
 
 		mounted () {
+			// Check passive option support
+			this.setPassiveSupport()
+
 			// Windows resize listener
 			window.addEventListener('resize', this.getWidth)
 
 			// Mouse and touch events
-			this.$refs.track.addEventListener('touchstart', this.handleMouseDown)
-			this.$refs.track.addEventListener('touchend', this.handleMouseUp)
-			this.$refs.track.addEventListener('touchmove', this.handleMouseMove)
+			this.$refs.track.addEventListener('touchstart', this.handleMouseDown, this.passiveSupport)
+			this.$refs.track.addEventListener('touchend', this.handleMouseUp, this.passiveSupport)
+			this.$refs.track.addEventListener('touchmove', this.handleMouseMove, this.passiveSupport)
 			this.$refs.track.addEventListener('mousedown', this.handleMouseDown)
 			this.$refs.track.addEventListener('mouseup', this.handleMouseUp)
 			this.$refs.track.addEventListener('mousemove', this.handleMouseMove)
