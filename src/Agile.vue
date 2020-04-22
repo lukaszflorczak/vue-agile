@@ -384,6 +384,8 @@
 		display: block;
 		flex-grow: 1;
 		flex-shrink: 0;
+
+		-webkit-user-drag: none;
 	}
 
 	.agile--fade .agile__slide {
