@@ -384,7 +384,10 @@
 		display: block;
 		flex-grow: 1;
 		flex-shrink: 0;
+	}
 
+	.agile__slide,
+	.agile__slide * {
 		-webkit-user-drag: none;
 	}
 
