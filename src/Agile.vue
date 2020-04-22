@@ -308,6 +308,7 @@
 				this.prepareSlides()
 				this.prepareCarousel()
 				this.toggleFade()
+				this.toggleAutoPlay()
 			}
 		}
 	}
