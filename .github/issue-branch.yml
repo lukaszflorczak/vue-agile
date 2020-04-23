@@ -1,0 +1,7 @@
+mode: auto # chatops
+silent: false
+branchName: short
+autoCloseIssue: true
+branches:
+  - label: "feature request"
+    name: develop
