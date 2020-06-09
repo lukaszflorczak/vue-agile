@@ -10,7 +10,7 @@
     "build-bundle": "vue-cli-service build --target lib --name VueAgile ./src/Agile.vue && rm dist/demo.html",
     "build-docs": "vue-cli-service build ./demo/main.js --dest ./docs --modern"
   },
-  "main": "src/index.js",
+  "main": "dist/VueAgile.common.js",
   "unpkg": "dist/VueAgile.umd.min.js",
   "files": [
     "dist/*",
