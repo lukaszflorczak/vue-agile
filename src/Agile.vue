@@ -309,6 +309,12 @@
 				this.prepareCarousel()
 				this.toggleFade()
 				this.toggleAutoPlay()
+
+				const widthContainer = this.widthContainer;
+				this.widthContainer = 0;
+				this.$nextTick(() => {
+					this.widthContainer = widthContainer;
+				})
 			}
 		}
 	}
