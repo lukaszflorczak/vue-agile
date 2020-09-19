@@ -13,17 +13,25 @@ const mixin = {
 			this.autoplayInterval = null
 		},
 
-		disableScroll () {
-			document.ontouchmove = (e) => e.preventDefault()
-		},
-
-		enableScroll () {
-			document.ontouchmove = () => true
-		},
-
 		restartAutoPlay () {
 			this.disableAutoPlay()
 			this.toggleAutoPlay()
+		},
+
+		setPassiveSupport () {
+			try {
+				const options = {
+					get passive() {
+						this.passiveSupport = { passive: false }
+						return false
+					}
+				}
+
+				window.addEventListener('test', null, options)
+				window.removeEventListener('test', null, options)
+			} catch(error) {
+				this.passiveSupport = false
+			}
 		},
 
 		toggleAutoPlay () {
