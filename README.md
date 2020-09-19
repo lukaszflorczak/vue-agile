@@ -18,7 +18,7 @@ If you like the component remember to **star it** ⭐️. If you appreciate my w
 
 ---
 
-🎉 **I'm happy and excited to inform, that new `v1.1` version is available now!** More information and a changelog you can find [here](https://github.com/lukaszflorczak/vue-agile/releases/tag/v1.1.0).
+😔 **Hey! Unfortunately, I have to inform you that currently, due to my private responsibilities (👶👶) and other projects in which I invest my time, I am not able to regularly develop vue-agile, and especially prepare a version for Vue 3. If there is someone among you who would like to take care of the project and continue working, please contact me (https://twitter.com/lukaszflorczak). At the same time, thanks to everyone for all the support so far and the use of vue-agile.**
 
 ---
 
