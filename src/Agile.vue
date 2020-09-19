@@ -58,6 +58,7 @@
 				class="agile__nav-button agile__nav-button--prev"
 				:disabled="!canGoToPrev"
 				type="button"
+				aria-label="Previous"
 				@click="goToPrev(), restartAutoPlay()"
 			>
 				<slot name="prevButton">
@@ -93,6 +94,7 @@
 				class="agile__nav-button agile__nav-button--next"
 				:disabled="!canGoToNext"
 				type="button"
+				aria-label="Next"
 				@click="goToNext(), restartAutoPlay()"
 			>
 				<slot name="nextButton">
