@@ -16,7 +16,7 @@
 				@mouseout="handleMouseOut('track')"
 			>
 				<div
-					v-show="slidesCloned"
+					v-if="slidesCloned"
 					ref="slidesClonedBefore"
 					class="agile__slides agile__slides--cloned"
 				>
@@ -31,7 +31,7 @@
 				</div>
 
 				<div
-					v-show="slidesCloned"
+					v-if="slidesCloned"
 					ref="slidesClonedAfter"
 					class="agile__slides agile__slides--cloned"
 				>
