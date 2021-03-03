@@ -33,7 +33,7 @@
     "eslint": "^5.16.0",
     "eslint-plugin-pug": "^1.2.2",
     "eslint-plugin-vue": "^5.0.0",
-    "pug": "^2.0.3",
+    "pug": "^3.0.1",
     "pug-plain-loader": "^1.0.0",
     "sass": "^1.18.0",
     "sass-loader": "^8.0.2",
