@@ -11,7 +11,7 @@
 			<div
 				ref="track"
 				class="agile__track"
-				:style="{transform: `translate(${directionTranslate}${translateX + marginX}px)`, transition: `transform ${settings.timing} ${transitionDelay}ms`}"
+				:style="{transform: `translate(${translateX + marginX}px)`, transition: `transform ${settings.timing} ${transitionDelay}ms`}"
 				@mouseover="handleMouseOver('track')"
 				@mouseout="handleMouseOut('track')"
 			>
@@ -141,9 +141,6 @@
 		},
 
 		computed: {
-			directionTranslate() {
-		        return this.settings.rtl ? '-' : '';
-			},
 			breakpoints: function () {
 				return (!this.initialSettings.responsive) ? [] : this.initialSettings.responsive.map(item => item.breakpoint)
 			},
@@ -339,7 +336,7 @@
 	.agile--rtl .agile__slides,
 	.agile--rtl .agile__actions,
 	.agile--rtl .agile__dots {
-		flex-direction: row-reverse;
+		flex-direction: row;
 	}
 
 	.agile:focus, .agile:active, .agile *:focus, .agile *:active {
