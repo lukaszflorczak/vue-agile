@@ -11,7 +11,7 @@
 			<div
 				ref="track"
 				class="agile__track"
-				:style="{transform: `translate(${translateX + marginX}px)`, transition: `transform ${settings.timing} ${transitionDelay}ms`}"
+				:style="{transform: `translate(${directionTranslate}${translateX + marginX}px)`, transition: `transform ${settings.timing} ${transitionDelay}ms`}"
 				@mouseover="handleMouseOver('track')"
 				@mouseout="handleMouseOut('track')"
 			>
@@ -141,6 +141,9 @@
 		},
 
 		computed: {
+			directionTranslate() {
+		        return this.settings.rtl ? '-' : '';
+			},
 			breakpoints: function () {
 				return (!this.initialSettings.responsive) ? [] : this.initialSettings.responsive.map(item => item.breakpoint)
 			},
