@@ -211,7 +211,7 @@
 			this.reload()
 		},
 
-		beforeDestroy () {
+		beforeUnmount () {
 			window.removeEventListener('resize', this.getWidth)
 
 			this.$refs.track.removeEventListener('touchstart', this.handleMouseDown)
