@@ -116,6 +116,8 @@
 		name: 'Agile',
 
 		mixins: [handlers, helpers, methods, preparations, settings, throttle, watchers],
+		
+		emits: ["before-change", "after-change", "breakpoint"],
 
 		data () {
 			return {
