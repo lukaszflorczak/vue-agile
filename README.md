@@ -117,6 +117,7 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 | pauseOnHover | boolean | `true` | Pause autoplay when a slide is hovered |
 | [responsive](#Responsive) | object | `null` | Object containing breakpoints and settings objects | 
 | rtl | boolean | `false` | Enable right-to-left mode |
+| slidesToScroll | integer | `1` | Number of slides to scroll (is capped by the number of the current slide count) |
 | slidesToShow | integer | `1` | Number of slides to show |
 | speed | integer (ms) | `300` | Slide animation speed in milliseconds | 
 | swipeDistance | integer (px) | `50` | Distance to swipe the next slide | 
