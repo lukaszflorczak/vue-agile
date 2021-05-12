@@ -145,17 +145,17 @@
 				return (!this.initialSettings.responsive) ? [] : this.initialSettings.responsive.map(item => item.breakpoint)
 			},
 
-			slidesToScroll() {
+			computedSlidesToScroll() {
 				// should never be greater than the slide count
 				return Math.min(this.settings.slidesToScroll, this.countSlides)
 			},
 
 			previousSlide() {
-				return this.currentSlide - this.slidesToScroll
+				return this.currentSlide - this.computedSlidesToScroll
 			},
 
 			nextSlide() {
-				return this.currentSlide + this.slidesToScroll
+				return this.currentSlide + this.computedSlidesToScroll
 			},
 
 			canGoToPrev: function () {
