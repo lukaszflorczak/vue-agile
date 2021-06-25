@@ -211,20 +211,31 @@
 			this.reload()
 		},
 
-		beforeDestroy () {
-			window.removeEventListener('resize', this.getWidth)
+		// Vue 3
+		beforeUnmount() {
+			this.destroy()
+		},
 
-			this.$refs.track.removeEventListener('touchstart', this.handleMouseDown)
-			this.$refs.track.removeEventListener('touchend', this.handleMouseUp)
-			this.$refs.track.removeEventListener('touchmove', this.handleMouseMove)
-			this.$refs.track.removeEventListener('mousedown', this.handleMouseDown)
-			this.$refs.track.removeEventListener('mouseup', this.handleMouseUp)
-			this.$refs.track.removeEventListener('mousemove', this.handleMouseMove)
-
-			this.disableAutoPlay()
+		// Vue 2
+		beforeDestroy() {
+			this.destroy()
 		},
 
 		methods: {
+
+			destroy(){
+				window.removeEventListener('resize', this.getWidth)
+
+				this.$refs.track.removeEventListener('touchstart', this.handleMouseDown)
+				this.$refs.track.removeEventListener('touchend', this.handleMouseUp)
+				this.$refs.track.removeEventListener('touchmove', this.handleMouseMove)
+				this.$refs.track.removeEventListener('mousedown', this.handleMouseDown)
+				this.$refs.track.removeEventListener('mouseup', this.handleMouseUp)
+				this.$refs.track.removeEventListener('mousemove', this.handleMouseMove)
+
+				this.disableAutoPlay()
+			},
+
 			// Return current breakpoint
 			getCurrentBreakpoint () {
 				return this.currentBreakpoint
