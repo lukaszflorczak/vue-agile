@@ -157,8 +157,8 @@ Every first-level child of `<agile>` is a new slide. You also can group them ins
 
 | Name | Value | Description |
 | --- | --- | --- |
-| after-change | `{ slideCurrent }` | Fires after slide change |
-| before-change | `{ slideCurrent, slideNext }` | Fires before slide change |
+| after-change | `{ currentSlide }` | Fires after slide change |
+| before-change | `{ currentSlide, nextSlide }` | Fires before slide change |
 | breakpoint | `{ breakpoint } ` | Fires after breakpoint change |
 
 #### Example
