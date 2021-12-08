@@ -99,7 +99,6 @@ $contents: (xs: $content-xs, sm: $content-sm, md: $content-md, lg: $content-lg, 
 }
 
 @for $i from 1 through $columns {
-	@debug "#{$i} of #{$columns} => width: #{math.div(100%, $columns) * $i}";
 	.col-xs-#{$i} {
 		flex: 0 0 #{math.div(100%, $columns) * $i};
 		max-width: #{math.div(100%, $columns) *$i};
