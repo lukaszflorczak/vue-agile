@@ -34,13 +34,13 @@ Deprecated props (`arrows`, `prevArrow`, `nextArrow`, `show`) and classes (`.agi
 ## Installation
 
 ```bash
-yarn add vue-agile
+npm install vue-agile
 ```
 
-or
+or 
 
 ```bash
-npm install vue-agile
+yarn add vue-agile
 ```
 
 ## Styles

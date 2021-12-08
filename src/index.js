@@ -1,11 +1,11 @@
 import VueAgile from './Agile.vue'
 
-const install = (Vue) => {
-	Vue.component('agile', VueAgile)
+const install = Vue => {
+  Vue.component('agile', VueAgile)
 }
 
 export default {
-	install
+  install
 }
 
 export { VueAgile }

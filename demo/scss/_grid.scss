@@ -1,6 +1,7 @@
 /*============================
 =            GRID            =
 ============================*/
+@use "sass:math";
 
 $gutters: (xs: $gutter-xs, sm: $gutter-sm, md: $gutter-md, lg: $gutter-lg, xl: $gutter-xl);
 $contents: (xs: $content-xs, sm: $content-sm, md: $content-md, lg: $content-lg, xl: $content-xl);
@@ -48,13 +49,13 @@ $contents: (xs: $content-xs, sm: $content-sm, md: $content-md, lg: $content-lg, 
 .row {
 	display: flex;
 	flex-wrap: wrap;
-	margin-left: (-$gutter-xs);
-	margin-right: (-$gutter-xs);
+	margin-left: -#{$gutter-xs};
+	margin-right: -#{$gutter-xs};
 
 	@each $breakpoint in $breakpoints {
 		@include rwd(map-get($screens, #{$breakpoint})) {
-			margin-left: -(map-get($gutters, #{$breakpoint}));
-			margin-right: -(map-get($gutters, #{$breakpoint}));
+			margin-left: -#{map-get($gutters, #{$breakpoint})};
+			margin-right: -#{map-get($gutters, #{$breakpoint})};
 		}
 	}
 
@@ -98,21 +99,22 @@ $contents: (xs: $content-xs, sm: $content-sm, md: $content-md, lg: $content-lg, 
 }
 
 @for $i from 1 through $columns {
+	@debug "#{$i} of #{$columns} => width: #{math.div(100%, $columns) * $i}";
 	.col-xs-#{$i} {
-		flex: 0 0 (100% / $columns * $i);
-		max-width: (100% / $columns * $i);
+		flex: 0 0 #{math.div(100%, $columns) * $i};
+		max-width: #{math.div(100%, $columns) *$i};
 	}
 
 	.offset-xs-#{$i} {
-		margin-left: (100% / $columns * $i);
+		margin-left: math.div(100%, $columns) * $i;
 	}
 
 	.pull-xs-#{$i} {
-		right: (100% / $columns * $i);
+		right: math.div(100%, $columns) * $i;
 	}
 
 	.pull-xs-#{$i} {
-		left: (100% / $columns * $i);
+		left: math.div(100%, $columns) * $i;
 	}
 }
 
@@ -140,16 +142,16 @@ $contents: (xs: $content-xs, sm: $content-sm, md: $content-md, lg: $content-lg, 
 	@include rwd(map-get($screens, #{$breakpoint})) {
 		@for $i from 1 through $columns {
 			.col-#{$breakpoint}-#{$i} {
-				flex: 0 0 (100% / $columns * $i);
-				max-width: (100% / $columns * $i);
+				flex: 0 0 math.div(100%, $columns) * $i;
+				max-width: math.div(100%, $columns) * $i;
 			}
 
 			.offset-#{$breakpoint}-#{$i} {
-				margin-left: (100% / $columns * $i);
+				margin-left: math.div(100%, $columns) * $i;
 			}
 
 			.pull-#{$breakpoint}-#{$i} {
-				right: (100% / $columns * $i);
+				right: math.div(100%, $columns) * $i;
 			}
 		}
 	}
