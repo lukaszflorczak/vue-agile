@@ -39,18 +39,18 @@
 </template>
 
 <script>
+  import debounce from './mixins/debounce'
   import handlers from './mixins/handlers'
   import helpers from './mixins/helpers'
   import methods from './mixins/methods'
   import preparations from './mixins/preparations'
   import settings from './mixins/settings'
-  import throttle from './mixins/throttle'
   import watchers from './mixins/watchers'
 
   export default {
     name: 'agile',
 
-    mixins: [handlers, helpers, methods, preparations, settings, throttle, watchers],
+    mixins: [debounce, handlers, helpers, methods, preparations, settings, watchers],
 
     emits: ['before-change', 'after-change', 'breakpoint'],
 

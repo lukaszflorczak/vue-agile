@@ -1,8 +1,7 @@
 /**
  * Component settings
  */
-
-import orderBy from 'lodash.orderby'
+import { sortBy } from '@/helpers/lodash'
 
 const mixin = {
   props: {
@@ -218,7 +217,7 @@ const mixin = {
 
       // Sort breakpoints
       if (initialSettings.responsive) {
-        initialSettings.responsive = orderBy(initialSettings.responsive, 'breakpoint')
+        initialSettings.responsive = sortBy(initialSettings.responsive, 'breakpoint')
       }
 
       return initialSettings
