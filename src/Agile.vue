@@ -1,104 +1,38 @@
 <template>
-  <div
-    :class="{'agile--ssr': isSSR, 'agile--auto-play': settings.autoplay, 'agile--disabled': settings.unagile, 'agile--fade': settings.fade && !settings.unagile, 'agile--rtl': settings.rtl, 'agile--no-nav-buttons': !settings.navButtons}"
-    class="agile"
-    @touchstart="() => {}"
-  >
-    <div
-      ref="list"
-      class="agile__list"
-    >
-      <div
-        ref="track"
-        :style="{transform: `translate(${translateX + marginX}px)`, transition: `transform ${settings.timing} ${transitionDelay}ms`}"
-        class="agile__track"
-        @mouseout="handleMouseOut('track')"
-        @mouseover="handleMouseOver('track')"
-      >
-        <div
-          v-show="slidesCloned"
-          ref="slidesClonedBefore"
-          class="agile__slides agile__slides--cloned"
-        >
+  <div :class="classList" class="agile" @touchstart="() => {}">
+    <div ref="list" class="agile__list">
+      <div ref="track" :style="style" class="agile__track" @mouseout="handleMouseOut('track')" @mouseover="handleMouseOver('track')">
+        <div v-show="slidesCloned" ref="slidesClonedBefore" class="agile__slides agile__slides--cloned">
           <slot/>
         </div>
 
-        <div
-          ref="slides"
-          class="agile__slides agile__slides--regular"
-        >
+        <div ref="slides" class="agile__slides agile__slides--regular">
           <slot/>
         </div>
 
-        <div
-          v-show="slidesCloned"
-          ref="slidesClonedAfter"
-          class="agile__slides agile__slides--cloned"
-        >
+        <div v-show="slidesCloned" ref="slidesClonedAfter" class="agile__slides agile__slides--cloned">
           <slot/>
         </div>
       </div>
     </div>
 
-    <div
-      v-if="$slots.caption"
-      class="agile__caption"
-    >
+    <div v-if="$slots.caption" class="agile__caption">
       <slot name="caption"/>
     </div>
 
-    <div
-      v-if="!settings.unagile && (settings.navButtons || settings.dots)"
-      class="agile__actions"
-    >
-      <button
-        v-if="settings.navButtons && !settings.unagile"
-        ref="prevButton"
-        :disabled="!canGoToPrev"
-        aria-label="Previous"
-        class="agile__nav-button agile__nav-button--prev"
-        type="button"
-        @click="goToPrev(), restartAutoPlay()"
-      >
-        <slot name="prevButton">
-          ←
-        </slot>
+    <div v-if="!settings.unagile && (settings.navButtons || settings.dots)" class="agile__actions">
+      <button v-if="settings.navButtons && !settings.unagile" ref="prevButton" :disabled="!canGoToPrev" aria-label="Previous" class="agile__nav-button agile__nav-button--prev" type="button" @click="goToPrev(), restartAutoPlay()">
+        <slot name="prevButton">←</slot>
       </button>
 
-      <ul
-        v-if="settings.dots && !settings.unagile"
-        ref="dots"
-        class="agile__dots"
-      >
-        <li
-          v-for="n in countSlides"
-          :key="n"
-          :class="{'agile__dot--current': n - 1 === currentSlide}"
-          class="agile__dot"
-          @mouseout="handleMouseOut('dot')"
-          @mouseover="handleMouseOver('dot')"
-        >
-          <button
-            type="button"
-            @click="goTo(n - 1), restartAutoPlay()"
-          >
-            {{ n }}
-          </button>
+      <ul v-if="settings.dots && !settings.unagile" ref="dots" class="agile__dots">
+        <li v-for="n in countSlides" :key="n" :class="{'agile__dot--current': n - 1 === currentSlide}" class="agile__dot" @mouseout="handleMouseOut('dot')" @mouseover="handleMouseOver('dot')">
+          <button type="button" @click="goTo(n - 1), restartAutoPlay()">{{ n }}</button>
         </li>
       </ul>
 
-      <button
-        v-if="settings.navButtons && !settings.unagile"
-        ref="nextButton"
-        :disabled="!canGoToNext"
-        aria-label="Next"
-        class="agile__nav-button agile__nav-button--next"
-        type="button"
-        @click="goToNext(), restartAutoPlay()"
-      >
-        <slot name="nextButton">
-          →
-        </slot>
+      <button v-if="settings.navButtons && !settings.unagile" ref="nextButton" :disabled="!canGoToNext" aria-label="Next" class="agile__nav-button agile__nav-button--next" type="button" @click="goToNext(), restartAutoPlay()">
+        <slot name="nextButton">→</slot>
       </button>
     </div>
   </div>
@@ -156,6 +90,17 @@
         return (this.settings.infinite || this.currentSlide < this.countSlides - 1)
       },
 
+      classList: function () {
+        return {
+          'agile--ssr': this.isSSR,
+          'agile--auto-play': this.settings.autoplay,
+          'agile--disabled': this.settings.unagile,
+          'agile--fade': this.settings.fade && !this.settings.unagile,
+          'agile--rtl': this.settings.rtl,
+          'agile--no-nav-buttons': !this.settings.navButtons
+        }
+      },
+
       countSlides: function () {
         return (this.isSSR) ? this.htmlCollectionToArray(this.$slots.default).length : this.slides.length
       },
@@ -190,6 +135,10 @@
 
       slidesAll: function () {
         return (this.slidesCloned) ? [...this.slidesClonedBefore, ...this.slides, ...this.slidesClonedAfter] : this.slides
+      },
+
+      style: function () {
+        return `--agile-track-transform: translate(${this.translateX + this.marginX}px); --agile-track-transition: transform ${this.settings.timing} ${this.transitionDelay}ms`
       },
 
       widthSlide: function () {
@@ -362,6 +311,8 @@
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
+    transform: var(--agile-track-transform);
+    transition: var(--agile-track-transition);
   }
 
   .agile__actions {
