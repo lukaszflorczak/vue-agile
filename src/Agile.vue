@@ -149,12 +149,25 @@
 				return (!this.initialSettings.responsive) ? [] : this.initialSettings.responsive.map(item => item.breakpoint)
 			},
 
+			computedSlidesToScroll() {
+				// should never be greater than the slide count
+				return Math.min(this.settings.slidesToScroll, this.countSlides)
+			},
+
+			previousSlide() {
+				return this.currentSlide - this.computedSlidesToScroll
+			},
+
+			nextSlide() {
+				return this.currentSlide + this.computedSlidesToScroll
+			},
+
 			canGoToPrev: function () {
-				return (this.settings.infinite || this.currentSlide > 0)
+				return (this.settings.infinite || this.previousSlide >= 0)
 			},
 
 			canGoToNext: function () {
-				return (this.settings.infinite || this.currentSlide < this.countSlides - 1)
+				return (this.settings.infinite || this.nextSlide < this.countSlides)
 			},
 
 			countSlides: function () {
@@ -279,7 +292,11 @@
 
 				if (transition) {
 					if (this.settings.infinite && n < 0) {
-						slideNextReal = this.countSlides - 1
+						// example n=-1; countSlides=5; the real index of slide 5 is 4 (-1 + 5 = 4)
+						slideNextReal = n + this.countSlides
+					} else if (this.settings.infinite && n >= this.countSlides) {
+						// example n=5; countSlides=5; the real index of slide 1 is 0 (5 - 5 = 0)
+						slideNextReal = n - this.countSlides
 					} else if (n >= this.countSlides) {
 						slideNextReal = 0
 					}
@@ -295,7 +312,7 @@
 					}
 				}
 
-				let translateX = (!this.settings.fade) ? n * this.widthSlide * this.settings.slidesToScroll : 0
+				let translateX = (!this.settings.fade) ? n * this.widthSlide : 0
 				this.transitionDelay = (transition) ? this.speed : 0
 
 				if (this.infinite || (this.currentSlide + this.slidesToShow <= this.countSlides)) {
@@ -306,14 +323,14 @@
 			// Go to next slide
 			goToNext () {
 				if (this.canGoToNext) {
-					this.goTo(this.currentSlide + 1)
+					this.goTo(this.nextSlide)
 				}
 			},
 
 			// Go to previous slide
 			goToPrev () {
 				if (this.canGoToPrev) {
-					this.goTo(this.currentSlide - 1)
+					this.goTo(this.previousSlide)
 				}
 			},
 

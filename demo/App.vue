@@ -7,6 +7,7 @@
 		example-2
 		example-3
 		example-4
+		example-5
 
 		site-footer
 
@@ -21,6 +22,7 @@
 	import Example2 from './examples/Example2'
 	import Example3 from './examples/Example3'
 	import Example4 from './examples/Example4'
+	import Example5 from './examples/Example5'
 
 	export default {
 		name: 'Demo',
@@ -32,7 +34,8 @@
 			Example1,
 			Example2,
 			Example3,
-			Example4
+			Example4,
+			Example5,
 		}
 	}
 </script>
