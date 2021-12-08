@@ -351,7 +351,7 @@
 	.agile--rtl .agile__slides,
 	.agile--rtl .agile__actions,
 	.agile--rtl .agile__dots {
-		flex-direction: row-reverse;
+		flex-direction: row;
 	}
 
 	.agile:focus, .agile:active, .agile *:focus, .agile *:active {
