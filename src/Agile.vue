@@ -163,6 +163,11 @@
       this.reload()
     },
 
+    // Vue 2
+    beforeDestroy() {
+			this.destroy()
+		},
+
     // Vue 3
     beforeUnmount () {
       this.destroy()
