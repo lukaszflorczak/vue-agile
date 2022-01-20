@@ -23,7 +23,7 @@ section.section.section--demo-1
 
 <script>
   export default {
-    name: 'Example1'
+    name: 'ExampleOne'
   }
 </script>
 

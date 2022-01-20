@@ -1,41 +1,18 @@
-# vue-agile
+# vue-agile-lite
 
-[![](https://img.shields.io/npm/v/vue-agile.svg?style=flat-square&logo=npm)](https://www.npmjs.com/package/vue-agile) [![](https://img.shields.io/npm/l/vue-agile.svg?style=flat-square&logo=github)](https://github.com/lukaszflorczak/vue-agile/blob/master/LICENSE) [![](https://img.shields.io/codacy/grade/509a536ebcf64a71a119e988bd888af2.svg?style=flat-square&logo=codacy)](https://app.codacy.com/project/lukaszflorczak/vue-agile/dashboard) [![](https://img.shields.io/npm/dm/vue-agile.svg?style=flat-square&logo=npm)](https://www.npmjs.com/package/vue-agile) [![](https://img.shields.io/badge/buy%20me%20a%20coffee-+3€-red.svg?style=flat-square&logo=ko-fi)](http://ko-fi.com/lukaszflorczak)
-
-
-> A carousel component for Vue.js inspired by [Slick](https://github.com/kenwheeler/slick/).<br>
-> Powerful, responsive, touch-friendly, with Nuxt.js SSR support, without a jQuery dependency.
-
-**[Demo & examples](https://lukaszflorczak.github.io/vue-agile/)**
-
-More demos and examples coming soon in [vue-agile CodePens collection](https://codepen.io/collection/AdRzJW/).
-
----
-
-If you like the component remember to **star it** ⭐️. If you appreciate my work you can also **[buy me a coffee](https://ko-fi.com/lukaszflorczak)** ☕️ 😉
-
----
-
-🔭 If you're looking for Vue 2 version, check **[legacy/vue-v2](https://github.com/lukaszflorczak/vue-agile/tree/legacy/vue-v2)** branch.
-
-![](https://florczak.dev/vue-agile/banner.png)
+> This is a customized version of [vue-agile](https://github.com/lukaszflorczak/vue-agile) with smaller bundle size and better performance.<br>
 
 ## Installation
 
 ```bash
-npm install vue-agile
+npm install vue-agile-lite
 ```
 
 or
 
 ```bash
-yarn add vue-agile
+yarn add vue-agile-lite
 ```
-
-## Styles
-
-**The component is delivered without styles for the appearance of the navigation elements** (like dots color and shape, arrows position, etc.). I think most people use their own styles and default styles are completely redundant. If you
-want, feel free to use styles from [CodePen demos](https://codepen.io/collection/AdRzJW/).
 
 ## Importing
 
@@ -45,7 +22,7 @@ want, feel free to use styles from [CodePen demos](https://codepen.io/collection
 // main.js
 import { createApp } from 'vue'
 import App from './App.vue'
-import VueAgile from 'vue-agile'
+import VueAgile from 'vue-agile-lite'
 
 createApp(App)
   .use(VueAgile)
@@ -55,20 +32,13 @@ createApp(App)
 
 ```js
 // YourComponent.vue
-import { VueAgile } from 'vue-agile'
+import { Agile } from 'vue-agile-lite'
 
 export default {
   components: {
-    agile: VueAgile
+    agile: Agile
   }
 }
-```
-
-#### Via `<script>`
-
-```html
-<script src="https://unpkg.com/vue-agile"></script>
-<link rel="stylesheet" href="https://unpkg.com/vue-agile/dist/VueAgile.css">
 ```
 
 ## Usage
@@ -282,7 +252,7 @@ It is also possible to use `v-show`, but you have to use the `reload()` method.
 <agile v-if="isActive">...</agile>
 ```
 
-## Nuxt.js && SSR Support
+## SSR Support
 
 The component uses browser specific attributes (like `window` and `document`). However, you can try to render the first view on server side.
 
@@ -292,21 +262,9 @@ The component uses browser specific attributes (like `window` and `document`). H
 // plugins/vue-agile.js
 
 import Vue from 'vue'
-import VueAgile from 'vue-agile'
+import VueAgile from 'vue-agile-lite'
 
 Vue.use(VueAgile)
-```
-
-```js
-// nuxt.config.js
-
-export default {
-  plugins: ['~/plugins/vue-agile'],
-
-  build: {
-    transpile: ['vue-agile']
-  }
-}
 ```
 
 To use component without SSR use the `client-only` component:
@@ -358,15 +316,3 @@ If you would like to connect this with params `slidesToShow` or `initialSlide` y
     > *:nth-child(2)
       width: 100%
 ```
-
-You can also check [nuxt-agile](https://github.com/lukaszflorczak/nuxt-agile) repository and check working demo of vue-agile with Nuxt and SSR.
-
-## FAQ
-
-#### 1. Using component with dynamic content
-
-If content changes, you have to use `reload` or in some cases, you can use `key` property: `<agile :key="mySlides.length">...</agile>` (it'll rebuild the carousel after each change of `mySlides` length).
-
-#### 2. Support for IE11
-
-Yes, the UMD bundle is built with support for IE11. If you build your app with vue-agile as a dependency yourself be sure you configured babel properly (read more in [vue documentation](https://cli.vuejs.org/guide/browser-compatibility.html#browserslist) or just use my config for [babel](https://github.com/lukaszflorczak/vue-agile/blob/master/babel.config.js)). 

@@ -28,7 +28,7 @@ section.section.section--demo-4
 
 <script>
   export default {
-    name: 'Example4',
+    name: 'ExampleFour',
 
     data () {
       return {

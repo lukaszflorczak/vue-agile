@@ -7,27 +7,21 @@ main.main
   example-2
   example-3
   example-4
-
-  site-footer
-
 </template>
 
 <script>
-  import SiteHeader from './components/SiteHeader'
-  import SiteFooter from './components/SiteFooter'
+  import SiteHeader from './components/SiteHeader.vue'
 
   // Examples
-  import Example1 from './examples/Example1'
-  import Example2 from './examples/Example2'
-  import Example3 from './examples/Example3'
-  import Example4 from './examples/Example4'
+  import Example1 from './examples/Example1.vue'
+  import Example2 from './examples/Example2.vue'
+  import Example3 from './examples/Example3.vue'
+  import Example4 from './examples/Example4.vue'
 
   export default {
-    name: 'Demo',
-
+    name: 'PlaygroundApp',
     components: {
       SiteHeader,
-      SiteFooter,
 
       Example1,
       Example2,

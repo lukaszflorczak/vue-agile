@@ -1,57 +1,36 @@
 {
-  "name": "vue-agile",
-  "version": "2.0.0",
+  "name": "vue-agile-lite",
+  "version": "1.0.0",
   "description": "A carousel component for Vue.js",
-  "author": "Łukasz Florczak <lukasz@florczak.dev>",
+  "author": "ErikPham <phucpm.it@gmail.com>",
   "scripts": {
-    "serve": "vue-cli-service serve --open ./demo/main.js",
-    "test:unit": "vue-cli-service test:unit",
-    "lint": "vue-cli-service lint",
-    "build-bundle": "vue-cli-service build --target lib --name VueAgile ./src/Agile.vue && rm dist/demo.html",
-    "build-docs": "vue-cli-service build ./demo/main.js --dest ./docs --modern"
+    "serve": "vite -c playground/vite.config.js",
+    "release": "node scripts/release.js",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 1"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged",
+    "commit-msg": "node scripts/verifyCommit.js"
+  },
+  "lint-staged": {
+    "*.{js,vue}": [
+      "eslint --quiet"
+    ],
+    "*.ts?(x)": [
+      "eslint --quiet"
+    ]
   },
   "main": "src/index.js",
-  "unpkg": "dist/VueAgile.umd.min.js",
   "files": [
-    "dist/*",
     "src/*",
     "*.json",
     "*.js"
   ],
-  "dependencies": {
-    "lodash.orderby": "^4.6.0",
-    "lodash.throttle": "^4.1.1"
-  },
-  "devDependencies": {
-    "core-js": "^3.6.5",
-    "vue": "^3.0.0",
-    "@types/jest": "^24.0.19",
-    "@typescript-eslint/eslint-plugin": "^4.18.0",
-    "@typescript-eslint/parser": "^4.18.0",
-    "@vue/cli-plugin-babel": "~4.5.0",
-    "@vue/cli-plugin-eslint": "~4.5.0",
-    "@vue/cli-plugin-typescript": "~4.5.0",
-    "@vue/cli-plugin-unit-jest": "~4.5.0",
-    "@vue/cli-service": "~4.5.0",
-    "@vue/compiler-sfc": "^3.0.0",
-    "@vue/eslint-config-standard": "^5.1.2",
-    "@vue/eslint-config-typescript": "^7.0.0",
-    "@vue/test-utils": "^2.0.0-0",
-    "eslint": "^6.7.2",
-    "eslint-plugin-import": "^2.20.2",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "eslint-plugin-vue": "^7.0.0",
-    "lint-staged": "^9.5.0",
-    "sass": "^1.18.0",
-    "sass-loader": "^8.0.2",
-    "typescript": "~4.1.5",
-    "vue-cli-plugin-pug": "~2.0.0",
-    "vue-jest": "^5.0.0-0"
+  "engines": {
+    "node": ">=12.22.0"
   },
   "bugs": {
-    "url": "https://github.com/lukaszflorczak/vue-agile/issues"
+    "url": "https://github.com/FrontLabsOfficial/vue-agile/issues"
   },
   "keywords": [
     "vue",
@@ -62,7 +41,26 @@
   ],
   "license": "MIT",
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lukaszflorczak/vue-agile.git"
+    "typetype": "git",
+    "url": "git+https://github.com/FrontLabsOfficial/vue-agile.git"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.0.1",
+    "@vue/compiler-sfc": "^3.2.27",
+    "chalk": "^4.1.1",
+    "enquirer": "^2.3.6",
+    "eslint": "^7.17.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-vue": "^8.3.0",
+    "execa": "^6.0.0",
+    "lint-staged": "^12.2.1",
+    "minimist": "^1.2.5",
+    "prettier": "^2.5.1",
+    "pug": "^3.0.2",
+    "sass": "^1.49.0",
+    "semver": "^7.3.5",
+    "vite": "^2.7.13",
+    "vue": "^3.2.27",
+    "yorkie": "^2.0.0"
   }
 }

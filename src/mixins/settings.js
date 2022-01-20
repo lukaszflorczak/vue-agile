@@ -2,8 +2,6 @@
  * Component settings
  */
 
-import orderBy from 'lodash.orderby'
-
 const mixin = {
   props: {
     /**
@@ -12,8 +10,8 @@ const mixin = {
     asNavFor: {
       type: Array,
       default: function () {
-        return []
-      }
+        return [];
+      },
     },
 
     /**
@@ -21,7 +19,7 @@ const mixin = {
      */
     autoplay: {
       type: Boolean,
-      default: false
+      default: false,
     },
 
     /**
@@ -29,7 +27,7 @@ const mixin = {
      */
     autoplaySpeed: {
       type: Number,
-      default: 3000
+      default: 3000,
     },
 
     /**
@@ -37,7 +35,7 @@ const mixin = {
      */
     centerMode: {
       type: Boolean,
-      default: false
+      default: false,
     },
 
     /**
@@ -45,7 +43,7 @@ const mixin = {
      */
     centerPadding: {
       type: String,
-      default: '15%'
+      default: '15%',
     },
 
     /**
@@ -53,7 +51,7 @@ const mixin = {
      */
     changeDelay: {
       type: Number,
-      default: 0
+      default: 0,
     },
 
     /**
@@ -61,7 +59,7 @@ const mixin = {
      */
     dots: {
       type: Boolean,
-      default: true
+      default: true,
     },
 
     /**
@@ -69,7 +67,7 @@ const mixin = {
      */
     fade: {
       type: Boolean,
-      default: false
+      default: false,
     },
 
     /**
@@ -77,7 +75,7 @@ const mixin = {
      */
     infinite: {
       type: Boolean,
-      default: true
+      default: true,
     },
 
     /**
@@ -85,7 +83,7 @@ const mixin = {
      */
     initialSlide: {
       type: Number,
-      default: 0
+      default: 0,
     },
 
     /**
@@ -93,7 +91,7 @@ const mixin = {
      */
     mobileFirst: {
       type: Boolean,
-      default: true
+      default: true,
     },
 
     /**
@@ -101,7 +99,7 @@ const mixin = {
      */
     navButtons: {
       type: Boolean,
-      default: true
+      default: true,
     },
 
     /**
@@ -109,7 +107,7 @@ const mixin = {
      */
     options: {
       type: Object,
-      default: () => null
+      default: () => null,
     },
 
     /**
@@ -117,7 +115,7 @@ const mixin = {
      */
     pauseOnDotsHover: {
       type: Boolean,
-      default: false
+      default: false,
     },
 
     /**
@@ -125,7 +123,7 @@ const mixin = {
      */
     pauseOnHover: {
       type: Boolean,
-      default: true
+      default: true,
     },
 
     /**
@@ -133,7 +131,7 @@ const mixin = {
      */
     responsive: {
       type: Array,
-      default: () => null
+      default: () => null,
     },
 
     /**
@@ -141,7 +139,7 @@ const mixin = {
      */
     rtl: {
       type: Boolean,
-      default: false
+      default: false,
     },
 
     /**
@@ -149,7 +147,7 @@ const mixin = {
      */
     slidesToScroll: {
       type: Number,
-      default: 1
+      default: 1,
     },
 
     /**
@@ -157,7 +155,7 @@ const mixin = {
      */
     slidesToShow: {
       type: Number,
-      default: 1
+      default: 1,
     },
 
     /**
@@ -165,7 +163,7 @@ const mixin = {
      */
     speed: {
       type: Number,
-      default: 300
+      default: 300,
     },
 
     /**
@@ -173,7 +171,7 @@ const mixin = {
      */
     swipeDistance: {
       type: Number,
-      default: 50
+      default: 50,
     },
 
     /**
@@ -181,7 +179,7 @@ const mixin = {
      */
     throttleDelay: {
       type: Number,
-      default: 500
+      default: 500,
     },
 
     /**
@@ -192,8 +190,12 @@ const mixin = {
       type: String,
       default: 'ease',
       validator: value => {
-        return ['ease', 'linear', 'ease-in', 'ease-out', 'ease-in-out'].indexOf(value) !== -1
-      }
+        return (
+          ['ease', 'linear', 'ease-in', 'ease-out', 'ease-in-out'].indexOf(
+            value
+          ) !== -1
+        );
+      },
     },
 
     /**
@@ -201,46 +203,54 @@ const mixin = {
      */
     unagile: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
 
   computed: {
     // Initial settings based on props and options object
     initialSettings: function () {
       // options prop is excluded
-      let { options, ...initialSettings } = this.$props
+      let { options, ...initialSettings } = this.$props;
 
       // Join settings from options
       if (options) {
-        initialSettings = { ...initialSettings, ...options }
+        initialSettings = { ...initialSettings, ...options };
       }
 
       // Sort breakpoints
       if (initialSettings.responsive) {
-        initialSettings.responsive = orderBy(initialSettings.responsive, 'breakpoint')
+        initialSettings.responsive = (initialSettings.responsive || []).sort(
+          (a, b) => {
+            return a.breakpoint > b.breakpoint;
+          }
+        );
       }
 
-      return initialSettings
+      return initialSettings;
     },
 
     // Settings for current breakpoint
     settings: function () {
-      const { responsive, ...settings } = this.initialSettings
+      const { responsive, ...settings } = this.initialSettings;
 
       if (responsive) {
         responsive.forEach(option => {
-          if (settings.mobileFirst ? option.breakpoint < this.widthWindow : option.breakpoint > this.widthWindow) {
+          if (
+            settings.mobileFirst
+              ? option.breakpoint < this.widthWindow
+              : option.breakpoint > this.widthWindow
+          ) {
             for (const key in option.settings) {
-              settings[key] = option.settings[key]
+              settings[key] = option.settings[key];
             }
           }
-        })
+        });
       }
 
-      return settings
-    }
-  }
-}
+      return settings;
+    },
+  },
+};
 
-export default mixin
+export default mixin;

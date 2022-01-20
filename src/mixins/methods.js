@@ -3,56 +3,60 @@
  */
 const mixin = {
   methods: {
-    clearAutoPlayPause () {
-      clearTimeout(this.autoplayTimeout)
-      this.autoplayRemaining = null
+    clearAutoPlayPause() {
+      clearTimeout(this.autoplayTimeout);
+      this.autoplayRemaining = null;
     },
 
-    disableAutoPlay () {
-      clearInterval(this.autoplayInterval)
-      this.autoplayInterval = null
+    disableAutoPlay() {
+      clearInterval(this.autoplayInterval);
+      this.autoplayInterval = null;
     },
 
-    disableScroll () {
-      document.ontouchmove = e => e.preventDefault()
+    disableScroll() {
+      document.ontouchmove = e => e.preventDefault();
     },
 
-    enableScroll () {
-      document.ontouchmove = () => true
+    enableScroll() {
+      document.ontouchmove = () => true;
     },
 
-    restartAutoPlay () {
-      this.disableAutoPlay()
-      this.toggleAutoPlay()
+    restartAutoPlay() {
+      this.disableAutoPlay();
+      this.toggleAutoPlay();
     },
 
-    toggleAutoPlay () {
-      const enabled = (!this.settings.unagile && this.settings.autoplay)
+    toggleAutoPlay() {
+      const enabled = !this.settings.unagile && this.settings.autoplay;
 
       if (!this.autoplayInterval && enabled) {
         this.autoplayInterval = setInterval(() => {
           if (!document.hidden) {
             if (!this.canGoToNext) {
-              this.disableAutoPlay()
+              this.disableAutoPlay();
             } else {
-              this.goToNext()
+              this.goToNext();
             }
           }
-        }, this.settings.autoplaySpeed)
+        }, this.settings.autoplaySpeed);
       } else {
-        this.disableAutoPlay()
+        this.disableAutoPlay();
       }
     },
 
-    toggleFade () {
-      const enabled = (!this.settings.unagile && this.settings.fade)
+    toggleFade() {
+      const enabled = !this.settings.unagile && this.settings.fade;
 
       for (let i = 0; i < this.countSlides; i++) {
-        this.slides[i].style.transition = (enabled) ? 'opacity ' + this.settings.timing + ' ' + this.settings.speed + 'ms' : 'none'
-        this.slides[i].style.transform = (enabled) ? `translate(-${i * this.widthSlide}px)` : 'none'
+        this.slides[i].style.transition = enabled
+          ? 'opacity ' + this.settings.timing + ' ' + this.settings.speed + 'ms'
+          : 'none';
+        this.slides[i].style.transform = enabled
+          ? `translate(-${i * this.widthSlide}px)`
+          : 'none';
       }
-    }
-  }
-}
+    },
+  },
+};
 
-export default mixin
+export default mixin;
