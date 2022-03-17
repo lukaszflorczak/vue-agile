@@ -220,8 +220,8 @@ From version `1.0` the component use slots for custom navigation buttons. It mea
 <agile>
 ... <!-- slides -->
 
-<template slot="prevButton">prev</template>
-<template slot="nextButton">next</template>
+<template v-slot:prevButton>prev</template>
+<template v-slot:nextButton>next</template>
 </agile>
 ```
 
@@ -235,7 +235,7 @@ To display a static caption or such like within the gallery, you can use the `ca
 <agile @after-change="e => currentSlide = e.currentSlide">
   ... <!-- slides -->
 
-  <template slot="caption">{{ captions[currentSlide] }}</template>
+  <template v-slot:caption>{{ captions[currentSlide] }}</template>
 </agile>
 
 <script>
